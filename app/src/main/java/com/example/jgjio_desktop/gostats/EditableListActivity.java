@@ -4,11 +4,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditableListActivity extends AppCompatActivity {
-    private String name;
+    private RecyclerViewEditableListAdapter mEditableDataRowListRecyclerViewAdapter;
+    private RecyclerView mEditableDataRowList;
+    private List<DataPoint> dataList = new ArrayList<DataPoint>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +35,26 @@ public class EditableListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                finish();
             }
         });
+
+        configureRecyclerView();
+        //createDataRow();
+    }
+
+    private void configureRecyclerView() {
+        mEditableDataRowList = findViewById(R.id.rv_dataRowList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mEditableDataRowList.setLayoutManager(layoutManager);
+        mEditableDataRowList.setHasFixedSize(true);
+        mEditableDataRowListRecyclerViewAdapter = new RecyclerViewEditableListAdapter(dataList);
+        mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
+        mEditableDataRowList.setNestedScrollingEnabled(false);
+    }
+
+    private int createDataRow() {
+        mEditableDataRowListRecyclerViewAdapter.addItem();
+        return mEditableDataRowListRecyclerViewAdapter.getItemCount();
     }
 }
