@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Go Stats!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_list_name">Enter a name for a list</string>
+    <string name="inquire_list_name_description">Input a list name. This name will later be used to identify the list for functions.</string>
+    <string name="no_list_data_message">You currently do not have a list, press the + icon on bottom right of screen to start.</string>
+    <string name="title_activity_editable_list">EditableListActivity</string>
+    <string name="introductory_text_for_editable_list_activity">
+        \nInput your first value below. Then press enter to create another data point in the list.
+        When finished simply click the view_list header button to take you back to your lists.\n\n
+        NOTE: Your data is automatically saved into the list and viewable in List Show menu.
+        There is no way to undo changes at this moment.
+    </string>
+</resources>
