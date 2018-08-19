@@ -1,59 +1,64 @@
 package com.example.jgjio_desktop.gostats;
 
-import java.util.UUID;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 
+@Entity(tableName = "data_point",
+        foreignKeys = @ForeignKey(entity = StatisticalList.class,
+                parentColumns = "id",
+                childColumns = "list_id",
+                onDelete = ForeignKey.CASCADE))
 
 public class DataPoint {
-    private Double dataPointValue;
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "list_id")
+    private int listId;
+
     private boolean isEnabled;
-    private final UUID ID= UUID.randomUUID();
 
-    DataPoint(boolean isEnabled) {
+    private double value;
+
+    public DataPoint(int listId, boolean isEnabled, double value) {
+        this.listId = listId;
         this.isEnabled = isEnabled;
-        dataPointValue = null;
+        this.value = value;
     }
 
-    DataPoint(Double value) {
-        this.isEnabled = isEnabled;
-        dataPointValue = value;
-    }
-
-    DataPoint(double value, boolean isEnabled) {
-        dataPointValue = value;
-        this.isEnabled = isEnabled;
-    }
-
-    DataPoint(double value) {
-        dataPointValue = value;
-        isEnabled = true;
-    }
-
-    public UUID getID() {
-        return this.ID;
-    }
-
-    public double get() {
-        return dataPointValue;
-    }
-
-    public void set(double value) {
-        dataPointValue = value;
+    public int getId() {
+        return id;
     }
 
     public boolean isEnabled() {
         return isEnabled;
     }
 
-    public void enable() {
-        isEnabled = true;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void disable() {
-        isEnabled = false;
+    public void setListId(int listId) {
+        this.listId = listId;
     }
 
-    public String toString() {
-        return Double.toString(dataPointValue);
+    public double getValue() {
+        return value;
+    }
+
+    public int getListId() {
+        return listId;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 
 }

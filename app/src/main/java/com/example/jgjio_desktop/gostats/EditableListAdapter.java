@@ -17,14 +17,16 @@ import java.util.List;
 public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
     private List<DataPoint> mDataList;
+    private int mListId;
 
-    public EditableListAdapter(List<DataPoint> dataList) {
+    public EditableListAdapter(List<DataPoint> dataList, int listId) {
         mDataList = dataList;
+        this.mListId = listId;
         addItem();
     }
 
     public void addItem() {
-        DataPoint mDataPoint = new DataPoint(false);
+        DataPoint mDataPoint = new DataPoint(mListId,false, 0.);
         mNumberOfEditableRows++;
         mDataList.add(mDataPoint);
         this.notifyItemInserted(mNumberOfEditableRows);
@@ -131,10 +133,10 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
             if (!(charSequence.toString() == "" || charSequence.toString() == null
                     || charSequence.toString().isEmpty())) {
-                mDataList.get(position).enable();
-                mDataList.get(position).set(Double.parseDouble(charSequence.toString()));
+                mDataList.get(position).setEnabled(true);
+                mDataList.get(position).setValue(Double.parseDouble(charSequence.toString()));
             } else {
-                mDataList.get(position).disable();
+                mDataList.get(position).setEnabled(false);
             }
 
         }

@@ -19,6 +19,8 @@ public class EditableListActivity extends AppCompatActivity {
     private List<DataPoint> mDataList = new ArrayList<DataPoint>();
     private String mName;
 
+    private int mListId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,12 @@ public class EditableListActivity extends AppCompatActivity {
         if (bundle.getString("listName") !=  null) {
             mName = bundle.getString("listName");
             setTitle("Editing " + mName);
+        }
+
+        //TODO fix so that catches exceptions or validates
+
+        if (bundle.getString("listId") !=  null) {
+            mListId = Integer.parseInt(bundle.getString("listId"));
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -51,7 +59,7 @@ public class EditableListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mEditableDataRowList.setLayoutManager(layoutManager);
         mEditableDataRowList.setHasFixedSize(true);
-        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mDataList);
+        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mDataList, mListId);
         mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
         mEditableDataRowList.setNestedScrollingEnabled(false);
     }

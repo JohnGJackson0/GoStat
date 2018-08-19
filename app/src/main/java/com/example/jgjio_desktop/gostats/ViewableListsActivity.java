@@ -110,6 +110,10 @@ public class ViewableListsActivity extends AppCompatActivity {
     public void startEditableListIntent(String name) {
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
         intent.putExtra("listName", name);
+
+
+        //TODO: ONCE ROOM DB IS WORKING PASS IN AN UNUSED ID for activity
+
         startActivity(intent);
     }
 
