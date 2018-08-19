@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RecyclerViewEditableListAdapter extends RecyclerView.Adapter<RecyclerViewEditableListAdapter.NumberViewHolder> {
+public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
     private List<DataPoint> mDataList;
 
-    public RecyclerViewEditableListAdapter(List<DataPoint> dataList) {
+    public EditableListAdapter(List<DataPoint> dataList) {
         mDataList = dataList;
         addItem();
     }
@@ -87,7 +87,7 @@ public class RecyclerViewEditableListAdapter extends RecyclerView.Adapter<Recycl
 
     //DO NOT ADD TOO MUCH IN THIS METHOD.
     @Override
-    public void onBindViewHolder(RecyclerViewEditableListAdapter.NumberViewHolder holder, final int position) {
+    public void onBindViewHolder(EditableListAdapter.NumberViewHolder holder, final int position) {
         holder.bindData(position);
         holder.nextEnterEditTextListener();
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());

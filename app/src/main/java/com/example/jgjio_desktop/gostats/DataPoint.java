@@ -1,12 +1,21 @@
 package com.example.jgjio_desktop.gostats;
 
+import java.util.UUID;
+
+
 public class DataPoint {
     private Double dataPointValue;
     private boolean isEnabled;
+    private final UUID ID= UUID.randomUUID();
 
     DataPoint(boolean isEnabled) {
         this.isEnabled = isEnabled;
         dataPointValue = null;
+    }
+
+    DataPoint(Double value) {
+        this.isEnabled = isEnabled;
+        dataPointValue = value;
     }
 
     DataPoint(double value, boolean isEnabled) {
@@ -17,6 +26,10 @@ public class DataPoint {
     DataPoint(double value) {
         dataPointValue = value;
         isEnabled = true;
+    }
+
+    public UUID getID() {
+        return this.ID;
     }
 
     public double get() {

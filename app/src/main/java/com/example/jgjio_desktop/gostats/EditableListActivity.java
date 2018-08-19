@@ -2,20 +2,22 @@ package com.example.jgjio_desktop.gostats;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EditableListActivity extends AppCompatActivity {
-    private RecyclerViewEditableListAdapter mEditableDataRowListRecyclerViewAdapter;
+    private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableDataRowList;
-    private List<DataPoint> dataList = new ArrayList<DataPoint>();
+    private List<DataPoint> mDataList = new ArrayList<DataPoint>();
+    private String mName;
 
 
     @Override
@@ -28,19 +30,20 @@ public class EditableListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         if (bundle.getString("listName") !=  null) {
-            setTitle("Editing " + bundle.getString("listName"));
+            mName = bundle.getString("listName");
+            setTitle("Editing " + mName);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ListHolder.getInstance().setDataList(mDataList);
                 finish();
             }
         });
 
         configureRecyclerView();
-        //createDataRow();
     }
 
     private void configureRecyclerView() {
@@ -48,7 +51,7 @@ public class EditableListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mEditableDataRowList.setLayoutManager(layoutManager);
         mEditableDataRowList.setHasFixedSize(true);
-        mEditableDataRowListRecyclerViewAdapter = new RecyclerViewEditableListAdapter(dataList);
+        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mDataList);
         mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
         mEditableDataRowList.setNestedScrollingEnabled(false);
     }
