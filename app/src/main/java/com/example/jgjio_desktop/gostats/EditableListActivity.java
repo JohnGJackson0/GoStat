@@ -38,15 +38,13 @@ public class EditableListActivity extends AppCompatActivity {
 
         //TODO fix so that catches exceptions or validates
 
-        if (bundle.getString("listId") !=  null) {
-            mListId = Integer.parseInt(bundle.getString("listId"));
-        }
+        mListId = bundle.getInt("listId");
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListHolder.getInstance().setDataList(mDataList);
                 finish();
             }
         });
@@ -59,13 +57,8 @@ public class EditableListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mEditableDataRowList.setLayoutManager(layoutManager);
         mEditableDataRowList.setHasFixedSize(true);
-        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mDataList, mListId);
+        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mDataList, mListId, this);
         mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
         mEditableDataRowList.setNestedScrollingEnabled(false);
-    }
-
-    private int createDataRow() {
-        mEditableDataRowListRecyclerViewAdapter.addItem();
-        return mEditableDataRowListRecyclerViewAdapter.getItemCount();
     }
 }

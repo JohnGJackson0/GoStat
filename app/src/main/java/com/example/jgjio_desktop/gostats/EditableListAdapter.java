@@ -1,9 +1,11 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +16,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
+//TODO disallow invalid and nothing inputs before adding lines
+
 public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
     private List<DataPoint> mDataList;
     private int mListId;
+    private AppDatabase mDb;
+    private Context mContext;
 
-    public EditableListAdapter(List<DataPoint> dataList, int listId) {
+    public EditableListAdapter(List<DataPoint> dataList, int listId, Context context) {
         mDataList = dataList;
         this.mListId = listId;
+        mContext = context;
         addItem();
+
+        mDb = AppDatabase.getAppDatabase(context);
+
     }
 
     public void addItem() {
@@ -130,9 +140,10 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
+            //TODO check for char charSequence.toString() == "." as app crashes, test and catch exception + recover
 
             if (!(charSequence.toString() == "" || charSequence.toString() == null
-                    || charSequence.toString().isEmpty())) {
+                    || charSequence.toString().isEmpty() || charSequence.toString() == ".")) {
                 mDataList.get(position).setEnabled(true);
                 mDataList.get(position).setValue(Double.parseDouble(charSequence.toString()));
             } else {
@@ -143,7 +154,11 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         @Override
         public void afterTextChanged(Editable editable) {
-            // no op
+
+            if (!(editable.toString() == "" || editable.toString() == null
+                    || editable.toString().isEmpty() || editable.toString() == ".")) {
+                mDb.dataPointDao().insert(mDataList.get(position));
+            }
         }
     }
 

@@ -23,4 +23,14 @@ public interface StatisticalListDao {
 
     @Delete
     void delete(StatisticalList statisticalList);
+
+    @Query("SELECT count(*) FROM list")
+    int getListCount();
+
+    @Query("SELECT name FROM list WHERE id = :id")
+    String getListName(int id);
+
+    @Query("DELETE FROM list")
+    void nukeTable();
+
 }
