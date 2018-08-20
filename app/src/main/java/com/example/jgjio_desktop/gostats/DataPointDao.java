@@ -1,5 +1,6 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -21,6 +22,9 @@ public interface DataPointDao {
     void delete(DataPoint dataPoint);
 
     @Query("SELECT * FROM data_point WHERE list_id = :listId")
-    List<DataPoint> getList(int listId);
+    LiveData<List<DataPoint>> getList(int listId);
+
+    @Query("SELECT * FROM data_point")
+    LiveData<List<DataPoint>> loadAllDataPoints();
 
 }

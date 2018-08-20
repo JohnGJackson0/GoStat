@@ -1,5 +1,6 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface StatisticalListDao {
 
     @Query("SELECT * FROM list ORDER BY id")
-    List<StatisticalList> loadAllLists();
+    LiveData<List<StatisticalList>> loadAllLists();
 
     @Insert
     void insert(StatisticalList statisticalList);

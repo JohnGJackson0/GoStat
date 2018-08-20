@@ -17,7 +17,7 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
     @Override
     public DataPointViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.viewable_data_row;
+        int layoutIdForListItem = R.layout.item_viewable_data_row;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
         View view = inflater.inflate(layoutIdForListItem, viewGroup,shouldAttachToParentImmediately);

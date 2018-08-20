@@ -1,11 +1,9 @@
 package com.example.jgjio_desktop.gostats;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +111,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
     @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        int templateLayoutID = R.layout.data_row;
+        int templateLayoutID = R.layout.item_editable_data_row;
         Context context = viewGroup.getContext();
         boolean shouldAttachToParentImmediately = false;
 
@@ -143,7 +141,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
             //TODO check for char charSequence.toString() == "." as app crashes, test and catch exception + recover
 
             if (!(charSequence.toString() == "" || charSequence.toString() == null
-                    || charSequence.toString().isEmpty() || charSequence.toString() == ".")) {
+                    || charSequence.toString().isEmpty() || charSequence.toString().startsWith("."))) {
                 mDataList.get(position).setEnabled(true);
                 mDataList.get(position).setValue(Double.parseDouble(charSequence.toString()));
             } else {
@@ -156,7 +154,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         public void afterTextChanged(Editable editable) {
 
             if (!(editable.toString() == "" || editable.toString() == null
-                    || editable.toString().isEmpty() || editable.toString() == ".")) {
+                    || editable.toString().isEmpty() || editable.toString().startsWith("."))) {
                 mDb.dataPointDao().insert(mDataList.get(position));
             }
         }
