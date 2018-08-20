@@ -24,8 +24,11 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
 
     @Override
     public int getItemCount() {
-        return mLists.size();
+        if (mLists == null) {
+            return 0;
+        } else return mLists.size();
     }
+
 
     @Override
     public ListDetailViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
