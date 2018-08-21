@@ -34,4 +34,9 @@ public interface StatisticalListDao {
     @Query("DELETE FROM list")
     void nukeTable();
 
+    //We set room to auto generate keys so the app will
+    //use this to get entries we just added
+    @Query("SELECT * FROM list ORDER BY id DESC LIMIT 1;")
+    int getIdOfLastEntry();
+
 }

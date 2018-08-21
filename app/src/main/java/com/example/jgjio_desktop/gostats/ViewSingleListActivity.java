@@ -46,12 +46,9 @@ public class ViewSingleListActivity extends AppCompatActivity {
 
         mListViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
 
-        //TODO currently, we load all data points, we need to load just the datapoints in the list
-
-        mListViewModel.getAllDataPoints().observe(this, new Observer<List<DataPoint>>() {
+        mListViewModel.getList(mListId).observe(this, new Observer<List<DataPoint>>() {
             @Override
             public void onChanged(@Nullable List<DataPoint> dataPoints) {
-
                 mViewableListAdapter.updateList(dataPoints);
             }
         });
@@ -59,9 +56,8 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mListViewModel.getAllLists().observe(this, new Observer<List<StatisticalList>>() {
             @Override
             public void onChanged(@Nullable List<StatisticalList> allLists) {
-                mListName.setText(allLists.get(mListId).getName());
-                mListIdText.setText(Integer.toString(allLists.get(mListId).getId()));
-
+                mListName.setText("Name: " + allLists.get(mListId).getName());
+                mListIdText.setText("ID: " + Integer.toString(allLists.get(mListId).getId()));
             }
         });
 

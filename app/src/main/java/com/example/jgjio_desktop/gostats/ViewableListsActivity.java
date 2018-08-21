@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -63,27 +64,15 @@ public class ViewableListsActivity extends AppCompatActivity {
     }
 
     public void startEditableListIntent(String name) {
-        int newListId = getNewListId();
 
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
+
+        mDb.statisticalListDao().insert(new StatisticalList(0, name));
         intent.putExtra("listName", name);
-
-        intent.putExtra("listId", newListId);
-
-        mDb.statisticalListDao().insert(new StatisticalList(newListId, name));
 
         startActivity(intent);
     }
 
-    public int getNewListId() {
-        AppRepository appRepo = new AppRepository(getApplication());
-
-        if (mDb.statisticalListDao().getListCount() == 0) {
-            return 1;
-        } else {
-            return appRepo.getNumberOfLists() + 1;
-        }
-    }
 
     private void configureNewListDialog() {
 

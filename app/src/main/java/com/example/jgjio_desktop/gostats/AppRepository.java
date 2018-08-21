@@ -15,8 +15,6 @@ public class AppRepository {
     private LiveData<List<StatisticalList>> mAllLists;
     private LiveData<List<DataPoint>> mAllDataPoints;
 
-    private LiveData<List<List<DataPoint>>> mListsOfDataPointsSeperatedIntoLists;
-
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getAppDatabase(application);
         mListDao = db.statisticalListDao();
@@ -26,6 +24,10 @@ public class AppRepository {
         mAllDataPoints = mDataPointDao.loadAllDataPoints();
 
 
+    }
+
+    public LiveData<List<DataPoint>> getList(int listId) {
+      return mDataPointDao.getList(listId);
     }
 
 

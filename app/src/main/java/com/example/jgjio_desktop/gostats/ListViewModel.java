@@ -42,4 +42,8 @@ public class ListViewModel extends AndroidViewModel {
         mRepository.insertDataPoint(dataPoint);
     }
 
+    public LiveData<List<DataPoint>> getList(int index) {
+        return mRepository.getList(index);
+    }
+
 }

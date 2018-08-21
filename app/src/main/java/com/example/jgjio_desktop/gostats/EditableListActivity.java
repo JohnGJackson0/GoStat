@@ -18,9 +18,8 @@ public class EditableListActivity extends AppCompatActivity {
     private RecyclerView mEditableDataRowList;
     private List<DataPoint> mDataList = new ArrayList<DataPoint>();
     private String mName;
-
+    AppDatabase mDb;
     private int mListId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,7 @@ public class EditableListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editable_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mDb = AppDatabase.getAppDatabase(this);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -36,9 +36,13 @@ public class EditableListActivity extends AppCompatActivity {
             setTitle("Editing " + mName);
         }
 
-        //TODO fix so that catches exceptions or validates
+        //TODO async task
+        mDb.statisticalListDao().insert(new StatisticalList(0, mName));
+        mListId = mDb.statisticalListDao().getIdOfLastEntry();
 
-        mListId = bundle.getInt("listId");
+        Log.d("my last entry ID", Integer.toString(mListId));
+
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

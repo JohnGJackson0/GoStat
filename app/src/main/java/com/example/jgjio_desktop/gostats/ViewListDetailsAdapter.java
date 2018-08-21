@@ -62,8 +62,6 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
                 @Override
                 public void onClick(View view) {
                     int listIndex = getAdapterPosition();
-                    Toast.makeText(view.getContext(), "inside View Holder Position: " + getAdapterPosition(), Toast.LENGTH_LONG).show();
-
                     Intent intent = new Intent(itemView.getContext(), ViewSingleListActivity.class);
                     intent.putExtra(EXTRA_LIST_ID, listIndex);
                     itemView.getContext().startActivity(intent);
