@@ -1,6 +1,7 @@
 package com.example.jgjio_desktop.gostats;
 
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.AndroidViewModel;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class ActiveListSelectionFragment extends Fragment {
-    protected View mRvListDetails;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final ViewListDetailsAdapter mListDetailsAdapter;
@@ -27,17 +27,15 @@ public class ActiveListSelectionFragment extends Fragment {
 
         mListDetailsRecyclerView = rootView.findViewById(R.id.rv_list_details);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-
-
-        //TODO change span size so that long names = 1 span size and small names take 2 span sizes
-        //NOTE SPAN SIZE SHOULD NEVER BE MORE THAN SPAN COUNT
-        //EXAMPLE:
-        //@Override
-        //public int getSpanSize(int position) {
-        //return (position%3 == 0 ? 2: 1); }
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (position % 3) > 0 ? 1 : 2;
+            }
+        });
 
         mListDetailsRecyclerView.setLayoutManager(gridLayoutManager);
-        mListDetailsAdapter = new ViewListDetailsAdapter(getActivity());
+        mListDetailsAdapter = new ViewListDetailsAdapter();
         mListDetailsRecyclerView.setAdapter(mListDetailsAdapter);
         mListDetailsRecyclerView.addItemDecoration(new SpacesItemDecoration(8));
 

@@ -1,5 +1,6 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,10 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
 
     List<DataPoint> mDataPointList;
 
+    public ViewableListAdapter (Context context) {
+
+    }
+
     @Override
     public DataPointViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
@@ -25,10 +30,15 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
         return viewHolder;
     }
 
+    public void updateList(List<DataPoint> dataPointsList) {
+        mDataPointList = dataPointsList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public void onBindViewHolder(DataPointViewHolder holder, int position) {
-        holder.viewableDataPoint.setText(mDataPointList.get(position).toString());
+        holder.bind(position);
     }
 
     @Override
@@ -37,25 +47,20 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
     }
 
 
-    //TODO notify data RANGE instead of DATA SET
-    public void updateList(List<DataPoint> updatedList) {
-        if(mDataPointList == null) {
-            mDataPointList = updatedList;
-            notifyDataSetChanged();
-        } else {
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback(mDataPointList, updatedList));
-            mDataPointList = updatedList;
-            diffResult.dispatchUpdatesTo(this);
-        }
-    }
-
     class DataPointViewHolder extends RecyclerView.ViewHolder {
         TextView viewableDataPoint;
+        TextView positionDataPoint;
 
         public DataPointViewHolder(View itemView) {
             super(itemView);
             viewableDataPoint = itemView.findViewById(R.id.viewable_data_point_text_view);
+            positionDataPoint = itemView.findViewById(R.id.item_position);
 
+        }
+
+        void bind (int listIndex) {
+            viewableDataPoint.setText(Double.toString(mDataPointList.get(listIndex).getValue()));
+            positionDataPoint.setText(Integer.toString(listIndex));
         }
 
     }

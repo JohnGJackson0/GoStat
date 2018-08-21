@@ -1,5 +1,7 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 //TODO disallow invalid and nothing inputs before adding lines
+//currently, the data is added as disabled and 0
 
 public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
@@ -22,15 +25,20 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     private int mListId;
     private AppDatabase mDb;
     private Context mContext;
+    AppRepository mAppRepo;
 
     public EditableListAdapter(List<DataPoint> dataList, int listId, Context context) {
         mDataList = dataList;
         this.mListId = listId;
         mContext = context;
         addItem();
-
         mDb = AppDatabase.getAppDatabase(context);
 
+    }
+
+    //TODO ASYCN task this
+    public void updateDatabase() {
+        mDb.dataPointDao().insertDataPoints(mDataList);
     }
 
     public void addItem() {
@@ -152,11 +160,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         @Override
         public void afterTextChanged(Editable editable) {
-
-            if (!(editable.toString() == "" || editable.toString() == null
-                    || editable.toString().isEmpty() || editable.toString().startsWith("."))) {
-                mDb.dataPointDao().insert(mDataList.get(position));
-            }
         }
     }
 

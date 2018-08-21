@@ -22,9 +22,12 @@ public interface DataPointDao {
     void delete(DataPoint dataPoint);
 
     @Query("SELECT * FROM data_point WHERE list_id = :listId")
-    LiveData<List<DataPoint>> getList(int listId);
+    LiveData<List<DataPoint>> getList(Integer listId);
 
     @Query("SELECT * FROM data_point")
     LiveData<List<DataPoint>> loadAllDataPoints();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertDataPoints(List<DataPoint> dataPoints);
 
 }

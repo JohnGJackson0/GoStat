@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewable_row_cv"
+    app:cardElevation="@dimen/cardview_default_elevation"
+    android:layout_margin = "5dp">
 
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id = "@+id/viewable_data_point_text_view"/>
+        android:padding = "8dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id = "@+id/item_position"
+            android:textSize="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id = "@+id/viewable_data_point_text_view"
+            android:textSize="25sp"
+            android:layout_toEndOf="@id/item_position"
+            android:layout_centerVertical="true" />
 
 
-</android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

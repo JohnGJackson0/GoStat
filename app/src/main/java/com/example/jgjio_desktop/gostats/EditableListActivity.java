@@ -45,6 +45,7 @@ public class EditableListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mEditableDataRowListRecyclerViewAdapter.updateDatabase();
                 finish();
             }
         });

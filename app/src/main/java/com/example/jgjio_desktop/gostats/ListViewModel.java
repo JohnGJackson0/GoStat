@@ -32,6 +32,8 @@ public class ListViewModel extends AndroidViewModel {
         return mAllDataPoints;
     }
 
+
+
     public void insertList(StatisticalList statisticalList) {
         mRepository.insertList(statisticalList);
     }

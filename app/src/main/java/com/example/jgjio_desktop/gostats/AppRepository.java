@@ -3,7 +3,6 @@ package com.example.jgjio_desktop.gostats;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
 
 import java.util.List;
 
@@ -16,6 +15,8 @@ public class AppRepository {
     private LiveData<List<StatisticalList>> mAllLists;
     private LiveData<List<DataPoint>> mAllDataPoints;
 
+    private LiveData<List<List<DataPoint>>> mListsOfDataPointsSeperatedIntoLists;
+
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getAppDatabase(application);
         mListDao = db.statisticalListDao();
@@ -23,7 +24,12 @@ public class AppRepository {
 
         mAllLists = mListDao.loadAllLists();
         mAllDataPoints = mDataPointDao.loadAllDataPoints();
+
+
     }
+
+
+
 
     LiveData<List<StatisticalList>> getAllLists() {
         return mAllLists;
@@ -39,6 +45,10 @@ public class AppRepository {
 
     public void insertDataPoint(DataPoint dataPoint) {
         new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+    }
+
+    public void updateDataPoint(DataPoint dataPoint) {
+        new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
     public int getNumberOfLists() {
@@ -73,6 +83,21 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final DataPoint... params) {
             dataPointDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
+
+        private DataPointDao dataPointDao;
+
+        updateDataPointAsyncTask(DataPointDao dao) {
+            dataPointDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final DataPoint... params) {
+            dataPointDao.update(params[0]);
             return null;
         }
     }
