@@ -39,9 +39,9 @@ public class ActiveListSelectionFragment extends Fragment {
         mListDetailsRecyclerView.setAdapter(mListDetailsAdapter);
         mListDetailsRecyclerView.addItemDecoration(new SpacesItemDecoration(getContext(), R.dimen.grid_item_offset));
 
-        ListViewModel mListViewModel;
+        ActiveListViewModel mListViewModel;
 
-        mListViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
+        mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
 
         mListViewModel.getAllLists().observe(this, new Observer <List<StatisticalList>>() {
             @Override

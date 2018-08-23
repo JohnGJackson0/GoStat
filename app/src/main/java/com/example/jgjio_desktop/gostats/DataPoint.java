@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+
+//TODO test that deleting a list deletes the datapoints
 @Entity(tableName = "data_point",
         foreignKeys = @ForeignKey(entity = StatisticalList.class,
                 parentColumns = "id",

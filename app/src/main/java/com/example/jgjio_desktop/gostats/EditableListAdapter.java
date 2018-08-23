@@ -21,6 +21,8 @@ import java.util.List;
 //TODO disallow invalid and nothing inputs before adding lines
 //currently, the data is added as disabled and 0
 
+//TODO fix layout so that it doesn't studder
+
 public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
     private List<DataPoint> mDataList;
@@ -28,7 +30,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     private AppDatabase mDb;
     private Context mContext;
     AppRepository mAppRepo;
-    ListViewModel model;
+    EditableListViewModel model;
 
     public EditableListAdapter(List<DataPoint> dataList, int listId, Context context) {
         mDataList = dataList;
@@ -40,7 +42,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     }
 
     public void updateDatabase() {
-        model = ViewModelProviders.of((FragmentActivity) mContext).get(ListViewModel.class);
+        model = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
         model.insertDataPoints(mDataList);
     }
 

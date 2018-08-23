@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+//TODO edit List button
+//TODO fix layout bug, not correctly showing last entry
+
 public class ViewSingleListActivity extends AppCompatActivity {
     private int mListId;
     private ViewableListAdapter mViewableListAdapter;
@@ -38,11 +41,11 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mViewableListAdapter = new ViewableListAdapter(this);
         mViewableListRecyclerView.setAdapter(mViewableListAdapter);
 
-        ListViewModel mListViewModel;
+        ViewSingleListViewModel mListViewModel;
 
-        mListViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
+        mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
 
-        mListViewModel.getDataPointsInList(mListId).observe(this, new Observer<List<DataPoint>>() {
+        mListViewModel.getList(mListId).observe(this, new Observer<List<DataPoint>>() {
             @Override
             public void onChanged(@Nullable List<DataPoint> dataPoints) {
 
@@ -50,7 +53,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
             }
         });
 
-        mListViewModel.getListName(mListId).observe(this, new Observer<String> () {
+        mListViewModel.getName(mListId).observe(this, new Observer<String> () {
             @Override
             public void onChanged(@Nullable String name) {
                 mListName.setText("Name: " + name);

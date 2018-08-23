@@ -16,6 +16,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+//TODO change all concatenated strings to use string builder
+//TODO create and move all resources to their correct places
+//TODO make sure all variables are private
+//TODO check for name clashes, null inputs and to long of inputs
+
+
 public class ViewableListsActivity extends AppCompatActivity {
     AppDatabase mDb;
 
