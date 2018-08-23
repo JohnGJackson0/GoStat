@@ -1,31 +1,31 @@
 package com.example.jgjio_desktop.gostats;
 
 
+import android.content.Context;
 import android.graphics.Rect;
+import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 public class SpacesItemDecoration  extends RecyclerView.ItemDecoration {
 
 
-    private int halfSpace;
+    private int mItemOffset;
 
-    public SpacesItemDecoration(int space) {
-        this.halfSpace = space / 2;
+    public SpacesItemDecoration(int itemOffset) {
+        mItemOffset = itemOffset;
+    }
+
+    public SpacesItemDecoration(@NonNull Context context, @DimenRes int itemOffsetId) {
+        this(context.getResources().getDimensionPixelSize(itemOffsetId));
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
-        if (parent.getPaddingLeft() != halfSpace) {
-            parent.setPadding(halfSpace, halfSpace, halfSpace, halfSpace);
-            parent.setClipToPadding(false);
-        }
-
-        outRect.top = halfSpace;
-        outRect.bottom = halfSpace;
-        outRect.left = halfSpace;
-        outRect.right = halfSpace;
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                               RecyclerView.State state) {
+        super.getItemOffsets(outRect, view, parent, state);
+        outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
     }
 
 

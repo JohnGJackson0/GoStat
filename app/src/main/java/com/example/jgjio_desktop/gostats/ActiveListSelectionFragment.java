@@ -37,7 +37,7 @@ public class ActiveListSelectionFragment extends Fragment {
         mListDetailsRecyclerView.setLayoutManager(gridLayoutManager);
         mListDetailsAdapter = new ViewListDetailsAdapter();
         mListDetailsRecyclerView.setAdapter(mListDetailsAdapter);
-        mListDetailsRecyclerView.addItemDecoration(new SpacesItemDecoration(8));
+        mListDetailsRecyclerView.addItemDecoration(new SpacesItemDecoration(getContext(), R.dimen.grid_item_offset));
 
         ListViewModel mListViewModel;
 
