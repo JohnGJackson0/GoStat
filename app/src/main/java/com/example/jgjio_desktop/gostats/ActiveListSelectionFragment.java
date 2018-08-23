@@ -46,6 +46,7 @@ public class ActiveListSelectionFragment extends Fragment {
         mListViewModel.getAllLists().observe(this, new Observer <List<StatisticalList>>() {
             @Override
             public void onChanged(@Nullable final List<StatisticalList> lists) {
+
                 mListDetailsAdapter.setLists(lists);
             }
         });

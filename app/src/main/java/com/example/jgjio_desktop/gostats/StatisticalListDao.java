@@ -29,7 +29,7 @@ public interface StatisticalListDao {
     int getListCount();
 
     @Query("SELECT name FROM list WHERE id = :id")
-    String getListName(int id);
+    LiveData<String> getListName(int id);
 
     @Query("DELETE FROM list")
     void nukeTable();

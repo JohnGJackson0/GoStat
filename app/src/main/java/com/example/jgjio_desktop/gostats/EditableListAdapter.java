@@ -2,7 +2,9 @@ package com.example.jgjio_desktop.gostats;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +28,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     private AppDatabase mDb;
     private Context mContext;
     AppRepository mAppRepo;
+    ListViewModel model;
 
     public EditableListAdapter(List<DataPoint> dataList, int listId, Context context) {
         mDataList = dataList;
@@ -36,9 +39,9 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
     }
 
-    //TODO ASYCN task this
     public void updateDatabase() {
-        mDb.dataPointDao().insertDataPoints(mDataList);
+        model = ViewModelProviders.of((FragmentActivity) mContext).get(ListViewModel.class);
+        model.insertDataPoints(mDataList);
     }
 
     public void addItem() {
@@ -65,7 +68,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
             mIndexOfEditableRow =  itemView.findViewById(R.id.dataPointIndexTextView);
             mEditableDataPoint =  itemView.findViewById(R.id.dataPoint);
-            mDeletionButton = itemView.findViewById(R.id.deleteDataPoint);
             this.myCustomEditTextListener = myCustomEditTextListener;
             mEditableDataPoint.addTextChangedListener(myCustomEditTextListener);
 
@@ -73,6 +75,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         void bindData (int listIndex) {
             mIndexOfEditableRow.setText(String.valueOf(listIndex + 1)); //start index at 1 instead of 0
+
         }
 
 
@@ -111,7 +114,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
 
         if (mDataList.get(holder.getAdapterPosition()).isEnabled()) {
-            holder.mEditableDataPoint.setText(mDataList.get(holder.getAdapterPosition()).toString());
+            holder.mEditableDataPoint.setText(Double.toString(mDataList.get(holder.getAdapterPosition()).getValue()));
         } else {
             holder.mEditableDataPoint.setText(null);
         }
@@ -146,8 +149,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
-            //TODO check for char charSequence.toString() == "." as app crashes, test and catch exception + recover
-
             if (!(charSequence.toString() == "" || charSequence.toString() == null
                     || charSequence.toString().isEmpty() || charSequence.toString().startsWith("."))) {
                 mDataList.get(position).setEnabled(true);
@@ -155,11 +156,12 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
             } else {
                 mDataList.get(position).setEnabled(false);
             }
-
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
+
+
         }
     }
 

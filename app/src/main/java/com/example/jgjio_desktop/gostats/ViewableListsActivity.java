@@ -67,7 +67,6 @@ public class ViewableListsActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
 
-        mDb.statisticalListDao().insert(new StatisticalList(0, name));
         intent.putExtra("listName", name);
 
         startActivity(intent);

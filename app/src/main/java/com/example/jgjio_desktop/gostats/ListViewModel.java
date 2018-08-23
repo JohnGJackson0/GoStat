@@ -11,39 +11,30 @@ import java.util.List;
 
 public class ListViewModel extends AndroidViewModel {
     private AppRepository mRepository;
-
-
-    private LiveData<List<StatisticalList>> mAllStatisticalLists;
-    private LiveData<List<DataPoint>> mAllDataPoints;
+    LiveData<List<StatisticalList>> mAllStatisticalLists;
 
     public ListViewModel (Application application) {
         super(application);
         mRepository = new AppRepository(application);
+        mAllStatisticalLists = mRepository.mAllStatisticalLists;
 
-        mAllStatisticalLists = mRepository.getAllLists();
-        mAllDataPoints = mRepository.getAllDataPoints();
     }
 
     LiveData<List<StatisticalList>> getAllLists() {
         return mAllStatisticalLists;
     }
 
-    LiveData<List<DataPoint>> getAllDataPoints() {
-        return mAllDataPoints;
+    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
+        return mRepository.getDataPointsInList(listId);
     }
 
-
-
-    public void insertList(StatisticalList statisticalList) {
-        mRepository.insertList(statisticalList);
+    LiveData<String> getListName(int ListId) {
+        return mRepository.getListName(ListId);
     }
 
-    public void insertDataPoint(DataPoint dataPoint) {
-        mRepository.insertDataPoint(dataPoint);
+    void insertDataPoints(List<DataPoint> listDataPoints) {
+        mRepository.insertDataPoints(listDataPoints);
     }
 
-    public LiveData<List<DataPoint>> getList(int index) {
-        return mRepository.getList(index);
-    }
 
 }

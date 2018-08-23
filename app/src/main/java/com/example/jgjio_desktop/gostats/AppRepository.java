@@ -3,6 +3,7 @@ package com.example.jgjio_desktop.gostats;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 
 import java.util.List;
 
@@ -12,49 +13,43 @@ import java.util.List;
 public class AppRepository {
     private StatisticalListDao mListDao;
     private DataPointDao mDataPointDao;
-    private LiveData<List<StatisticalList>> mAllLists;
-    private LiveData<List<DataPoint>> mAllDataPoints;
+    LiveData<List<StatisticalList>> mAllStatisticalLists;
+    AppDatabase db;
+
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getAppDatabase(application);
         mListDao = db.statisticalListDao();
         mDataPointDao = db.dataPointDao();
-
-        mAllLists = mListDao.loadAllLists();
-        mAllDataPoints = mDataPointDao.loadAllDataPoints();
-
-
+        mAllStatisticalLists = db.statisticalListDao().loadAllLists();
     }
 
-    public LiveData<List<DataPoint>> getList(int listId) {
-      return mDataPointDao.getList(listId);
+    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
+        return mDataPointDao.getList(listId);
     }
 
-
-
-
-    LiveData<List<StatisticalList>> getAllLists() {
-        return mAllLists;
+    LiveData<List<StatisticalList>> getAllStatisticalLists() {
+        return mAllStatisticalLists;
     }
 
-    LiveData<List<DataPoint>> getAllDataPoints() {
-        return mAllDataPoints;
+    LiveData<String> getListName(int listId) {
+        return mListDao.getListName(listId);
     }
 
-    public void insertList(StatisticalList list) {
-        new insertListAsyncTask(mListDao).execute(list);
+    void insertDataPoints(List<DataPoint> listDataPoints) {
+        new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
     }
 
-    public void insertDataPoint(DataPoint dataPoint) {
-        new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
-    }
+    private static class insertDataPointsAsyncTask extends AsyncTask<List<DataPoint>, Void, Void> {
+        private DataPointDao dataPointDao;
 
-    public void updateDataPoint(DataPoint dataPoint) {
-        new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
-    }
+        insertDataPointsAsyncTask(DataPointDao dao) {dataPointDao = dao;}
 
-    public int getNumberOfLists() {
-        return mListDao.getListCount();
+        @Override
+        protected Void doInBackground(final List<DataPoint>... params) {
+            dataPointDao.insertDataPoints(params[0]);
+            return null;
+        }
     }
 
 
@@ -74,35 +69,6 @@ public class AppRepository {
     }
 
 
-    private static class insertDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
-
-        private DataPointDao dataPointDao;
-
-        insertDataPointAsyncTask(DataPointDao dao) {
-            dataPointDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final DataPoint... params) {
-            dataPointDao.insert(params[0]);
-            return null;
-        }
-    }
-
-    private static class updateDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
-
-        private DataPointDao dataPointDao;
-
-        updateDataPointAsyncTask(DataPointDao dao) {
-            dataPointDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final DataPoint... params) {
-            dataPointDao.update(params[0]);
-            return null;
-        }
-    }
 
 
 }
