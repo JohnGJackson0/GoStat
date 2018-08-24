@@ -19,6 +19,10 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository.insertDataPoints(listDataPoints);
     }
 
+    void insertDataPoint(DataPoint dataPoint) {
+        mRepository.insertDataPoint(dataPoint);
+    }
+
     String getListName(int id) {
         return mRepository.getListName(id);
     }

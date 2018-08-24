@@ -1,12 +1,15 @@
 package com.example.jgjio_desktop.gostats;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.lifecycle.ViewModelStore;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
+
 //TODO change all concatenated strings to use string builder
 //TODO create and move all resources to their correct places
 //TODO make sure all variables are private
@@ -26,10 +31,8 @@ import android.widget.TextView;
 
 
 public class ViewableListsActivity extends AppCompatActivity {
-    AppDatabase mDb;
-
-    private EditText mListNameInput;
-    private TextView mListShow;
+    private Fragment mListDetails;
+    private TextView mCreateListInstructions;
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
@@ -39,11 +42,8 @@ public class ViewableListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_lists);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mListShow = findViewById(R.id.list_show_text);
 
-        mListNameInput = findViewById(R.id.list_name_input);
-
-        mDb = AppDatabase.getAppDatabase(this);
+        mCreateListInstructions = findViewById(R.id.list_show_text);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +52,23 @@ public class ViewableListsActivity extends AppCompatActivity {
                 configureNewListDialog();
             }
         });
+
+        ActiveListViewModel activeListViewModel;
+
+        activeListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
+
+        activeListViewModel.getAllLists().observe(this, new Observer<List<StatisticalList>>() {
+            @Override
+            public void onChanged(@Nullable List<StatisticalList> statisticalLists) {
+                if (statisticalLists.size() == 0) {
+                    mCreateListInstructions.setVisibility(View.VISIBLE);
+                } else {
+                    mCreateListInstructions.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
     }
 
 
@@ -60,6 +77,12 @@ public class ViewableListsActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_show_lists, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
 

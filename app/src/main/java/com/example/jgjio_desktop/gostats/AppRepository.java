@@ -45,6 +45,11 @@ public class AppRepository {
         new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
     }
 
+    void insertDataPoint(DataPoint dataPoint) {
+        new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+    }
+
+
     void insertStatisticalList(StatisticalList list) {
         new insertListAsyncTask(mListDao).execute(list);
     }
@@ -59,6 +64,18 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final List<DataPoint>... params) {
             dataPointDao.insertDataPoints(params[0]);
+            return null;
+        }
+    }
+
+    private static class insertDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
+        private DataPointDao dataPointDao;
+
+        insertDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
+
+        @Override
+        protected Void doInBackground(final DataPoint... params) {
+            dataPointDao.insertDataPoint(params[0]);
             return null;
         }
     }

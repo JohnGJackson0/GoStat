@@ -5,6 +5,7 @@
     <color name="colorAccent">#F4C200</color>
     <color name="colorAccentComplementary">#8a2be2</color>
     <color name="colorWhite">#FFF</color>
+    <color name="error">#F48C42</color>
 
     <color name="Amethyst">#9b59b6</color>
     <color name="WetAsphalt">#34495E</color>

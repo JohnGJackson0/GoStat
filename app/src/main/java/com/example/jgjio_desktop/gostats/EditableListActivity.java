@@ -23,6 +23,7 @@ public class EditableListActivity extends AppCompatActivity {
     private String mName;
     AppDatabase mDb;
     private int mListId;
+    EditableListViewModel editableListViewModel;
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
@@ -47,6 +48,10 @@ public class EditableListActivity extends AppCompatActivity {
             }
         });
 
+        editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
+
+        setTitle(editableListViewModel.getListName(mListId));
+
         configureRecyclerView();
     }
 
@@ -70,15 +75,9 @@ public class EditableListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mEditableDataRowList.setLayoutManager(layoutManager);
         mEditableDataRowList.setHasFixedSize(true);
-        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mDataList, mListId, this);
+        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mListId, this);
         mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
         mEditableDataRowList.setNestedScrollingEnabled(false);
-
-        EditableListViewModel editableListViewModel;
-
-        editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
-
-        setTitle(editableListViewModel.getListName(mListId));
 
         editableListViewModel.getDataPointsInList(mListId).observe(this, new Observer<List<DataPoint>>() {
             @Override
@@ -87,5 +86,10 @@ public class EditableListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void displayInputInvalidDialog(int position) {
+        Log.d("EditableListActivity","displayInvalidDialogCalled.");
+        Log.d("posInvalidInput",Integer.toString(position));
     }
 }

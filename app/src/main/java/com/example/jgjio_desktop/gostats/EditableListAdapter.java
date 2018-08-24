@@ -1,6 +1,5 @@
 package com.example.jgjio_desktop.gostats;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -14,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //TODO disallow invalid and nothing inputs before adding lines
 //currently, the data is added as disabled and 0
@@ -26,27 +28,27 @@ import java.util.List;
 
 public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
-    private List<DataPoint> mDataList;
+    private List<DataPoint> mDataList = new ArrayList<>();
     private int mListId;
     private AppDatabase mDb;
     private Context mContext;
-    AppRepository mAppRepo;
-    EditableListViewModel model;
+    EditableListViewModel mViewModel;
+    Set<Integer> mInputsToBeUpdated = new HashSet();
 
-    public EditableListAdapter(List<DataPoint> dataList, int listId, Context context) {
-        mDataList = dataList;
+
+    public EditableListAdapter(int listId, Context context) {
         this.mListId = listId;
         mContext = context;
         addItem();
         mDb = AppDatabase.getAppDatabase(context);
 
         Log.d("NumItems", Integer.toString(getItemCount()));
+        mViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
 
     }
 
     public void updateDatabase() {
-        model = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
-        model.insertDataPoints(mDataList);
+        mViewModel.insertDataPoints(mDataList);
     }
 
     public void addItem() {
@@ -59,9 +61,8 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     public void updateList(List<DataPoint> myList) {
         if (myList.size() != 0) {
             mDataList = myList;
-
-            Log.d("list size", "my List size is " + mDataList.size());
             notifyDataSetChanged();
+            mNumberOfEditableRows = mDataList.size();
         }
     }
 
@@ -73,7 +74,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     class NumberViewHolder extends RecyclerView.ViewHolder {
         TextView mIndexOfEditableRow;
         EditText mEditableDataPoint;
-        ImageView mDeletionButton;
 
         public MyCustomEditTextListener myCustomEditTextListener;
 
@@ -100,8 +100,13 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
                     // If the event is a key-down event on the "enter" button
                     if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                             (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                        createDataRow();
-                        removeOnKeyListener(mEditableDataPoint);
+                        if (mDataList.get(mDataList.size()-1).isEnabled() == false) {
+                            ((EditableListActivity)mContext).displayInputInvalidDialog(mDataList.size()-1);
+                        } else {
+                            updateDataChanged();
+                            createDataRow();
+                            removeOnKeyListener(mEditableDataPoint);
+                        }
                     }
                     return false;
                 }
@@ -124,13 +129,23 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     @Override
     public void onBindViewHolder(EditableListAdapter.NumberViewHolder holder, final int position) {
         holder.bindData(position);
-        holder.nextEnterEditTextListener();
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
 
-        if (mDataList.get(holder.getAdapterPosition()).isEnabled()) {
+        if (mDataList.get(position).isEnabled()) {
             holder.mEditableDataPoint.setText(Double.toString(mDataList.get(holder.getAdapterPosition()).getValue()));
+            holder.itemView.setBackgroundColor(mContext.getColor(R.color.cardview_light_background));
         } else {
+            Log.d("s", "isdisabled at " + Integer.toString(position));
+            holder.itemView.setBackgroundColor(mContext.getColor(R.color.error));
             holder.mEditableDataPoint.setText(null);
+        }
+
+        Log.d("pos: ", Integer.toString(position));
+        Log.d("last MdataList", Integer.toString(mDataList.size()));
+
+        //test for if last entry
+        if(position == mDataList.size() -1) {
+            holder.nextEnterEditTextListener();
         }
     }
 
@@ -162,7 +177,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
+            //TODO charSequence.toString().startsWith(".") creates a bug of setting editText to disabled if 0.
             if (!(charSequence.toString() == "" || charSequence.toString() == null
                     || charSequence.toString().isEmpty() || charSequence.toString().startsWith("."))) {
                 mDataList.get(position).setEnabled(true);
@@ -174,9 +189,23 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         @Override
         public void afterTextChanged(Editable editable) {
+            if (editable.length() == 0) {
+                ((EditableListActivity)mContext).displayInputInvalidDialog(position);
+            }
 
-
+            mInputsToBeUpdated.add(position);
         }
+    }
+
+    void updateDataAtPosition(int position) {
+        mViewModel.insertDataPoint(mDataList.get(position));
+    }
+
+    void updateDataChanged() {
+        for (Integer s : mInputsToBeUpdated) {
+            notifyItemChanged(s);
+        }
+        mInputsToBeUpdated.clear();
     }
 
 
