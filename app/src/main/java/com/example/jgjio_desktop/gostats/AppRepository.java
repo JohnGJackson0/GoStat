@@ -32,13 +32,24 @@ public class AppRepository {
         return mAllStatisticalLists;
     }
 
-    LiveData<String> getListName(int listId) {
+    String getListName(int listId) {
         return mListDao.getListName(listId);
+
+    }
+
+    int getLastCreatedStatisticalListId() {
+        return mListDao.getIdOfLastEntry();
     }
 
     void insertDataPoints(List<DataPoint> listDataPoints) {
         new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
     }
+
+    void insertStatisticalList(StatisticalList list) {
+        new insertListAsyncTask(mListDao).execute(list);
+    }
+
+
 
     private static class insertDataPointsAsyncTask extends AsyncTask<List<DataPoint>, Void, Void> {
         private DataPointDao dataPointDao;

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,8 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         addItem();
         mDb = AppDatabase.getAppDatabase(context);
 
+        Log.d("NumItems", Integer.toString(getItemCount()));
+
     }
 
     public void updateDatabase() {
@@ -53,9 +56,18 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         this.notifyItemInserted(mNumberOfEditableRows);
     }
 
+    public void updateList(List<DataPoint> myList) {
+        if (myList.size() != 0) {
+            mDataList = myList;
+
+            Log.d("list size", "my List size is " + mDataList.size());
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public int getItemCount() {
-        return mNumberOfEditableRows;
+        return mDataList == null ? 1 : mDataList.size();
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder {

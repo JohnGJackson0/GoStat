@@ -18,7 +18,7 @@ public class ViewSingleListViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    LiveData<String> getName(int listId) {
+    String getName(int listId) {
         return mRepository.getListName(listId);
     }
 

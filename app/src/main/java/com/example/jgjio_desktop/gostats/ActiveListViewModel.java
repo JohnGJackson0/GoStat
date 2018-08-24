@@ -21,6 +21,10 @@ public class ActiveListViewModel extends AndroidViewModel{
         return mAllLists;
     }
 
+    int getIdOfLastListEntry() {
+        return mRepository.getLastCreatedStatisticalListId();
+    }
 
+    void insertStatisticalList(StatisticalList newList) { mRepository.insertStatisticalList(newList);}
 
 }

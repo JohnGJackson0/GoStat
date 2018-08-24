@@ -1,6 +1,9 @@
 package com.example.jgjio_desktop.gostats;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +30,8 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     private EditText mListNameInput;
     private TextView mListShow;
+
+    public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +74,31 @@ public class ViewableListsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Create a list given the name and return the ID
+    public int createList(String name) {
+        StatisticalList newList = new StatisticalList(0, name);
+
+        ActiveListViewModel mListViewModel;
+
+        mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
+
+        //Insert Statistical List uses an Async Task, that might not
+        // be finished by the time we want to get the last entry using
+        // sql
+
+        int lastEntry = mListViewModel.getIdOfLastListEntry() + 1;
+
+        mListViewModel.insertStatisticalList(newList);
+
+        return lastEntry;
+    }
+
     public void startEditableListIntent(String name) {
+        int listId = createList(name);
 
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
 
-        intent.putExtra("listName", name);
+        intent.putExtra(EXTRA_LIST_ID, listId);
 
         startActivity(intent);
     }
@@ -93,9 +118,7 @@ public class ViewableListsActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 String mText = input.getText().toString();
-
                 startEditableListIntent(mText);
-
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
