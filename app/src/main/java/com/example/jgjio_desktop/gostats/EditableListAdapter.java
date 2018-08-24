@@ -3,6 +3,7 @@ package com.example.jgjio_desktop.gostats;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -94,6 +95,12 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
 
         private void nextEnterEditTextListener() {
+            //we only want one on key listener, two creates multiple rows
+            //when using notify item changed, this will happen without the
+            //following line
+            removeOnKeyListener(mEditableDataPoint);
+
+            Log.d("sd", "sd");
 
             mEditableDataPoint.setOnKeyListener(new View.OnKeyListener() {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -103,7 +110,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
                         if (mDataList.get(mDataList.size()-1).isEnabled() == false) {
                             ((EditableListActivity)mContext).displayInputInvalidDialog(mDataList.size()-1);
                         } else {
-                            updateDataChanged();
                             createDataRow();
                             removeOnKeyListener(mEditableDataPoint);
                         }
@@ -144,8 +150,11 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         Log.d("last MdataList", Integer.toString(mDataList.size()));
 
         //test for if last entry
+        //what if last entry already has one?
+
         if(position == mDataList.size() -1) {
             holder.nextEnterEditTextListener();
+            holder.mEditableDataPoint.requestFocus();
         }
     }
 
@@ -185,6 +194,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
             } else {
                 mDataList.get(position).setEnabled(false);
             }
+            mInputsToBeUpdated.add(position);
         }
 
         @Override
@@ -192,22 +202,8 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
             if (editable.length() == 0) {
                 ((EditableListActivity)mContext).displayInputInvalidDialog(position);
             }
-
-            mInputsToBeUpdated.add(position);
         }
     }
-
-    void updateDataAtPosition(int position) {
-        mViewModel.insertDataPoint(mDataList.get(position));
-    }
-
-    void updateDataChanged() {
-        for (Integer s : mInputsToBeUpdated) {
-            notifyItemChanged(s);
-        }
-        mInputsToBeUpdated.clear();
-    }
-
 
 
 
