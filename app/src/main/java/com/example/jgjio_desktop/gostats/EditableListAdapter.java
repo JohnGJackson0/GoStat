@@ -142,7 +142,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
             holder.itemView.setBackgroundColor(mContext.getColor(R.color.cardview_light_background));
         } else {
             Log.d("s", "isdisabled at " + Integer.toString(position));
-            holder.itemView.setBackgroundColor(mContext.getColor(R.color.error));
+            holder.itemView.setBackgroundColor(mContext.getColor(R.color.highlight));
             holder.mEditableDataPoint.setText(null);
         }
 

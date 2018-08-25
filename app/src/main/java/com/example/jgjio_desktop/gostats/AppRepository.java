@@ -8,7 +8,6 @@ import android.provider.ContactsContract;
 import java.util.List;
 
 //TODO check for race conditions
-//TODO finish so that it properly runs in background thread
 
 public class AppRepository {
     private StatisticalListDao mListDao;

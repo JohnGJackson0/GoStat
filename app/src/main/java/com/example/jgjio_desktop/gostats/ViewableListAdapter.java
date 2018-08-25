@@ -14,9 +14,10 @@ import java.util.List;
 public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapter.DataPointViewHolder> {
 
     List<DataPoint> mDataPointList;
+    Context mContext;
 
     public ViewableListAdapter (Context context) {
-
+        mContext = context;
     }
 
     @Override
@@ -39,6 +40,11 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
     @Override
     public void onBindViewHolder(DataPointViewHolder holder, int position) {
         holder.bind(position);
+
+        if (!mDataPointList.get(position).isEnabled()) {
+            holder.itemView.setBackgroundColor(mContext.getColor(R.color.highlight));
+            holder.viewableDataPoint.setText("disabled");
+        }
     }
 
     @Override
