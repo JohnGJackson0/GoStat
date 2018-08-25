@@ -27,4 +27,6 @@ public class ActiveListViewModel extends AndroidViewModel{
 
     void insertStatisticalList(StatisticalList newList) { mRepository.insertStatisticalList(newList);}
 
+    void deleteList(StatisticalList statList) {mRepository.removeStatisticalList(statList); }
+
 }

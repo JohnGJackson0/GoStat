@@ -27,6 +27,11 @@ public class AppRepository {
         return mDataPointDao.getList(listId);
     }
 
+    void removeStatisticalList(StatisticalList statList) {
+        new removeStatisticalListAsyncTask(mListDao).execute(statList);
+
+    }
+
     LiveData<List<StatisticalList>> getAllStatisticalLists() {
         return mAllStatisticalLists;
     }
@@ -91,6 +96,22 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final StatisticalList... params) {
             listDao.insert(params[0]);
+            return null;
+        }
+    }
+
+
+    private static class removeStatisticalListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
+
+        private StatisticalListDao listDao;
+
+        removeStatisticalListAsyncTask(StatisticalListDao dao) {
+            listDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final StatisticalList... params) {
+            listDao.delete(params[0]);
             return null;
         }
     }

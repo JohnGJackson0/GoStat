@@ -36,6 +36,9 @@ public interface StatisticalListDao {
 
     //We set room to auto generate keys so the app will
     //use this to get entries we just added
+    //it's important that this gets called before adding the query
+    //then you simply add 1, because the program uses async tasks
+    //and it might not be finished by the time this is called.
     @Query("SELECT * FROM list ORDER BY id DESC LIMIT 1;")
     int getIdOfLastEntry();
 

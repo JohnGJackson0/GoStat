@@ -10,4 +10,8 @@
         When finished simply click the view_list header button to take you back to your lists.
     </string>
     <string name = "edit_list">Edit List</string>
+
+    <string name="edit_list_menu_lable">Edit List</string>
+    <string name="view_list_menu_lable">View List</string>
+    <string name="delete_list_menu_lable">Delete List</string>
 </resources>

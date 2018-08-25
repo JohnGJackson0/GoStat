@@ -10,20 +10,30 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.GridView;
 
 import java.util.List;
 import java.util.Objects;
 
 public class ActiveListSelectionFragment extends Fragment {
+    private ViewListDetailsAdapter mListDetailsAdapter;
+    private ActionMode mActionMode;
+    private View rootView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final ViewListDetailsAdapter mListDetailsAdapter;
         RecyclerView mListDetailsRecyclerView;
 
-        View rootView = inflater.inflate(R.layout.fragment_clickable_lists_details_rv_container, container, false);
+        rootView = inflater.inflate(R.layout.fragment_clickable_lists_details_rv_container, container, false);
 
         mListDetailsRecyclerView = rootView.findViewById(R.id.rv_list_details);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
@@ -35,9 +45,10 @@ public class ActiveListSelectionFragment extends Fragment {
         });
 
         mListDetailsRecyclerView.setLayoutManager(gridLayoutManager);
-        mListDetailsAdapter = new ViewListDetailsAdapter();
+        mListDetailsAdapter = new ViewListDetailsAdapter(getActivity());
         mListDetailsRecyclerView.setAdapter(mListDetailsAdapter);
         mListDetailsRecyclerView.addItemDecoration(new SpacesItemDecoration(getContext(), R.dimen.grid_item_offset));
+        registerForContextMenu(mListDetailsRecyclerView);
 
         ActiveListViewModel mListViewModel;
 
@@ -50,10 +61,9 @@ public class ActiveListSelectionFragment extends Fragment {
                 mListDetailsAdapter.setLists(lists);
             }
         });
+
         return rootView;
     }
-
-
 
 
 }

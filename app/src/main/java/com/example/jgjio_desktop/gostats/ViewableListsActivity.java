@@ -13,13 +13,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,6 +38,7 @@ import java.util.List;
 public class ViewableListsActivity extends AppCompatActivity {
     private Fragment mListDetails;
     private TextView mCreateListInstructions;
+    ActiveListViewModel activeListViewModel;
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
@@ -53,7 +59,6 @@ public class ViewableListsActivity extends AppCompatActivity {
             }
         });
 
-        ActiveListViewModel activeListViewModel;
 
         activeListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
 
@@ -69,6 +74,10 @@ public class ViewableListsActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void removeList(StatisticalList statList) {
+        activeListViewModel.deleteList(statList);
     }
 
 
