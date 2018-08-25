@@ -34,7 +34,7 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     private AppDatabase mDb;
     private Context mContext;
     EditableListViewModel mViewModel;
-    Set<Integer> mInputsToBeUpdated = new HashSet();
+
 
 
     public EditableListAdapter(int listId, Context context) {
@@ -45,7 +45,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         Log.d("NumItems", Integer.toString(getItemCount()));
         mViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
-
     }
 
     public void updateDatabase() {
@@ -191,14 +190,12 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             //TODO charSequence.toString().startsWith(".") creates a bug of setting editText to disabled if 0.
-            if (!(charSequence.toString() == "" || charSequence.toString() == null
-                    || charSequence.toString().isEmpty() || charSequence.toString().startsWith("."))) {
+            if ((charSequence.toString().startsWith(".") && charSequence.length() == 1) || charSequence.length() == 0) {
+                mDataList.get(position).setEnabled(false);
+            } else {
                 mDataList.get(position).setEnabled(true);
                 mDataList.get(position).setValue(Double.parseDouble(charSequence.toString()));
-            } else {
-                mDataList.get(position).setEnabled(false);
             }
-            mInputsToBeUpdated.add(position);
         }
 
         @Override

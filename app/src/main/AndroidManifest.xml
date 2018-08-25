@@ -23,7 +23,8 @@
             android:name=".EditableListActivity"
             android:label="@string/title_activity_editable_list"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:hardwareAccelerated="false"/>
         <activity android:name=".ViewSingleListActivity"></activity>
     </application>
 

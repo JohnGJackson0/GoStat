@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/colorAccentComplementary">
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/list_name_grid_detail"

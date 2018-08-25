@@ -44,6 +44,8 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
         if (!mDataPointList.get(position).isEnabled()) {
             holder.itemView.setBackgroundColor(mContext.getColor(R.color.highlight));
             holder.viewableDataPoint.setText("disabled");
+        } else {
+            holder.itemView.setBackgroundColor(mContext.getColor(R.color.colorWhite));
         }
     }
 

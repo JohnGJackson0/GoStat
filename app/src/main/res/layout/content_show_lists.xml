@@ -22,6 +22,7 @@
         android:id = "@+id/list_show_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/no_list_data_message"
