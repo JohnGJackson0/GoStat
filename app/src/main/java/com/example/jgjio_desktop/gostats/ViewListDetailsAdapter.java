@@ -136,7 +136,6 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
                 public boolean onLongClick(View view) {
                     positionLongHoldClick = getAdapterPosition();
 
-
                     if (mActionMode != null) {
                         return false;
                     }
@@ -155,13 +154,13 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
 
     }
 
-    private void startViewIntent(int listIndex) {
+    private void startViewIntent(double listIndex) {
         Intent intent = new Intent(mContext, ViewSingleListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listIndex);
         mContext.startActivity(intent);
     }
 
-    private void startEditIntent(int listIndex) {
+    private void startEditIntent(double listIndex) {
         Intent intent = new Intent(mContext, EditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listIndex);
         mContext.startActivity(intent);

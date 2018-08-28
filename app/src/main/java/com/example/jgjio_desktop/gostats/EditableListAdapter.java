@@ -30,18 +30,15 @@ import java.util.Set;
 public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapter.NumberViewHolder> {
     private int mNumberOfEditableRows = 0;
     private List<DataPoint> mDataList = new ArrayList<>();
-    private int mListId;
-    private AppDatabase mDb;
+    private double mListId;
     private Context mContext;
     EditableListViewModel mViewModel;
 
-
-
-    public EditableListAdapter(int listId, Context context) {
+    public EditableListAdapter(double listId, Context context) {
         this.mListId = listId;
         mContext = context;
         addItem();
-        mDb = AppDatabase.getAppDatabase(context);
+
 
         Log.d("NumItems", Integer.toString(getItemCount()));
         mViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
@@ -142,10 +139,8 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         if (mDataList.get(position).isEnabled()) {
             holder.mEditableDataPoint.setText(Double.toString(mDataList.get(holder.getAdapterPosition()).getValue()));
-            holder.itemView.setBackgroundColor(mContext.getColor(R.color.cardview_light_background));
         } else {
             Log.d("s", "isdisabled at " + Integer.toString(position));
-            holder.itemView.setBackgroundColor(mContext.getColor(R.color.highlight));
             holder.mEditableDataPoint.setText(null);
         }
 
@@ -189,7 +184,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            //TODO charSequence.toString().startsWith(".") creates a bug of setting editText to disabled if 0.
             if ((charSequence.toString().startsWith(".") && charSequence.length() == 1) || charSequence.length() == 0) {
                 mDataList.get(position).setEnabled(false);
             } else {

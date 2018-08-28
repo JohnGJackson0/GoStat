@@ -22,7 +22,7 @@ public class EditableListActivity extends AppCompatActivity {
     private List<DataPoint> mDataList = new ArrayList<DataPoint>();
     private String mName;
     AppDatabase mDb;
-    private int mListId;
+    private double mListId;
     EditableListViewModel editableListViewModel;
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
@@ -37,7 +37,7 @@ public class EditableListActivity extends AppCompatActivity {
 
         setListID();
 
-        Log.d("EditableListActivity: ", "ID RECIEVED: " + Integer.toString(mListId));
+        Log.d("EditableListActivity: ", "ID RECIEVED: " + Double.toString(mListId));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +62,14 @@ public class EditableListActivity extends AppCompatActivity {
     private boolean setListID() {
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle.getInt(EXTRA_LIST_ID) !=  0) {
-            mListId = bundle.getInt(EXTRA_LIST_ID);
+        if (bundle.getDouble(EXTRA_LIST_ID) !=  0) {
+            mListId = bundle.getDouble(EXTRA_LIST_ID);
             return true;
         } else {
            return false;
         }
     }
+
 
     private void configureRecyclerView() {
         mEditableDataRowList = findViewById(R.id.rv_dataRowList);

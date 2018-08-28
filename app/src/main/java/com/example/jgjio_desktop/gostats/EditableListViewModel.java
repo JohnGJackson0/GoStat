@@ -23,11 +23,11 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository.insertDataPoint(dataPoint);
     }
 
-    String getListName(int id) {
+    String getListName(double id) {
         return mRepository.getListName(id);
     }
 
-    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
+    LiveData<List<DataPoint>> getDataPointsInList(double listId) {
         return mRepository.getDataPointsInList(listId);
     }
 }

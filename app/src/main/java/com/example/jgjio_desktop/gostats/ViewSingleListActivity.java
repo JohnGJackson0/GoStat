@@ -22,7 +22,7 @@ import java.util.List;
 //TODO fix layout bug, not correctly showing last entry
 
 public class ViewSingleListActivity extends AppCompatActivity {
-    private int mListId;
+    private double mListId;
     private ViewableListAdapter mViewableListAdapter;
     private RecyclerView mViewableListRecyclerView;
     private TextView mListName;
@@ -39,7 +39,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mListIdText = findViewById(R.id.listId);
         mEditList = findViewById(R.id.editList);
 
-        mListId = getIntent().getExtras().getInt(ViewListDetailsAdapter.EXTRA_LIST_ID);
+        mListId = getIntent().getExtras().getDouble(ViewListDetailsAdapter.EXTRA_LIST_ID);
 
 
         mViewableListRecyclerView = findViewById(R.id.rv_single_list);
@@ -63,7 +63,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
 
         mListName.setText("Name " + mListViewModel.getName(mListId));
 
-        mListIdText.setText("ID: " + Integer.toString(mListId));
+        mListIdText.setText("ID: " + Double.toString(mListId));
 
         mEditList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +73,8 @@ public class ViewSingleListActivity extends AppCompatActivity {
         });
     }
 
-    void editList(int listId) {
-        Log.d("ListID: ", Integer.toString(listId));
+    void editList(double listId) {
+        Log.d("ListID: ", Double.toString(listId));
         Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listId);
         startActivity(intent);

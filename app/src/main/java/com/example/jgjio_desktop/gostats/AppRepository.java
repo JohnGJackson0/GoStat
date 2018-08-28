@@ -23,7 +23,7 @@ public class AppRepository {
         mAllStatisticalLists = db.statisticalListDao().loadAllLists();
     }
 
-    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
+    LiveData<List<DataPoint>> getDataPointsInList(double listId) {
         return mDataPointDao.getList(listId);
     }
 
@@ -36,13 +36,8 @@ public class AppRepository {
         return mAllStatisticalLists;
     }
 
-    String getListName(int listId) {
+    String getListName(double listId) {
         return mListDao.getListName(listId);
-
-    }
-
-    int getLastCreatedStatisticalListId() {
-        return mListDao.getIdOfLastEntry();
     }
 
     void insertDataPoints(List<DataPoint> listDataPoints) {
@@ -54,8 +49,10 @@ public class AppRepository {
     }
 
 
-    void insertStatisticalList(StatisticalList list) {
-        new insertListAsyncTask(mListDao).execute(list);
+    //returns ID
+    long insertStatisticalList(StatisticalList list) {
+        return mListDao.insert(list);
+
     }
 
 
@@ -98,6 +95,8 @@ public class AppRepository {
             listDao.insert(params[0]);
             return null;
         }
+
+
     }
 
 

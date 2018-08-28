@@ -18,11 +18,11 @@ public class ViewSingleListViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    String getName(int listId) {
+    String getName(double listId) {
         return mRepository.getListName(listId);
     }
 
-    LiveData<List<DataPoint>> getList(int listId) {
+    LiveData<List<DataPoint>> getList(double listId) {
         return mRepository.getDataPointsInList(listId);
     }
 

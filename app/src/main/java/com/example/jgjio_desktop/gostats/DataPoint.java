@@ -19,13 +19,13 @@ public class DataPoint {
     private int id;
 
     @ColumnInfo(name = "list_id")
-    private int listId;
+    private double listId;
 
     private boolean isEnabled;
 
     private double value;
 
-    public DataPoint(int listId, boolean isEnabled, double value) {
+    public DataPoint(double listId, boolean isEnabled, double value) {
         this.listId = listId;
         this.isEnabled = isEnabled;
         this.value = value;
@@ -51,7 +51,7 @@ public class DataPoint {
         return value;
     }
 
-    public int getListId() {
+    public double getListId() {
         return listId;
     }
 

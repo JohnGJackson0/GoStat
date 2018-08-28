@@ -23,7 +23,7 @@ public interface DataPointDao {
     void delete(DataPoint dataPoint);
 
     @Query("SELECT * FROM data_point WHERE list_id = :listId")
-    LiveData<List<DataPoint>> getList(Integer listId);
+    LiveData<List<DataPoint>> getList(Double listId);
 
     @Query("SELECT * FROM data_point")
     LiveData<List<DataPoint>> loadAllDataPoints();

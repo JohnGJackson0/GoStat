@@ -107,26 +107,21 @@ public class ViewableListsActivity extends AppCompatActivity {
     }
 
     //Create a list given the name and return the ID
-    public int createList(String name) {
-        StatisticalList newList = new StatisticalList(0, name);
+    public double createList(String name) {
 
         ActiveListViewModel mListViewModel;
 
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
 
-        //Insert Statistical List uses an Async Task, that might not
-        // be finished by the time we want to get the last entry using
-        // sql
+        double lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name));
 
-        int lastEntry = mListViewModel.getIdOfLastListEntry() + 1;
-
-        mListViewModel.insertStatisticalList(newList);
+        Log.d("id", Double.toString(lastEntry));
 
         return lastEntry;
     }
 
     public void startEditableListIntent(String name) {
-        int listId = createList(name);
+        double listId = createList(name);
 
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
 
