@@ -143,10 +143,14 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         Log.d("pos: ", Integer.toString(position));
         Log.d("last MdataList", Integer.toString(mDataList.size()));
 
+        //this following line stops editTexts from being created
+        //when pressing enter on line 1 when editing a previously made list
+        removeOnKeyListener(holder.mEditableDataPoint);
+
         //test for if last entry
         //what if last entry already has one?
 
-        if(position == mDataList.size() -1) {
+        if ((position == mDataList.size() -1)) {
             holder.nextEnterEditTextListener();
             holder.mEditableDataPoint.requestFocus();
         }
