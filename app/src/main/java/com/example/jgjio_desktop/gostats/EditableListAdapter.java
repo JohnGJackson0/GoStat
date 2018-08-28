@@ -45,10 +45,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
     }
 
     public void updateDatabase() {
-        if(!mDataList.get(mDataList.size()-1).isEnabled()) {
-            mDataList.remove(mDataList.size()-1);
-        }
-
         mViewModel.insertDataPoints(mDataList);
     }
 
