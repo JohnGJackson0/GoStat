@@ -152,7 +152,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         if ((position == mDataList.size() -1)) {
             holder.nextEnterEditTextListener();
-            holder.mEditableDataPoint.requestFocus();
         }
     }
 
