@@ -17,10 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //TODO disallow invalid and nothing inputs before adding lines
 //currently, the data is added as disabled and 0
@@ -38,9 +35,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         this.mListId = listId;
         mContext = context;
         addItem();
-
-
-        Log.d("NumItems", Integer.toString(getItemCount()));
         mViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
     }
 
@@ -95,9 +89,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
             //when using notify item changed, this will happen without the
             //following line
             removeOnKeyListener(mEditableDataPoint);
-
-            Log.d("sd", "sd");
-
             mEditableDataPoint.setOnKeyListener(new View.OnKeyListener() {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     // If the event is a key-down event on the "enter" button
@@ -136,12 +127,8 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
         if (mDataList.get(position).isEnabled()) {
             holder.mEditableDataPoint.setText(Double.toString(mDataList.get(holder.getAdapterPosition()).getValue()));
         } else {
-            Log.d("s", "isdisabled at " + Integer.toString(position));
             holder.mEditableDataPoint.setText(null);
         }
-
-        Log.d("pos: ", Integer.toString(position));
-        Log.d("last MdataList", Integer.toString(mDataList.size()));
 
         //this following line stops editTexts from being created
         //when pressing enter on line 1 when editing a previously made list
@@ -193,9 +180,6 @@ public class EditableListAdapter extends RecyclerView.Adapter<EditableListAdapte
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (editable.length() == 0) {
-                ((EditableListActivity)mContext).displayInputInvalidDialog(position);
-            }
         }
     }
 

@@ -73,6 +73,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
                 default:
                     return false;
             }
+
         }
 
         @Override

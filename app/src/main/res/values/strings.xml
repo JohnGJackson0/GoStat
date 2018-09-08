@@ -6,12 +6,19 @@
     <string name="no_list_data_message">You currently do not have a list, press the + icon on bottom right of screen to start.</string>
     <string name="title_activity_editable_list">EditableListActivity</string>
     <string name="introductory_text_for_editable_list_activity">
-        \nInput your first value below. Then press enter to create another data point in the list.
+        \n
+        Instructions: To create new entries input a value into the last data row and press enter.
+
         When finished simply click the view_list header button to take you back to your lists.
     </string>
+
+    <string name="view_lists_name">View Lists</string>
+    <string name="view_list_name">View List</string>
+
     <string name = "edit_list">Edit List</string>
 
     <string name="edit_list_menu_lable">Edit List</string>
     <string name="view_list_menu_lable">View List</string>
     <string name="delete_list_menu_lable">Delete List</string>
+    <string name="summary_statistics_menu_lable">Summary Statistics</string>
 </resources>

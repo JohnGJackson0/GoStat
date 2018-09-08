@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -71,6 +72,14 @@ public class ViewSingleListActivity extends AppCompatActivity {
                 editList(mListId);
             }
         });
+
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        //getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     void editList(double listId) {
@@ -78,5 +87,15 @@ public class ViewSingleListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listId);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

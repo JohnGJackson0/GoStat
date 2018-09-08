@@ -2,9 +2,11 @@ package com.example.jgjio_desktop.gostats;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.v7.app.AlertDialog.*;
 
 public class EditableListActivity extends AppCompatActivity {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
@@ -37,14 +41,11 @@ public class EditableListActivity extends AppCompatActivity {
 
         setListID();
 
-        Log.d("EditableListActivity: ", "ID RECIEVED: " + Double.toString(mListId));
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mEditableDataRowListRecyclerViewAdapter.updateDatabase();
-                finish();
+                showExitDialog();
             }
         });
 
@@ -70,7 +71,6 @@ public class EditableListActivity extends AppCompatActivity {
         }
     }
 
-
     private void configureRecyclerView() {
         mEditableDataRowList = findViewById(R.id.rv_dataRowList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -86,11 +86,34 @@ public class EditableListActivity extends AppCompatActivity {
                 mEditableDataRowListRecyclerViewAdapter.updateList(dataPoints);
             }
         });
-
     }
 
-    void displayInputInvalidDialog(int position) {
+    public void displayInputInvalidDialog(int position) {
         Log.d("EditableListActivity","displayInvalidDialogCalled.");
         Log.d("posInvalidInput",Integer.toString(position));
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
+    }
+
+    private void showExitDialog() {
+        Builder builder = new Builder(this);
+
+        builder.setTitle("Save Changes?");
+        builder.setMessage("Do you want to save your changes? ");
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                mEditableDataRowListRecyclerViewAdapter.updateDatabase();
+                finish();
+            }
+        });
+        builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        builder.show();
     }
 }

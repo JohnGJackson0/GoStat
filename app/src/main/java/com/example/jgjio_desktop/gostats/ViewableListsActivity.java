@@ -73,7 +73,6 @@ public class ViewableListsActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void removeList(StatisticalList statList) {
@@ -99,7 +98,7 @@ public class ViewableListsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_summary_statistics) {
             return true;
         }
 

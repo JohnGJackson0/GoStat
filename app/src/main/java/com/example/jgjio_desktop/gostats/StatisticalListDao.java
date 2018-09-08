@@ -31,7 +31,5 @@ public interface StatisticalListDao {
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
     String getListName(double id);
 
-    @Query("DELETE FROM list")
-    void nukeTable();
 
 }
