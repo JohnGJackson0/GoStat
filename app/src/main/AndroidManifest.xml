@@ -21,14 +21,16 @@
         </activity>
         <activity
             android:name=".EditableListActivity"
+            android:hardwareAccelerated="false"
             android:label="@string/title_activity_editable_list"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:hardwareAccelerated="false"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ViewSingleListActivity"
-            android:label ="@string/view_list_name">
-        </activity>
+            android:label="@string/view_list_name" />
+        <activity android:name=".SummaryStatisticsSelectListActivity" />
+        <activity android:name=".ShowSummaryStatisticsActivity"
+            android:label = "@string/show_summary_statistics"></activity>
     </application>
 
 </manifest>

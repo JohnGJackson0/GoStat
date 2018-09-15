@@ -6,14 +6,14 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
-public class ActiveListViewModel extends AndroidViewModel{
+public class SummaryStatisticsViewModel extends AndroidViewModel {
     private AppRepository mRepository;
-    private LiveData<List<StatisticalList>> mAllLists;
+    LiveData<List<StatisticalList>> mAllLists;
 
-    public ActiveListViewModel (Application application) {
+
+    public SummaryStatisticsViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
-
         mAllLists = mRepository.getAllStatisticalLists();
     }
 
@@ -21,9 +21,9 @@ public class ActiveListViewModel extends AndroidViewModel{
         return mAllLists;
     }
 
-    //return the id
-    long insertStatisticalList(StatisticalList newList) { return mRepository.insertStatisticalList(newList);}
+    String getListName(double id) {
+        return mRepository.getListName(id);
+    }
 
-    void deleteList(StatisticalList statList) {mRepository.removeStatisticalList(statList); }
 
 }

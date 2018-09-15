@@ -31,5 +31,7 @@ public interface StatisticalListDao {
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
     String getListName(double id);
 
+    @Query("UPDATE list SET name =:newName WHERE id = :id")
+    void updateName(String newName, long id);
 
 }

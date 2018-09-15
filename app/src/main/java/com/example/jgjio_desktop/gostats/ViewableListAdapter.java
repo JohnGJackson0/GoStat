@@ -68,7 +68,7 @@ public class ViewableListAdapter extends RecyclerView.Adapter<ViewableListAdapte
 
         void bind (int listIndex) {
             viewableDataPoint.setText(Double.toString(mDataPointList.get(listIndex).getValue()));
-            positionDataPoint.setText(Integer.toString(listIndex));
+            positionDataPoint.setText(Integer.toString(listIndex + 1)); //statistical lists start at 1 instead of 0
         }
 
     }

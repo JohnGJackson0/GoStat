@@ -15,10 +15,18 @@
     <string name="view_lists_name">View Lists</string>
     <string name="view_list_name">View List</string>
 
-    <string name = "edit_list">Edit List</string>
+    <string name="edit_list_button_label">Edit List</string>
+    <string name="edit_list_name_button_label">Change List Name</string>
 
     <string name="edit_list_menu_lable">Edit List</string>
     <string name="view_list_menu_lable">View List</string>
     <string name="delete_list_menu_lable">Delete List</string>
     <string name="summary_statistics_menu_lable">Summary Statistics</string>
+
+    //Titles
+    <string name="select_list_title_for_summary_statistics">List Selection</string>
+    <string name="show_summary_statistics">Summary</string>
+
+
+    <string name="select_list_instructions_summary_statistics">Select List</string>
 </resources>

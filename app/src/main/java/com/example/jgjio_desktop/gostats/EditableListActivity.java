@@ -23,9 +23,8 @@ import static android.support.v7.app.AlertDialog.*;
 public class EditableListActivity extends AppCompatActivity {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableDataRowList;
-    private List<DataPoint> mDataList = new ArrayList<DataPoint>();
+    private List<DataPoint> mDataList = new ArrayList<>();
     private String mName;
-    AppDatabase mDb;
     private double mListId;
     EditableListViewModel editableListViewModel;
 
@@ -37,7 +36,6 @@ public class EditableListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editable_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDb = AppDatabase.getAppDatabase(this);
 
         setListID();
 

@@ -87,6 +87,9 @@ public class ViewableListsActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -99,6 +102,8 @@ public class ViewableListsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_summary_statistics) {
+            Intent intent = new Intent(this, SummaryStatisticsSelectListActivity.class);
+            startActivity(intent);
             return true;
         }
 

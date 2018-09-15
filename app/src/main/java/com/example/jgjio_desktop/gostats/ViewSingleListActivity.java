@@ -1,10 +1,14 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +16,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,6 +36,9 @@ public class ViewSingleListActivity extends AppCompatActivity {
     private TextView mListName;
     private TextView mListIdText;
     private Button mEditList;
+    private Button mChangeListName;
+    private ViewSingleListViewModel mListViewModel;
+
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
@@ -39,6 +49,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mListName = findViewById(R.id.listName);
         mListIdText = findViewById(R.id.listId);
         mEditList = findViewById(R.id.editList);
+        mChangeListName = findViewById(R.id.changeListName);
 
         mListId = getIntent().getExtras().getDouble(ViewListDetailsAdapter.EXTRA_LIST_ID);
 
@@ -50,8 +61,6 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mViewableListAdapter = new ViewableListAdapter(this);
         mViewableListRecyclerView.setAdapter(mViewableListAdapter);
 
-        ViewSingleListViewModel mListViewModel;
-
         mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
 
         mListViewModel.getList(mListId).observe(this, new Observer<List<DataPoint>>() {
@@ -62,7 +71,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
             }
         });
 
-        mListName.setText("Name " + mListViewModel.getName(mListId));
+        mListName.setText(mListViewModel.getName(mListId));
 
         mListIdText.setText("ID: " + Double.toString(mListId));
 
@@ -73,6 +82,12 @@ public class ViewSingleListActivity extends AppCompatActivity {
             }
         });
 
+        mChangeListName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                changeListNameDialog();
+            }
+        });
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -98,4 +113,37 @@ public class ViewSingleListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void changeListNameDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleListActivity.this);
+        builder.setTitle("Input a List New Name");
+
+        final View viewInflated = LayoutInflater.from(ViewSingleListActivity.this).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) findViewById(R.id.inquire_list_name), false);
+        final EditText input = (EditText) viewInflated.findViewById(R.id.list_name_input);
+        builder.setView(viewInflated);
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                String mText = input.getText().toString();
+                changeListName(mText);
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void changeListName(String newName) {
+        mListViewModel.updateListName(newName, (long) mListId);
+        mListName.setText(newName);
+    }
+
 }

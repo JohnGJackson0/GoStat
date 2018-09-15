@@ -4,4 +4,5 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="card_view_elevation_noticable">3dp</dimen>
     <dimen name="grid_item_offset">2dp</dimen>
+    <dimen name="margin_inside_card_views">8dp</dimen>
 </resources>

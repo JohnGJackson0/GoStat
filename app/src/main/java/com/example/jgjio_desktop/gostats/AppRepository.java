@@ -48,14 +48,31 @@ public class AppRepository {
         new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
-
     //returns ID
     long insertStatisticalList(StatisticalList list) {
         return mListDao.insert(list);
 
     }
 
+    void updateListName(String name, long id) {
+        new updateStatisticalListNameAsyncTask(mListDao, id).execute(name);
+    }
 
+    private static class updateStatisticalListNameAsyncTask extends AsyncTask<String, Void, Void> {
+        private StatisticalListDao statListDao;
+        private long id;
+
+        updateStatisticalListNameAsyncTask(StatisticalListDao dao, long id) {
+            statListDao = dao;
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(final String ... params) {
+            statListDao.updateName(params[0], id);
+            return null;
+        }
+    }
 
     private static class insertDataPointsAsyncTask extends AsyncTask<List<DataPoint>, Void, Void> {
         private DataPointDao dataPointDao;
@@ -80,7 +97,6 @@ public class AppRepository {
             return null;
         }
     }
-
 
     private static class insertListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
 
