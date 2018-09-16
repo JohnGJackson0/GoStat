@@ -37,6 +37,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
     private TextView mListIdText;
     private Button mEditList;
     private Button mChangeListName;
+    private Button mViewOneVarStats;
     private ViewSingleListViewModel mListViewModel;
 
 
@@ -50,6 +51,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mListIdText = findViewById(R.id.listId);
         mEditList = findViewById(R.id.editList);
         mChangeListName = findViewById(R.id.changeListName);
+        mViewOneVarStats = findViewById(R.id.view_one_var_stats);
 
         mListId = getIntent().getExtras().getDouble(ViewListDetailsAdapter.EXTRA_LIST_ID);
 
@@ -78,7 +80,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mEditList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editList(mListId);
+                editList();
             }
         });
 
@@ -86,6 +88,13 @@ public class ViewSingleListActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
                 changeListNameDialog();
+            }
+        });
+
+        mViewOneVarStats.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v) {
+                viewOneVarStats();
             }
         });
 
@@ -97,10 +106,15 @@ public class ViewSingleListActivity extends AppCompatActivity {
         //getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    void editList(double listId) {
-        Log.d("ListID: ", Double.toString(listId));
+    void editList() {
         Intent intent = new Intent(this, EditableListActivity.class);
-        intent.putExtra(EXTRA_LIST_ID, listId);
+        intent.putExtra(EXTRA_LIST_ID, mListId);
+        startActivity(intent);
+    }
+
+    void viewOneVarStats() {
+        Intent intent = new Intent(this, ShowSummaryStatisticsActivity.class);
+        intent.putExtra(EXTRA_LIST_ID, mListId);
         startActivity(intent);
     }
 

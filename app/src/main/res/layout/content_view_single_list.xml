@@ -60,6 +60,14 @@
                     android:text="@string/edit_list_name_button_label"
                     style= "@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
+                <Button
+                    android:layout_width ="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/view_one_var_stats"
+                    android:text="@string/view_one_variable_stats_button_label"
+                    style= "@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_below="@id/editList" />
+
             </RelativeLayout>
 
         </RelativeLayout>

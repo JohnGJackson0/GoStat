@@ -17,6 +17,7 @@
 
     <string name="edit_list_button_label">Edit List</string>
     <string name="edit_list_name_button_label">Change List Name</string>
+    <string name="view_one_variable_stats_button_label">View 1-var Stats</string>
 
     <string name="edit_list_menu_lable">Edit List</string>
     <string name="view_list_menu_lable">View List</string>
