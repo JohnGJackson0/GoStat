@@ -25,5 +25,9 @@ public class SummaryStatisticsViewModel extends AndroidViewModel {
         return mRepository.getListName(id);
     }
 
+    LiveData<List<DataPoint>> getList(double listId) {
+        return mRepository.getDataPointsInList(listId);
+    }
+
 
 }
