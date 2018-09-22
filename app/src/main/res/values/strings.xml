@@ -30,4 +30,7 @@
 
 
     <string name="select_list_instructions_summary_statistics">Select List</string>
+
+
+    <string name = "disabled_data_point_text">Disabled DataPoint</string>
 </resources>

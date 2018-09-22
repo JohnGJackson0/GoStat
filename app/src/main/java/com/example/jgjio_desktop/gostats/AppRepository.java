@@ -2,6 +2,8 @@ package com.example.jgjio_desktop.gostats;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.DataSource;
+import android.arch.paging.PagedList;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 
@@ -29,7 +31,10 @@ public class AppRepository {
 
     void removeStatisticalList(StatisticalList statList) {
         new removeStatisticalListAsyncTask(mListDao).execute(statList);
+    }
 
+    DataSource.Factory getDataPointsInListById(long listId) {
+        return mDataPointDao.getListById(listId);
     }
 
     LiveData<List<StatisticalList>> getAllStatisticalLists() {

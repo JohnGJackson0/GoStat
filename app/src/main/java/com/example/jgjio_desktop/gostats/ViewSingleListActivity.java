@@ -39,6 +39,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
     private Button mChangeListName;
     private Button mViewOneVarStats;
     private ViewSingleListViewModel mListViewModel;
+    LinearLayoutManager linearLayoutManager;
 
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
@@ -54,24 +55,15 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mViewOneVarStats = findViewById(R.id.view_one_var_stats);
 
         mListId = getIntent().getExtras().getDouble(ViewListDetailsAdapter.EXTRA_LIST_ID);
-
-
+        mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
         mViewableListRecyclerView = findViewById(R.id.rv_single_list);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this);
         mViewableListRecyclerView.setLayoutManager(linearLayoutManager);
-        mViewableListAdapter = new ViewableListAdapter(this);
+        mViewableListAdapter = new ViewableListAdapter();
+        mListViewModel.getListById((long) mListId).observe(this, mViewableListAdapter::submitList);
         mViewableListRecyclerView.setAdapter(mViewableListAdapter);
 
-        mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
-
-        mListViewModel.getList(mListId).observe(this, new Observer<List<DataPoint>>() {
-            @Override
-            public void onChanged(@Nullable List<DataPoint> dataPoints) {
-
-                mViewableListAdapter.updateList(dataPoints);
-            }
-        });
 
         mListName.setText(mListViewModel.getName(mListId));
 
@@ -159,5 +151,4 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mListViewModel.updateListName(newName, (long) mListId);
         mListName.setText(newName);
     }
-
 }

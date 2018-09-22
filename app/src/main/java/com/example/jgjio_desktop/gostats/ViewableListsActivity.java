@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //TODO change all concatenated strings to use string builder
@@ -72,6 +73,14 @@ public class ViewableListsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //List<DataPoint> myFake = new ArrayList<>();
+
+        //for(int i = 0; i<= 1000000; i++) {
+        //    myFake.add(new DataPoint(34, true, i));
+        //}
+
+        //activeListViewModel.insertDataPoints(myFake);
 
     }
 
