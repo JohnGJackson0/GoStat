@@ -2,6 +2,7 @@
     <string name="app_name">Go Stats!</string>
     <string name="action_settings">Settings</string>
     <string name="hint_list_name">Enter a name for a list</string>
+    <string name="hint_jump_to_amount">Enter Index Number to Jump to</string>
     <string name="inquire_list_name_description">Input a list name. This name will later be used to identify the list for functions.</string>
     <string name="no_list_data_message">You currently do not have a list, press the + icon on bottom right of screen to start.</string>
     <string name="title_activity_editable_list">EditableListActivity</string>
@@ -18,11 +19,13 @@
     <string name="edit_list_button_label">Edit List</string>
     <string name="edit_list_name_button_label">Change List Name</string>
     <string name="view_one_variable_stats_button_label">View 1-var Stats</string>
+    <string name = "jump_to_button_label">Jump To</string>
 
     <string name="edit_list_menu_lable">Edit List</string>
     <string name="view_list_menu_lable">View List</string>
     <string name="delete_list_menu_lable">Delete List</string>
     <string name="summary_statistics_menu_lable">Summary Statistics</string>
+
 
     //Titles
     <string name="select_list_title_for_summary_statistics">List Selection</string>

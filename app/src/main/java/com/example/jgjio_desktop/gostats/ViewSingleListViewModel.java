@@ -12,7 +12,6 @@ public class ViewSingleListViewModel extends AndroidViewModel {
 
     public ViewSingleListViewModel (Application application) {
         super(application);
-
         mRepository = new AppRepository(application);
     }
 

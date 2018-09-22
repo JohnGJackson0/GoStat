@@ -38,6 +38,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
     private Button mEditList;
     private Button mChangeListName;
     private Button mViewOneVarStats;
+    private Button mJumpTo;
     private ViewSingleListViewModel mListViewModel;
     LinearLayoutManager linearLayoutManager;
 
@@ -51,8 +52,9 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mListName = findViewById(R.id.listName);
         mListIdText = findViewById(R.id.listId);
         mEditList = findViewById(R.id.editList);
-        mChangeListName = findViewById(R.id.changeListName);
+        mChangeListName = findViewById(R.id.change_list_name);
         mViewOneVarStats = findViewById(R.id.view_one_var_stats);
+        mJumpTo = findViewById(R.id.jump_to);
 
         mListId = getIntent().getExtras().getDouble(ViewListDetailsAdapter.EXTRA_LIST_ID);
         mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
@@ -63,6 +65,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mViewableListAdapter = new ViewableListAdapter();
         mListViewModel.getListById((long) mListId).observe(this, mViewableListAdapter::submitList);
         mViewableListRecyclerView.setAdapter(mViewableListAdapter);
+        mViewableListRecyclerView.setHasFixedSize(true);
 
 
         mListName.setText(mListViewModel.getName(mListId));
@@ -87,6 +90,13 @@ public class ViewSingleListActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
                 viewOneVarStats();
+            }
+        });
+
+        mJumpTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpToDialog();
             }
         });
 
@@ -120,6 +130,35 @@ public class ViewSingleListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //todo: validate input for this and changing a list name and creating a list name
+    private void jumpToDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleListActivity.this);
+        builder.setTitle("Input Index to Jump to");
+
+        final View viewInflated = LayoutInflater.from(ViewSingleListActivity.this).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) findViewById(R.id.inquire_jump_to_amount), false);
+        final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);
+        builder.setView(viewInflated);
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                int jumpToAmount = Integer.parseInt(input.getText().toString());
+                jumpTo(jumpToAmount-1); //Statistical Lists start at 1
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+
+
     private void changeListNameDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleListActivity.this);
@@ -133,8 +172,8 @@ public class ViewSingleListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String mText = input.getText().toString();
-                changeListName(mText);
+                String text = input.getText().toString();
+                changeListName(text);
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -150,5 +189,10 @@ public class ViewSingleListActivity extends AppCompatActivity {
     private void changeListName(String newName) {
         mListViewModel.updateListName(newName, (long) mListId);
         mListName.setText(newName);
+    }
+
+
+    private void jumpTo(int amount) {
+        mViewableListRecyclerView.scrollToPosition(amount);
     }
 }
