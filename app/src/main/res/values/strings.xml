@@ -7,10 +7,7 @@
     <string name="no_list_data_message">You currently do not have a list, press the + icon on bottom right of screen to start.</string>
     <string name="title_activity_editable_list">EditableListActivity</string>
     <string name="introductory_text_for_editable_list_activity">
-        \n
-        Instructions: To create new entries input a value into the last data row and press enter.
-
-        When finished simply click the view_list header button to take you back to your lists.
+        To create new entries input a value into the last data row and press enter. When finished press the back button to discard changes or update them.
     </string>
 
     <string name="view_lists_name">View Lists</string>

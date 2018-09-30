@@ -1,7 +1,9 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,8 +25,6 @@ import static android.support.v7.app.AlertDialog.*;
 public class EditableListActivity extends AppCompatActivity {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableDataRowList;
-    private List<DataPoint> mDataList = new ArrayList<>();
-    private String mName;
     private double mListId;
     EditableListViewModel editableListViewModel;
 
@@ -33,19 +33,12 @@ public class EditableListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editable_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.content_editable_list);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setListID();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showExitDialog();
-            }
-        });
 
         editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
 
@@ -74,21 +67,11 @@ public class EditableListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mEditableDataRowList.setLayoutManager(layoutManager);
         mEditableDataRowList.setHasFixedSize(true);
-        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(mListId, this);
+        mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(this);
+        editableListViewModel.getListById((long) mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
+
+
         mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
-        mEditableDataRowList.setNestedScrollingEnabled(false);
-
-        editableListViewModel.getDataPointsInList(mListId).observe(this, new Observer<List<DataPoint>>() {
-            @Override
-            public void onChanged(@Nullable List<DataPoint> dataPoints) {
-                mEditableDataRowListRecyclerViewAdapter.updateList(dataPoints);
-            }
-        });
-    }
-
-    public void displayInputInvalidDialog(int position) {
-        Log.d("EditableListActivity","displayInvalidDialogCalled.");
-        Log.d("posInvalidInput",Integer.toString(position));
     }
 
     @Override
@@ -103,7 +86,7 @@ public class EditableListActivity extends AppCompatActivity {
         builder.setMessage("Do you want to save your changes? ");
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mEditableDataRowListRecyclerViewAdapter.updateDatabase();
+                mEditableDataRowListRecyclerViewAdapter.update();
                 finish();
             }
         });
@@ -113,5 +96,9 @@ public class EditableListActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public double getListID() {
+        return mListId;
     }
 }
