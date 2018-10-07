@@ -1,18 +1,22 @@
 package com.example.jgjio_desktop.gostats;
 
-import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.arch.paging.PagedList.Callback;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,15 +38,32 @@ import java.util.Set;
 //     pending list
 
 //Todo allow the user to expand the DataPoints in the list
+//todo implement updateable and provide
 
-public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder> {
-
-    private Set<DataPoint> mUpdatedDataPointsPending = new HashSet<>();
+public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>  {
+    private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();
+    private OnLastEditTextOnEnterCallBack mOnLastEnterCallBack;
     private Context mContext;
+    private Boolean requestFocusOnLastEditTextInOnBindViewHolder = false;
+
+    public void setLastEditTextToRequestFocus() {
+        requestFocusOnLastEditTextInOnBindViewHolder = true;
+    }
+
+    public interface OnLastEditTextOnEnterCallBack {
+        void createDataElement();
+    }
+
+    public List<DataPoint> getNonAppendingUpdates() {
+        List<DataPoint> mUpdate = new ArrayList<>(mUpdatedNonAppendingDataPoints);
+        mUpdatedNonAppendingDataPoints.clear();
+        return mUpdate;
+    }
 
     protected EditableListAdapter(Context context) {
         super(DIFF_CALLBACK);
         mContext = context;
+        mOnLastEnterCallBack = (OnLastEditTextOnEnterCallBack) mContext;
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder {
@@ -70,23 +91,36 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                 mEditableDataPoint.setText(null);
             }
 
+            if (requestFocusOnLastEditTextInOnBindViewHolder && (listIndex == getItemCount() -1)) {
+                mEditableDataPoint.requestFocus();
+                InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                requestFocusOnLastEditTextInOnBindViewHolder = false;
+            }
         }
 
         void clear() {
             //TODO IMPLEMENT
         }
+
+        private void listenForNextEnter() {
+            mEditableDataPoint.setOnKeyListener(new View.OnKeyListener() {
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    // If the event is a key-down event on the "enter" button
+                    if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                            (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                        //add callback to update room
+                        mOnLastEnterCallBack.createDataElement();
+                        removeOnKeyListener(mEditableDataPoint);
+                    }
+                    return false;
+                }
+            });
+        }
     }
 
-    //outside classes are to call update, not this inside class because currently,
-    //we don't update the database until the user presses save
-    public void update() {
-        EditableListViewModel mEditableListViewModel;
-        mEditableListViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(EditableListViewModel.class);
-
-        List<DataPoint> updatedDataPoints = new ArrayList<>(mUpdatedDataPointsPending);
-        mEditableListViewModel.insertDataPoints(updatedDataPoints);
-        mUpdatedDataPointsPending.clear();
-
+    private void removeOnKeyListener(EditText editText) {
+        editText.setOnKeyListener(null);
     }
 
     @Override
@@ -97,7 +131,6 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(templateLayoutID, viewGroup, shouldAttachToParentImmediately);
         NumberViewHolder viewHolder = new NumberViewHolder(view, new EditTextListener());
-
         return viewHolder;
     }
 
@@ -123,7 +156,9 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         }
 
         @Override
-        public void afterTextChanged(Editable editable) { }
+        public void afterTextChanged(Editable editable) {
+            mUpdatedNonAppendingDataPoints.add(getItem(position));
+        }
     }
 
     @Override
@@ -136,6 +171,10 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             holder.bindTo(dataPoint, position);
         } else {
             holder.clear();
+        }
+
+        if (position == getItemCount()-1) {
+            holder.listenForNextEnter();
         }
     }
 
@@ -154,4 +193,5 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                     return oldDataPoint.equals(newDataPoint);
                 }
             };
+
 }

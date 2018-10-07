@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
+import android.view.View;
 
 import java.util.List;
 
@@ -26,6 +27,14 @@ public class EditableListViewModel extends AndroidViewModel{
 
     void insertDataPoints(List<DataPoint> listDataPoints) {
         mRepository.insertDataPoints(listDataPoints);
+    }
+
+    void insertDataPoint(DataPoint newDataPoint) {
+        mRepository.insertDataPoint(newDataPoint);
+    }
+
+    void updateDataPoint(DataPoint newDataPoint) {
+        mRepository.updateDataPoint(newDataPoint);
     }
 
     String getListName(double id) {

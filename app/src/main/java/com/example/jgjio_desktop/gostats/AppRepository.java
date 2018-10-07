@@ -50,7 +50,13 @@ public class AppRepository {
     }
 
     void insertDataPoint(DataPoint dataPoint) {
-        new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+        mDataPointDao.insert(dataPoint);
+        //new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+    }
+
+    void updateDataPoint(DataPoint dataPoint) {
+        mDataPointDao.update(dataPoint);
+        //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
     //returns ID
@@ -99,6 +105,18 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final DataPoint... params) {
             dataPointDao.insertDataPoint(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
+        private DataPointDao dataPointDao;
+
+        updateDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
+
+        @Override
+        protected Void doInBackground(final DataPoint... params) {
+            dataPointDao.update(params[0]);
             return null;
         }
     }

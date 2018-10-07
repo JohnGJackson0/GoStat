@@ -1,30 +1,24 @@
 package com.example.jgjio_desktop.gostats;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.EditText;
 
 import static android.support.v7.app.AlertDialog.*;
 
-public class EditableListActivity extends AppCompatActivity {
+public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
-    private RecyclerView mEditableDataRowList;
+    private RecyclerView mEditableListRecyclerView;
+
+
     private double mListId;
     EditableListViewModel editableListViewModel;
 
@@ -44,8 +38,9 @@ public class EditableListActivity extends AppCompatActivity {
 
         setTitle(editableListViewModel.getListName(mListId));
 
-        configureRecyclerView();
+        configureEditableListRecyclerView();
     }
+
 
 
     //EXTRA_LIST_ID can come from multiple Views so that
@@ -62,43 +57,47 @@ public class EditableListActivity extends AppCompatActivity {
         }
     }
 
-    private void configureRecyclerView() {
-        mEditableDataRowList = findViewById(R.id.rv_dataRowList);
+    private void configureEditableListRecyclerView() {
+        mEditableListRecyclerView = findViewById(R.id.rv_editable_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mEditableDataRowList.setLayoutManager(layoutManager);
-        mEditableDataRowList.setHasFixedSize(true);
+        mEditableListRecyclerView.setLayoutManager(layoutManager);
+        mEditableListRecyclerView.setHasFixedSize(true);
         mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(this);
         editableListViewModel.getListById((long) mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
+        mEditableListRecyclerView.setAdapter(mEditableDataRowListRecyclerViewAdapter);
 
+        mEditableDataRowListRecyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
 
-        mEditableDataRowList.setAdapter(mEditableDataRowListRecyclerViewAdapter);
+                if (itemCount == 1) {
+                    mEditableListRecyclerView.smoothScrollToPosition(mEditableDataRowListRecyclerViewAdapter.getItemCount());
+                    mEditableDataRowListRecyclerViewAdapter.setLastEditTextToRequestFocus();
+                }
+            }
+        });
+
     }
 
     @Override
     public void onBackPressed() {
-        showExitDialog();
+        updateRoom();
+        finish();
     }
 
-    private void showExitDialog() {
-        Builder builder = new Builder(this);
-
-        builder.setTitle("Save Changes?");
-        builder.setMessage("Do you want to save your changes? ");
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                mEditableDataRowListRecyclerViewAdapter.update();
-                finish();
-            }
-        });
-        builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                finish();
-            }
-        });
-        builder.show();
+    @Override
+    public void createDataElement() {
+        updateRoom();
+        DataPoint newDataPoint = new DataPoint(mListId, false, 0.0);
+        editableListViewModel.insertDataPoint(newDataPoint);
     }
 
-    public double getListID() {
-        return mListId;
+    //dataPoints that are appended to the list already are updated.
+    //We just need to update the changes
+
+    //Also, inserting DataPoints simply replace, because we use OnConflictStrategy.REPLACE in the Dao 
+    public void updateRoom() {
+        editableListViewModel.insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getNonAppendingUpdates());
     }
 }
