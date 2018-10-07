@@ -37,10 +37,8 @@ import java.util.List;
 
 
 public class ViewableListsActivity extends AppCompatActivity {
-    private Fragment mListDetails;
     private TextView mCreateListInstructions;
     ActiveListViewModel activeListViewModel;
-
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override
@@ -60,7 +58,6 @@ public class ViewableListsActivity extends AppCompatActivity {
             }
         });
 
-
         activeListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
 
         activeListViewModel.getAllLists().observe(this, new Observer<List<StatisticalList>>() {
@@ -74,20 +71,11 @@ public class ViewableListsActivity extends AppCompatActivity {
             }
         });
 
-        //List<DataPoint> myFake = new ArrayList<>();
-
-        //for(int i = 0; i<= 1000000; i++) {
-        //    myFake.add(new DataPoint(34, true, i));
-        //}
-
-        //activeListViewModel.insertDataPoints(myFake);
-
     }
 
     public void removeList(StatisticalList statList) {
         activeListViewModel.deleteList(statList);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,16 +83,6 @@ public class ViewableListsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_show_lists, menu);
         return true;
     }
-
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -121,31 +99,20 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     //Create a list given the name and return the ID
     public double createList(String name) {
-
         ActiveListViewModel mListViewModel;
-
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
-
         double lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name));
-
-        Log.d("id", Double.toString(lastEntry));
-
         return lastEntry;
     }
 
     public void startEditableListIntent(String name) {
         double listId = createList(name);
-
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
-
         intent.putExtra(EXTRA_LIST_ID, listId);
-
         startActivity(intent);
     }
 
-
     private void configureNewListDialog() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewableListsActivity.this);
         builder.setTitle("Input a List Name");
 

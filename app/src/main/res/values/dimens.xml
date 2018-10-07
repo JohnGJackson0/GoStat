@@ -5,4 +5,7 @@
     <dimen name="card_view_elevation_noticable">3dp</dimen>
     <dimen name="grid_item_offset">2dp</dimen>
     <dimen name="margin_inside_card_views">8dp</dimen>
+
+
+    <dimen name = "card_view_corner_radius_default">10dp</dimen>
 </resources>

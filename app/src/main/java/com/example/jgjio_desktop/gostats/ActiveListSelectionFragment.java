@@ -9,6 +9,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ActionMode;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,18 +38,10 @@ public class ActiveListSelectionFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_clickable_lists_details_rv_container, container, false);
 
         mListDetailsRecyclerView = rootView.findViewById(R.id.rv_list_details);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return (position % 3) > 0 ? 1 : 2;
-            }
-        });
-
-        mListDetailsRecyclerView.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mListDetailsRecyclerView.setLayoutManager(linearLayoutManager);
         mListDetailsAdapter = new ViewListDetailsAdapter(getActivity());
         mListDetailsRecyclerView.setAdapter(mListDetailsAdapter);
-        mListDetailsRecyclerView.addItemDecoration(new SpacesItemDecoration(getContext(), R.dimen.grid_item_offset));
         registerForContextMenu(mListDetailsRecyclerView);
 
         ActiveListViewModel mListViewModel;

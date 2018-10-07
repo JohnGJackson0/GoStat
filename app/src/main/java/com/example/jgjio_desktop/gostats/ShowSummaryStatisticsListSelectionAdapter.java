@@ -63,7 +63,7 @@ public class ShowSummaryStatisticsListSelectionAdapter extends RecyclerView.Adap
     @Override
     public ListDetailsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.item_list_details_linear;
+        int layoutIdForListItem = R.layout.item_list_selector;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
