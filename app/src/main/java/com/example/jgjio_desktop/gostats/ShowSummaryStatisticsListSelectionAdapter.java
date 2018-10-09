@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
+//todo add final for list id elsewhere like with mActionId here
 public class ShowSummaryStatisticsListSelectionAdapter extends RecyclerView.Adapter<ShowSummaryStatisticsListSelectionAdapter.ListDetailsViewHolder>{
     private List<StatisticalList> mLists;
     private Context mContext;
+    private final int mActionId;
 
-    public ShowSummaryStatisticsListSelectionAdapter(Context context) {
+    public ShowSummaryStatisticsListSelectionAdapter(Context context, int actionId) {
         mContext = context;
+        mActionId = actionId;
     }
 
 
@@ -73,9 +76,15 @@ public class ShowSummaryStatisticsListSelectionAdapter extends RecyclerView.Adap
 
 
     private void startSummaryIntent(double listIndex) {
-        Intent intent = new Intent(mContext, ShowSummaryStatisticsActivity.class);
-        intent.putExtra(EXTRA_LIST_ID, listIndex);
-        mContext.startActivity(intent);
+        if (mActionId == 1) {
+            Intent intent = new Intent(mContext, ShowSummaryStatisticsActivity.class);
+            intent.putExtra(EXTRA_LIST_ID, listIndex);
+            mContext.startActivity(intent);
+        } else {
+            Intent intent = new Intent(mContext, GraphActivity.class);
+            intent.putExtra(EXTRA_LIST_ID, listIndex);
+            mContext.startActivity(intent);
+        }
     }
 
 

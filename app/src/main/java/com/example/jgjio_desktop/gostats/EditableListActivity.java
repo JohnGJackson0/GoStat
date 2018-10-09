@@ -21,7 +21,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         setContentView(R.layout.content_editable_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setListID();
+        getListID();
         editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
         setTitle(editableListViewModel.getListName(mListId));
         configureEditableListRecyclerView();
@@ -30,7 +30,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     //EXTRA_LIST_ID can come from multiple Views so that
     //changing name from one activity and this, may break
     //sending the list from other activities to this
-    private boolean setListID() {
+    private boolean getListID() {
         Bundle bundle = getIntent().getExtras();
 
         if (bundle.getDouble(EXTRA_LIST_ID) !=  0) {

@@ -35,11 +35,16 @@ import java.util.List;
 //TODO make sure all variables are private
 //TODO check for name clashes, null inputs and to long of inputs
 
+//TODO look into using enums for action id
+//TODO look into renaming summary statistics to 1var stats
+
 
 public class ViewableListsActivity extends AppCompatActivity {
     private TextView mCreateListInstructions;
     ActiveListViewModel activeListViewModel;
+    //todo fix caps in list_id
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
+    public static final String ACTION_ID = "com.example.jgjio_desktop.gostats.extra.action_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +94,12 @@ public class ViewableListsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_summary_statistics) {
-            Intent intent = new Intent(this, SummaryStatisticsSelectListActivity.class);
-            startActivity(intent);
+            startSelectListActivity(1);
+            return true;
+        }
+
+        if (id == R.id.action_graph) {
+            startSelectListActivity(2);
             return true;
         }
 
@@ -144,5 +153,17 @@ public class ViewableListsActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    // action id 1 : summary statistics
+    //               upon selecting list in this activity, it will start another intent for summary statistics
+
+    // action id 2 : graph
+    //               upon selecting list in this activity, it will start another intent for graphing
+
+    private void startSelectListActivity(int actionId) {
+        Intent intent = new Intent(this, SelectListActivity.class);
+        intent.putExtra(ACTION_ID, actionId);
+        startActivity(intent);
     }
 }

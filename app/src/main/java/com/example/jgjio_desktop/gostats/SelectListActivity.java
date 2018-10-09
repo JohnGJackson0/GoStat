@@ -11,15 +11,21 @@ import android.view.MenuItem;
 
 import java.util.List;
 
-public class SummaryStatisticsSelectListActivity extends AppCompatActivity {
+//todo display the action in gui
 
+public class SelectListActivity extends AppCompatActivity {
+
+    private int actionId;
     private RecyclerView mListSelection;
     private ShowSummaryStatisticsListSelectionAdapter mListSelectionAdapter;
     private SummaryStatisticsViewModel mSummaryStatisticsViewModel;
 
+    public static final String ACTION_ID = "com.example.jgjio_desktop.gostats.extra.action_id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionId();
         setContentView(R.layout.activity_summary_statistics_select_list);
 
         setTitle(R.string.select_list_title_for_summary_statistics);
@@ -27,7 +33,7 @@ public class SummaryStatisticsSelectListActivity extends AppCompatActivity {
         mListSelection = findViewById(R.id.rv_selection_summary_statistics);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mListSelection.setLayoutManager(layoutManager);
-        mListSelectionAdapter = new ShowSummaryStatisticsListSelectionAdapter(this);
+        mListSelectionAdapter = new ShowSummaryStatisticsListSelectionAdapter(this, actionId);
         mListSelection.setAdapter(mListSelectionAdapter);
 
         mSummaryStatisticsViewModel = ViewModelProviders.of(this).get(SummaryStatisticsViewModel.class);
@@ -36,8 +42,6 @@ public class SummaryStatisticsSelectListActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<StatisticalList> statisticalLists) {
                 mListSelectionAdapter.update(statisticalLists);
-
-
             }
         });
 
@@ -54,4 +58,10 @@ public class SummaryStatisticsSelectListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    void getActionId() {
+        Bundle bundle = getIntent().getExtras();
+        actionId = bundle.getInt(ACTION_ID);
+    }
+
 }

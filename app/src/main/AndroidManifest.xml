@@ -28,9 +28,19 @@
         <activity
             android:name=".ViewSingleListActivity"
             android:label="@string/view_list_name" />
-        <activity android:name=".SummaryStatisticsSelectListActivity" />
-        <activity android:name=".ShowSummaryStatisticsActivity"
-            android:label = "@string/show_summary_statistics"></activity>
+        <activity android:name=".SelectListActivity" />
+        <activity
+            android:name=".ShowSummaryStatisticsActivity"
+            android:label="@string/show_summary_statistics" />
+        <activity
+            android:name=".GraphActivity"
+            android:label="@string/title_activity_graph"
+            android:parentActivityName=".ViewableListsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jgjio_desktop.gostats.ViewableListsActivity" />
+        </activity>
     </application>
 
 </manifest>

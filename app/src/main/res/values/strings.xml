@@ -16,12 +16,7 @@
     <string name="edit_list_button_label">Edit List</string>
     <string name="edit_list_name_button_label">Change List Name</string>
     <string name="view_one_variable_stats_button_label">View 1-var Stats</string>
-    <string name = "jump_to_button_label">Jump To</string>
-
-    <string name="edit_list_menu_lable">Edit List</string>
-    <string name="view_list_menu_lable">View List</string>
-    <string name="delete_list_menu_lable">Delete List</string>
-    <string name="summary_statistics_menu_lable">Summary Statistics</string>
+    <string name="jump_to_button_label">Jump To</string>
 
 
     //Titles
@@ -32,5 +27,18 @@
     <string name="select_list_instructions_summary_statistics">Select List</string>
 
 
-    <string name = "disabled_data_point_text">Disabled DataPoint</string>
+    <string name="disabled_data_point_text">Disabled DataPoint</string>
+    <string name="title_activity_graph">Graph</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+    //menu labels
+    <string name="summary_statistics_menu_lable">Summary Statistics</string>
+    <string name="graph">Graphs</string>
+    <string name="line_chart">Line Graph</string>
+    <string name="bar_chart">Bar Graph</string>
+    <string name="point_chart">Chart Graph</string>
+    <string name="edit_list_menu_lable">Edit List</string>
+    <string name="view_list_menu_lable">View List</string>
+    <string name="delete_list_menu_lable">Delete List</string>
 </resources>
