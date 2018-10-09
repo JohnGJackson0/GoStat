@@ -98,14 +98,22 @@ public class ViewableListsActivity extends AppCompatActivity {
     }
 
     //Create a list given the name and return the ID
-    public double createList(String name) {
+    private double createList(String name) {
         ActiveListViewModel mListViewModel;
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
         double lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name));
+        createInitialRecordForList(lastEntry);
         return lastEntry;
     }
 
-    public void startEditableListIntent(String name) {
+    private void createInitialRecordForList(double listId){
+        ActiveListViewModel mListViewModel;
+        mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
+        mListViewModel.insertDataPoint(new DataPoint(listId,false, 0.));
+
+    }
+
+    private void startEditableListIntent(String name) {
         double listId = createList(name);
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listId);
