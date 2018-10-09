@@ -1,10 +1,8 @@
 package com.example.jgjio_desktop.gostats;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.paging.PagedList;
+
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
 
 public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableListAdapter.DataPointViewHolder> {
 
@@ -56,11 +52,9 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
             super(itemView);
             viewableDataPoint = itemView.findViewById(R.id.viewable_data_point_text_view);
             positionDataPoint = itemView.findViewById(R.id.item_position);
-
         }
 
         void bindTo(int listIndex, DataPoint dataPoint) {
-
             viewableDataPoint.setText(Double.toString(dataPoint.getValue()));
             positionDataPoint.setText(Integer.toString(listIndex + 1)); //statistical lists start at 1 instead of 0
 
@@ -75,7 +69,6 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
         void clear() {
             //todo what to do here?
         }
-
     }
 
     @Override

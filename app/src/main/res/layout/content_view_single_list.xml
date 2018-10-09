@@ -30,7 +30,7 @@
                 android:textSize="32sp" />
 
             <TextView
-                android:id="@+id/listId"
+                android:id="@+id/list_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/listName"
@@ -39,7 +39,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/listId"
+                android:layout_below="@id/list_id"
                 android:layout_marginTop="4dp">
 
                 <Button

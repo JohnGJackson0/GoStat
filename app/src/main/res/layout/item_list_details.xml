@@ -18,7 +18,7 @@
             android:background="@drawable/circle"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:scaleType="fitXY"
+            android:scaleType="center"
             android:src="@drawable/ic_view_list"
             app:layout_constraintBottom_toTopOf="@+id/item_divider"
             app:layout_constraintEnd_toStartOf="@+id/list_name_detail_card_view"
@@ -36,31 +36,29 @@
             app:layout_constraintStart_toEndOf="@+id/view_list_icon">
 
             <TextView
-                android:id="@+id/list_name_detail"
+                android:id="@+id/list_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="top|start"
                 android:paddingLeft="8dp"
                 android:paddingTop="4dp"
                 android:paddingRight="8dp"
-                android:text="testing"
                 android:textColor="@color/primary_text"
                 android:textSize="25sp"
-                app:layout_constraintBottom_toTopOf="@+id/id_text"
+                app:layout_constraintBottom_toTopOf="@+id/list_id"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/id_text"
+                android:id="@+id/list_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="ID 154"
                 android:textColor="@color/secondary_text"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/list_name_detail"
-                app:layout_constraintTop_toBottomOf="@+id/list_name_detail" />
+                app:layout_constraintBottom_toTopOf="@+id/list_name"
+                app:layout_constraintTop_toBottomOf="@+id/list_name" />
 
         </android.support.constraint.ConstraintLayout>
 

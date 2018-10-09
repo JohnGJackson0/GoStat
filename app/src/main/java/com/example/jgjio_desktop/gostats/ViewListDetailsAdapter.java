@@ -97,17 +97,19 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
     }
 
     class ListDetailViewHolder extends RecyclerView.ViewHolder {
-        TextView listNameInsideGrid;
+        TextView listName;
+        TextView id;
 
         public ListDetailViewHolder(View itemView) {
             super(itemView);
-            listNameInsideGrid = itemView.findViewById(R.id.list_name_detail);
+            listName = itemView.findViewById(R.id.list_name);
+            id = itemView.findViewById(R.id.list_id);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int listIndex = mLists.get(getAdapterPosition()).getId();
-                    startViewIntent(listIndex);
+                    int idIndex = mLists.get(getAdapterPosition()).getId();
+                    startViewIntent(idIndex);
                 }
             });
 
@@ -128,7 +130,8 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         }
 
         void bind (int listIndex) {
-            listNameInsideGrid.setText(mLists.get(listIndex).getName());
+            listName.setText(mLists.get(listIndex).getName());
+            id.setText(Integer.toString(mLists.get(listIndex).getId()));
         }
     }
 
