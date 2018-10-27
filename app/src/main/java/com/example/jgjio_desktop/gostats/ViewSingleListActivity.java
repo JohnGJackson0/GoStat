@@ -147,8 +147,6 @@ public class ViewSingleListActivity extends AppCompatActivity {
         builder.show();
     }
 
-
-
     private void changeListNameDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleListActivity.this);

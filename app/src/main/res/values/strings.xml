@@ -37,7 +37,8 @@
     <string name="graph">Graphs</string>
     <string name="line_chart">Line Graph</string>
     <string name="bar_chart">Bar Graph</string>
-    <string name="point_chart">Chart Graph</string>
+    <string name="point_chart">Point Graph</string>
+    <string name="histogram_chart">Histogram Chart</string>
     <string name="edit_list_menu_lable">Edit List</string>
     <string name="view_list_menu_lable">View List</string>
     <string name="delete_list_menu_lable">Delete List</string>

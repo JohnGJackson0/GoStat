@@ -5,7 +5,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,10 +23,37 @@ import android.widget.TextView;
 
 public class GraphActivity extends AppCompatActivity {
 
+    public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
+    private double mListId;
+    private GraphViewModel vm;
+
+
+    //EXTRA_LIST_ID can come from multiple Views so that
+    //changing name from one activity and this, may break
+    //sending the list from other activities to this
+    private boolean getListID() {
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle.getDouble(EXTRA_LIST_ID) !=  0) {
+            mListId = bundle.getDouble(EXTRA_LIST_ID);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public double getActiveListId() {
+        return mListId;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graph);
+        getListID();
+        setContentView(R.layout.activity_graph);
+
+
+        //GraphViewModel vm = ViewModelProviders.of(this).get(GraphViewModel.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,26 +65,48 @@ public class GraphActivity extends AppCompatActivity {
         spinner.setAdapter(new MyAdapter(
                 toolbar.getContext(),
                 new String[]{
-                        "Section 1",
-                        "Section 2",
-                        "Section 3",
+                        getString(R.string.line_chart),
+                        getString(R.string.bar_chart),
+                        getString(R.string.point_chart),
                 }));
 
-        /* not implemented
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // When the given dropdown item is selected, show its contents in the
                 // container view.
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                        .commit();
+
+                if (position == 0){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, LineGraphFragment.newInstance(mListId))
+                            .commit();
+                } else if (position == 1){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, BarGraphFragment.newInstance(mListId))
+                            .commit();
+                } else if (position == 2) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, PointGraphFragment.newInstance(mListId))
+                            .commit();
+
+                }
+
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        }); */
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
     }
 
@@ -77,13 +125,15 @@ public class GraphActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+
+
+
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
+    private class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
         private final ThemedSpinnerAdapter.Helper mDropDownHelper;
 
         public MyAdapter(Context context, String[] objects) {
@@ -121,38 +171,4 @@ public class GraphActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_graph, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
 }
