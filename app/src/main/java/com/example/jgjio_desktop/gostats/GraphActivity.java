@@ -68,6 +68,7 @@ public class GraphActivity extends AppCompatActivity {
                         getString(R.string.line_chart),
                         getString(R.string.bar_chart),
                         getString(R.string.point_chart),
+                        getString(R.string.histogram_chart),
                 }));
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -75,7 +76,6 @@ public class GraphActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // When the given dropdown item is selected, show its contents in the
                 // container view.
-
                 if (position == 0){
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, LineGraphFragment.newInstance(mListId))
@@ -88,10 +88,11 @@ public class GraphActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, PointGraphFragment.newInstance(mListId))
                             .commit();
-
+                } else if (position == 3) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, HistogramGraphSettingsFragment.newInstance(mListId))
+                        .commit();
                 }
-
-
             }
 
             @Override

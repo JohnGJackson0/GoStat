@@ -37,6 +37,18 @@ public class AppRepository {
         return mDataPointDao.getListById(listId);
     }
 
+    double getMaxValue(double listID) {
+        return mDataPointDao.getMaxValue(listID);
+    }
+
+    double getMinValue(double listID) {
+        return mDataPointDao.getMinValue(listID);
+    }
+
+    long getNumberOfDataPointsInList(double listID) {
+        return mDataPointDao.getNumberOfDataPointsInList(listID);
+    }
+
     LiveData<List<StatisticalList>> getAllStatisticalLists() {
         return mAllStatisticalLists;
     }

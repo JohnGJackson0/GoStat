@@ -6,9 +6,18 @@
     <string name="inquire_list_name_description">Input a list name. This name will later be used to identify the list for functions.</string>
     <string name="no_list_data_message">You currently do not have a list, press the + icon on bottom right of screen to start.</string>
     <string name="title_activity_editable_list">EditableListActivity</string>
+
     <string name="introductory_text_for_editable_list_activity">
         To create new entries input a value into the last data row and press enter. When finished press the back button to discard changes or update them.
     </string>
+
+    <string name="instructions_for_histogram_graphing">
+        To plot a histogram you must tell us a bin number that is defined as a consecutive, non-overlapping interval of a variable. Based on the dataset we can generate one for you or you can input your own.
+    </string>
+    <string name="generating_bin_number_button_label">Generate Bin Number</string>
+    <string name="input_bin_number_hint">Input the amount of bins </string>
+    <string name="graph_histogram_button_label">Graph Histogram</string>
+    <string name="histogram_bin_input_error_message">There was an error with the input for bin number.</string>
 
     <string name="view_lists_name">View Lists</string>
     <string name="view_list_name">View List</string>

@@ -24,7 +24,7 @@ public class LineGraphFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.line_graph_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
 
         mListID = getArguments().getDouble(EXTRA_LIST_ID);
 

@@ -38,4 +38,13 @@ public interface DataPointDao {
     @Query("SELECT * FROM data_point WHERE list_id = :listId ORDER By id")
     public abstract DataSource.Factory<Integer, DataPoint> getListById(long listId);
 
+    @Query("SELECT MAX(value) FROM data_point WHERE list_id = :listID")
+    double getMaxValue(Double listID);
+
+    @Query("SELECT MIN(value) FROM data_point WHERE list_id = :listID")
+    double getMinValue(Double listID);
+
+    @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
+    long getNumberOfDataPointsInList(Double listID);
+
 }

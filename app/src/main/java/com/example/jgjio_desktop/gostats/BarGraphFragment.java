@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class BarGraphFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.line_graph_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
 
         mListID = getArguments().getDouble(EXTRA_LIST_ID);
 
