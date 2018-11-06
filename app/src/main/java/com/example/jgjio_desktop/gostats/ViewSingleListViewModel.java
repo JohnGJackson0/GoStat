@@ -15,17 +15,17 @@ public class ViewSingleListViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    LiveData<PagedList<DataPoint>> getListById(long listId) {
+    LiveData<PagedList<DataPoint>> getListById(int listId) {
         listDataPoints = new LivePagedListBuilder<>(
                 mRepository.getDataPointsInListById(listId), 30).build();
         return listDataPoints;
     }
 
-    String getName(double listId) {
+    String getName(int listId) {
         return mRepository.getListName(listId);
     }
 
-    void updateListName(String name, long id) {
+    void updateListName(String name, int id) {
         mRepository.updateListName(name, id);
     }
 

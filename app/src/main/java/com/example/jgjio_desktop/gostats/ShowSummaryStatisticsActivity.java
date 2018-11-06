@@ -17,7 +17,7 @@ import java.util.List;
 public class ShowSummaryStatisticsActivity extends AppCompatActivity {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    private double mListId;
+    private int mListId;
 
     private SummaryStatisticsViewModel mViewModel;
 
@@ -43,8 +43,8 @@ public class ShowSummaryStatisticsActivity extends AppCompatActivity {
     private boolean setListID() {
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle.getDouble(EXTRA_LIST_ID) !=  0) {
-            mListId = bundle.getDouble(EXTRA_LIST_ID);
+        if (bundle.getInt(EXTRA_LIST_ID) !=  0) {
+            mListId = bundle.getInt(EXTRA_LIST_ID);
             return true;
         } else {
             return false;

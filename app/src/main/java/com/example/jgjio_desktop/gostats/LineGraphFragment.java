@@ -19,14 +19,14 @@ import java.util.List;
 public class LineGraphFragment extends Fragment {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    private double mListID;
+    private int mListID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
 
-        mListID = getArguments().getDouble(EXTRA_LIST_ID);
+        mListID = getArguments().getInt(EXTRA_LIST_ID);
 
         populateGraph(rootView);
 
@@ -58,10 +58,10 @@ public class LineGraphFragment extends Fragment {
         graphView.addSeries(series);
     }
 
-    public static LineGraphFragment newInstance(double listId) {
+    public static LineGraphFragment newInstance(int listId) {
         LineGraphFragment fragment = new LineGraphFragment();
         Bundle args = new Bundle();
-        args.putDouble(EXTRA_LIST_ID, listId);
+        args.putInt(EXTRA_LIST_ID, listId);
         fragment.setArguments(args);
         return fragment;
     }

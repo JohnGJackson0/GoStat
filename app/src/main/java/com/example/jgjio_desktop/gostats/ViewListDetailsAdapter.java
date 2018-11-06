@@ -135,7 +135,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         }
     }
 
-    private void startViewIntent(double listIndex) {
+    private void startViewIntent(int listIndex) {
         Intent intent = new Intent(mContext, ViewSingleListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listIndex);
         mContext.startActivity(intent);

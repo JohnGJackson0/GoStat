@@ -16,28 +16,25 @@ public class HistogramGraphViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    LiveData<List<DataPoint>> getList(double listId) {
+    LiveData<List<DataPoint>> getList(int listId) {
         return mRepository.getDataPointsInList(listId);
     }
 
     //todo make sure all listID is listID not listId
-    double getMaxValue(double listID) {
+    double getMaxValue(int listID) {
         return mRepository.getMaxValue(listID);
     }
 
-    double getMinValue(double listID) {
+    double getMinValue(int listID) {
         return mRepository.getMinValue(listID);
     }
 
-    long getNumberOfDataPointsInList(double listID) {
+    long getNumberOfDataPointsInList(int listID) {
         return mRepository.getNumberOfDataPointsInList(listID);
     }
 
-    String getListName(double id) {
-        return mRepository.getListName(id);
-    }
-
-    long insertStatisticalList(StatisticalList newList) { return mRepository.insertStatisticalList(newList);}
+    //todo fix errors from long to int (also in other view models)
+    int insertStatisticalList(StatisticalList newList) { return (int) mRepository.insertStatisticalList(newList);}
 
     void insertDataPoints(List<DataPoint> newDataPoints) {
         mRepository.insertDataPoints(newDataPoints);

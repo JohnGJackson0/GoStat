@@ -21,11 +21,11 @@ public class SummaryStatisticsViewModel extends AndroidViewModel {
         return mAllLists;
     }
 
-    String getListName(double id) {
+    String getListName(int id) {
         return mRepository.getListName(id);
     }
 
-    LiveData<List<DataPoint>> getList(double listId) {
+    LiveData<List<DataPoint>> getList(int listId) {
         return mRepository.getDataPointsInList(listId);
     }
 

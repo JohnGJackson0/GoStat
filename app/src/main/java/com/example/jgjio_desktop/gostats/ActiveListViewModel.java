@@ -22,7 +22,7 @@ public class ActiveListViewModel extends AndroidViewModel{
     }
 
     //return the id
-    long insertStatisticalList(StatisticalList newList) { return mRepository.insertStatisticalList(newList);}
+    int insertStatisticalList(StatisticalList newList) { return  (int) mRepository.insertStatisticalList(newList);}
 
     void deleteList(StatisticalList statList) {mRepository.removeStatisticalList(statList); }
 

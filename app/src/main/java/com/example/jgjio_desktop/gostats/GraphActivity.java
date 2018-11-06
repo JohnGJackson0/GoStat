@@ -24,7 +24,7 @@ import android.widget.TextView;
 public class GraphActivity extends AppCompatActivity {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    private double mListId;
+    private int mListId;
     private GraphViewModel vm;
 
 
@@ -34,16 +34,12 @@ public class GraphActivity extends AppCompatActivity {
     private boolean getListID() {
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle.getDouble(EXTRA_LIST_ID) !=  0) {
-            mListId = bundle.getDouble(EXTRA_LIST_ID);
+        if (bundle.getInt(EXTRA_LIST_ID) !=  0) {
+            mListId = bundle.getInt(EXTRA_LIST_ID);
             return true;
         } else {
             return false;
         }
-    }
-
-    public double getActiveListId() {
-        return mListId;
     }
 
     @Override
@@ -125,11 +121,6 @@ public class GraphActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
-
-
-
         return super.onOptionsItemSelected(item);
     }
 

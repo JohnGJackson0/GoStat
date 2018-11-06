@@ -21,7 +21,6 @@ public class ShowSummaryStatisticsListSelectionAdapter extends RecyclerView.Adap
         mActionId = actionId;
     }
 
-
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override
@@ -35,7 +34,7 @@ public class ShowSummaryStatisticsListSelectionAdapter extends RecyclerView.Adap
     @Override
     public void onBindViewHolder(ShowSummaryStatisticsListSelectionAdapter.ListDetailsViewHolder holder, int position) {
         holder.listName.setText(mLists.get(position).getName());
-        holder.listId.setText(Integer.toString(mLists.get(position).getId()));
+        holder.listId.setText(Long.toString(mLists.get(position).getId()));
     }
 
     public void update(List<StatisticalList> updatedList) {
@@ -75,7 +74,7 @@ public class ShowSummaryStatisticsListSelectionAdapter extends RecyclerView.Adap
     }
 
 
-    private void startSummaryIntent(double listIndex) {
+    private void startSummaryIntent(int listIndex) {
         if (mActionId == 1) {
             Intent intent = new Intent(mContext, ShowSummaryStatisticsActivity.class);
             intent.putExtra(EXTRA_LIST_ID, listIndex);

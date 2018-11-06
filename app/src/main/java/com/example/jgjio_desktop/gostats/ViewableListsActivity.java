@@ -107,15 +107,15 @@ public class ViewableListsActivity extends AppCompatActivity {
     }
 
     //Create a list given the name and return the ID
-    private double createList(String name) {
+    private int createList(String name) {
         ActiveListViewModel mListViewModel;
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
-        double lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name));
+        int lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name));
         createInitialRecordForList(lastEntry);
         return lastEntry;
     }
 
-    private void createInitialRecordForList(double listId){
+    private void createInitialRecordForList(int listId){
         ActiveListViewModel mListViewModel;
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
         mListViewModel.insertDataPoint(new DataPoint(listId,false, 0.));
@@ -123,7 +123,7 @@ public class ViewableListsActivity extends AppCompatActivity {
     }
 
     private void startEditableListIntent(String name) {
-        double listId = createList(name);
+        int listId = createList(name);
         Intent intent = new Intent(getApplicationContext(),EditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listId);
         startActivity(intent);

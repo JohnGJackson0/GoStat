@@ -18,7 +18,7 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository = new AppRepository(application);
     }
 
-    LiveData<PagedList<DataPoint>> getListById(long listId) {
+    LiveData<PagedList<DataPoint>> getListById(int listId) {
         listDataPoints = new LivePagedListBuilder<>(
                 mRepository.getDataPointsInListById(listId), 15)
                 .build();
@@ -37,8 +37,8 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository.updateDataPoint(newDataPoint);
     }
 
-    String getListName(double id) {
-        return mRepository.getListName(id);
+    String getListName(int listID) {
+        return mRepository.getListName(listID);
     }
 
 }

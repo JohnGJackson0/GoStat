@@ -20,7 +20,7 @@ import android.widget.TextView;
 //TODO fix layout bug, not correctly showing last entry
 
 public class ViewSingleListActivity extends AppCompatActivity {
-    private double mListId;
+    private int mListId;
     private ViewableListAdapter mViewableListAdapter;
     private RecyclerView mViewableListRecyclerView;
     private TextView mListName;
@@ -46,21 +46,21 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mViewOneVarStats = findViewById(R.id.view_one_var_stats);
         mJumpTo = findViewById(R.id.jump_to);
 
-        mListId = getIntent().getExtras().getDouble(ViewListDetailsAdapter.EXTRA_LIST_ID);
+        mListId = getIntent().getExtras().getInt(ViewListDetailsAdapter.EXTRA_LIST_ID);
         mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
         mViewableListRecyclerView = findViewById(R.id.rv_single_list);
 
         linearLayoutManager = new LinearLayoutManager(this);
         mViewableListRecyclerView.setLayoutManager(linearLayoutManager);
         mViewableListAdapter = new ViewableListAdapter();
-        mListViewModel.getListById((long) mListId).observe(this, mViewableListAdapter::submitList);
+        mListViewModel.getListById(mListId).observe(this, mViewableListAdapter::submitList);
         mViewableListRecyclerView.setAdapter(mViewableListAdapter);
         mViewableListRecyclerView.setHasFixedSize(true);
 
 
         mListName.setText(mListViewModel.getName(mListId));
 
-        mListIdText.setText("ID: " + Double.toString(mListId));
+        mListIdText.setText("ID: " + Integer.toString(mListId));
 
         mEditList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +175,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
     }
 
     private void changeListName(String newName) {
-        mListViewModel.updateListName(newName, (long) mListId);
+        mListViewModel.updateListName(newName, mListId);
         mListName.setText(newName);
     }
 

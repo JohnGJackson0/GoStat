@@ -17,7 +17,7 @@ public interface StatisticalListDao {
     LiveData<List<StatisticalList>> loadAllLists();
 
     @Insert
-    long insert(StatisticalList statisticalList);
+    Long insert(StatisticalList statisticalList);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(StatisticalList statisticalList);
@@ -26,12 +26,12 @@ public interface StatisticalListDao {
     void delete(StatisticalList statisticalList);
 
     @Query("SELECT count(*) FROM list")
-    int getListCount();
+    long getListCount();
 
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
-    String getListName(double id);
+    String getListName(int id);
 
     @Query("UPDATE list SET name =:newName WHERE id = :id")
-    void updateName(String newName, long id);
+    void updateName(String newName, int id);
 
 }

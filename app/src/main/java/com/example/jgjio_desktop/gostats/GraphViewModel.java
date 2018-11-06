@@ -17,12 +17,7 @@ public class GraphViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    LiveData<List<DataPoint>> getList(double listId) {
+    LiveData<List<DataPoint>> getList(int listId) {
         return mRepository.getDataPointsInList(listId);
-    }
-
-
-    String getListName(double id) {
-        return mRepository.getListName(id);
     }
 }

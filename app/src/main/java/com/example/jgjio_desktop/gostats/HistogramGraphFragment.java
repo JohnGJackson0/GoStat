@@ -26,7 +26,7 @@ public class HistogramGraphFragment extends Fragment {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     public static final String NUMBER_OF_BINS = "com.example.jgjio_desktop.gostats.extra.NUMBER_OF_BINS";
 
-    private double mListID;
+    private int mListID;
     private int mNumberOfBins;
 
 
@@ -35,13 +35,12 @@ public class HistogramGraphFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
         initializeBundle();
         createFrequencyTable();
-
         quickDebug();
         return rootView;
     }
 
     private void initializeBundle() {
-        mListID = getArguments().getDouble(EXTRA_LIST_ID);
+        mListID = getArguments().getInt(EXTRA_LIST_ID);
         mNumberOfBins = getArguments().getInt(NUMBER_OF_BINS);
     }
 
@@ -51,10 +50,10 @@ public class HistogramGraphFragment extends Fragment {
         Log.d("histogramGraphData3", "list id : " + Double.toString(mListID));
     }
 
-    public static HistogramGraphFragment newInstance(double listId, int numberOfBins) {
+    public static HistogramGraphFragment newInstance(int listId, int numberOfBins) {
         HistogramGraphFragment fragment = new HistogramGraphFragment();
         Bundle args = new Bundle();
-        args.putDouble(EXTRA_LIST_ID, listId);
+        args.putInt(EXTRA_LIST_ID, listId);
         args.putInt(NUMBER_OF_BINS, numberOfBins);
         fragment.setArguments(args);
         return fragment;
@@ -121,7 +120,7 @@ public class HistogramGraphFragment extends Fragment {
 
         StatisticalList newList = new StatisticalList(0, "FREQUENCY TABLE FOR LIST ID:" + Double.toString(mListID));
 
-        double newListID = getViewModel().insertStatisticalList(newList);
+        int newListID = getViewModel().insertStatisticalList(newList);
 
         List<DataPoint> newDataPoints = new ArrayList<>();
 

@@ -24,7 +24,7 @@ public interface DataPointDao {
     void delete(DataPoint dataPoint);
 
     @Query("SELECT * FROM data_point WHERE list_id = :listId")
-    LiveData<List<DataPoint>> getList(Double listId);
+    LiveData<List<DataPoint>> getList(int listId);
 
     @Query("SELECT * FROM data_point")
     LiveData<List<DataPoint>> loadAllDataPoints();
@@ -36,15 +36,15 @@ public interface DataPointDao {
     void insertDataPoint(DataPoint dataPoint);
 
     @Query("SELECT * FROM data_point WHERE list_id = :listId ORDER By id")
-    public abstract DataSource.Factory<Integer, DataPoint> getListById(long listId);
+    DataSource.Factory<Integer, DataPoint> getListById(long listId);
 
     @Query("SELECT MAX(value) FROM data_point WHERE list_id = :listID")
-    double getMaxValue(Double listID);
+    double getMaxValue(int listID);
 
     @Query("SELECT MIN(value) FROM data_point WHERE list_id = :listID")
-    double getMinValue(Double listID);
+    double getMinValue(int listID);
 
     @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
-    long getNumberOfDataPointsInList(Double listID);
+    long getNumberOfDataPointsInList(int listID);
 
 }

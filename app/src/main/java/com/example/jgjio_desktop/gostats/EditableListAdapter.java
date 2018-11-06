@@ -38,7 +38,7 @@ import java.util.Set;
 //     pending list
 
 //Todo allow the user to expand the DataPoints in the list
-//todo implement updateable and provide
+//todo implement updatable and provide
 
 public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>  {
     private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();

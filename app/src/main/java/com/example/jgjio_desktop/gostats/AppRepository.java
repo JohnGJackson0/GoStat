@@ -25,7 +25,7 @@ public class AppRepository {
         mAllStatisticalLists = db.statisticalListDao().loadAllLists();
     }
 
-    LiveData<List<DataPoint>> getDataPointsInList(double listId) {
+    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
         return mDataPointDao.getList(listId);
     }
 
@@ -33,19 +33,19 @@ public class AppRepository {
         new removeStatisticalListAsyncTask(mListDao).execute(statList);
     }
 
-    DataSource.Factory getDataPointsInListById(long listId) {
+    DataSource.Factory getDataPointsInListById(int listId) {
         return mDataPointDao.getListById(listId);
     }
 
-    double getMaxValue(double listID) {
+    double getMaxValue(int listID) {
         return mDataPointDao.getMaxValue(listID);
     }
 
-    double getMinValue(double listID) {
+    double getMinValue(int listID) {
         return mDataPointDao.getMinValue(listID);
     }
 
-    long getNumberOfDataPointsInList(double listID) {
+    long getNumberOfDataPointsInList(int listID) {
         return mDataPointDao.getNumberOfDataPointsInList(listID);
     }
 
@@ -53,7 +53,7 @@ public class AppRepository {
         return mAllStatisticalLists;
     }
 
-    String getListName(double listId) {
+    String getListName(int listId) {
         return mListDao.getListName(listId);
     }
 
@@ -71,21 +71,22 @@ public class AppRepository {
         //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
+    //todo id's must be long
+
     //returns ID
     long insertStatisticalList(StatisticalList list) {
         return mListDao.insert(list);
-
     }
 
-    void updateListName(String name, long id) {
+    void updateListName(String name, int id) {
         new updateStatisticalListNameAsyncTask(mListDao, id).execute(name);
     }
 
     private static class updateStatisticalListNameAsyncTask extends AsyncTask<String, Void, Void> {
         private StatisticalListDao statListDao;
-        private long id;
+        private int id;
 
-        updateStatisticalListNameAsyncTask(StatisticalListDao dao, long id) {
+        updateStatisticalListNameAsyncTask(StatisticalListDao dao, int id) {
             statListDao = dao;
             this.id = id;
         }
@@ -165,8 +166,4 @@ public class AppRepository {
             return null;
         }
     }
-
-
-
-
 }

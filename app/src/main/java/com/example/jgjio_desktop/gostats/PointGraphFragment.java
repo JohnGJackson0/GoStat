@@ -18,27 +18,20 @@ import java.util.List;
 public class PointGraphFragment extends Fragment {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    private double mListID;
+    private int mListID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
-
-        mListID = getArguments().getDouble(EXTRA_LIST_ID);
-
+        mListID = getArguments().getInt(EXTRA_LIST_ID);
         populateGraph(rootView);
-
         return rootView;
     }
 
     private void populateGraph(View view) {
         GraphView graphView = (GraphView) view.findViewById(R.id.graph);
-
         GraphViewModel vm = ViewModelProviders.of(this).get(GraphViewModel.class);
-
         PointsGraphSeries<com.jjoe64.graphview.series.DataPoint> series = new PointsGraphSeries<com.jjoe64.graphview.series.DataPoint>();
-
         vm.getList(mListID).observe(this, new Observer<List<DataPoint>>() {
             @Override
             public void onChanged(@Nullable List<com.example.jgjio_desktop.gostats.DataPoint> dataPoints) {
@@ -57,19 +50,11 @@ public class PointGraphFragment extends Fragment {
         graphView.addSeries(series);
     }
 
-    public static PointGraphFragment newInstance(double listId) {
+    public static PointGraphFragment newInstance(int listId) {
         PointGraphFragment fragment = new PointGraphFragment();
         Bundle args = new Bundle();
-        args.putDouble(EXTRA_LIST_ID, listId);
+        args.putInt(EXTRA_LIST_ID, listId);
         fragment.setArguments(args);
         return fragment;
     }
-
-
-
-
-
-
-
-
 }

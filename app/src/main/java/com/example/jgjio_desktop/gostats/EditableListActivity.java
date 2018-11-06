@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableListRecyclerView;
-    private double mListId;
+    private int mListId;
     EditableListViewModel editableListViewModel;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
@@ -33,8 +33,8 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     private boolean getListID() {
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle.getDouble(EXTRA_LIST_ID) !=  0) {
-            mListId = bundle.getDouble(EXTRA_LIST_ID);
+        if (bundle.getInt(EXTRA_LIST_ID) !=  0) {
+            mListId = bundle.getInt(EXTRA_LIST_ID);
             return true;
         } else {
            return false;
@@ -47,7 +47,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         mEditableListRecyclerView.setLayoutManager(layoutManager);
         mEditableListRecyclerView.setHasFixedSize(true);
         mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(this);
-        editableListViewModel.getListById((long) mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
+        editableListViewModel.getListById(mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
         mEditableListRecyclerView.setAdapter(mEditableDataRowListRecyclerViewAdapter);
 
         mEditableDataRowListRecyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {

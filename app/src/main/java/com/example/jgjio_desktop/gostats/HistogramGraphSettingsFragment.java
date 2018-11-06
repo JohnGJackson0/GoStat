@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class HistogramGraphSettingsFragment extends Fragment {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    private double mListID;
+    private int mListID;
     private Button mGenerateBin;
     private Button mGraphHistogram;
     private EditText mBinInput;
@@ -28,7 +28,6 @@ public class HistogramGraphSettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.histogram_graph_settings_fragment, container, false);
-
         initializeLayoutComponents(rootView);
         calcNumberOfBins();
         createOnClickListeners();
@@ -37,7 +36,7 @@ public class HistogramGraphSettingsFragment extends Fragment {
     }
 
     private void initializeLayoutComponents(View rootView) {
-        mListID = getArguments().getDouble(EXTRA_LIST_ID);
+        mListID = getArguments().getInt(EXTRA_LIST_ID);
         mGenerateBin = rootView.findViewById(R.id.generate_bin_number_button);
         mGraphHistogram = rootView.findViewById(R.id.graph_histogram_button);
         mBinInput = rootView.findViewById(R.id.bin_number_input);
@@ -52,14 +51,13 @@ public class HistogramGraphSettingsFragment extends Fragment {
     private void calcNumberOfBins() {
         HistogramGraphSettingsViewModel vm = ViewModelProviders.of(this).get(HistogramGraphSettingsViewModel.class);
         long listLength = vm.getNumberOfDataPointsInList(mListID);
-        Math.ceil(Math.sqrt(listLength));
         mNumberOfBins = (int) Math.ceil(Math.sqrt(listLength));
     }
 
-    public static HistogramGraphSettingsFragment newInstance(double listId) {
+    public static HistogramGraphSettingsFragment newInstance(int listId) {
         HistogramGraphSettingsFragment fragment = new HistogramGraphSettingsFragment();
         Bundle args = new Bundle();
-        args.putDouble(EXTRA_LIST_ID, listId);
+        args.putInt(EXTRA_LIST_ID, listId);
         fragment.setArguments(args);
         return fragment;
     }
