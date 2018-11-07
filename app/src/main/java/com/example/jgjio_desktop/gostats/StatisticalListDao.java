@@ -8,6 +8,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -33,5 +34,8 @@ public interface StatisticalListDao {
 
     @Query("UPDATE list SET name =:newName WHERE id = :id")
     void updateName(String newName, int id);
+
+    @Query("SELECT is_frequency_table FROM list WHERE id = :id LIMIT 1")
+    boolean isFrequencyTable(int id);
 
 }

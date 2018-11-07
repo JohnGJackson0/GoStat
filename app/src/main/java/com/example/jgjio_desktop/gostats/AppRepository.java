@@ -7,6 +7,7 @@ import android.arch.paging.PagedList;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 
+import java.util.Date;
 import java.util.List;
 
 //TODO check for race conditions
@@ -14,23 +15,95 @@ import java.util.List;
 public class AppRepository {
     private StatisticalListDao mListDao;
     private DataPointDao mDataPointDao;
+    private FrequencyIntervalDao mFrequencyIntervalDao;
     LiveData<List<StatisticalList>> mAllStatisticalLists;
-    AppDatabase db;
-
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getAppDatabase(application);
         mListDao = db.statisticalListDao();
         mDataPointDao = db.dataPointDao();
+        mFrequencyIntervalDao = db.frequencyIntervalDao();
+
+        //todo do we need this ?????????????
         mAllStatisticalLists = db.statisticalListDao().loadAllLists();
     }
 
-    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
-        return mDataPointDao.getList(listId);
+    /*
+     *
+     * The following methods are created for Lists
+     * from StatisticalListDao
+     *
+     */
+
+    boolean isListAFrequencyTable(int id) {
+        return mListDao.isFrequencyTable(id);
     }
 
     void removeStatisticalList(StatisticalList statList) {
         new removeStatisticalListAsyncTask(mListDao).execute(statList);
+    }
+
+    LiveData<List<StatisticalList>> getAllStatisticalLists() {
+        return mAllStatisticalLists;
+    }
+
+    String getListName(int listId) {
+        return mListDao.getListName(listId);
+    }
+
+    //todo ids must be long
+
+    //returns ID
+    long insertStatisticalList(StatisticalList list) {
+        return mListDao.insert(list);
+    }
+
+    void updateListName(String name, int id) {
+        new updateStatisticalListNameAsyncTask(mListDao, id).execute(name);
+    }
+
+    /*
+     *
+     * The following methods are created for Frequency Intervals
+     * from FrequencyIntervalDao
+     *
+     */
+
+    DataSource.Factory getFrequencyTable(int listId) {
+        return mFrequencyIntervalDao.getListById(listId);
+    }
+
+    LiveData<List<FrequencyInterval>> getFrequencyIntervalsInTable(int listId) {
+        return mFrequencyIntervalDao.getList(listId);
+    }
+
+    long getNumberOfFrequencyIntervalsInTable(int listID) {
+        return mFrequencyIntervalDao.getNumberOfIntervalsInList(listID);
+    }
+
+    void insertFrequencyIntervals(List<FrequencyInterval> frequencyIntervals) {
+        mFrequencyIntervalDao.insertFrequencyIntervals(frequencyIntervals);
+        //new insertFrequencyIntervalsAsyncTask(mFrequencyIntervalDao).execute(frequencyIntervals);
+    }
+
+    void insertFrequencyInterval(FrequencyInterval frequencyInterval) {
+        mFrequencyIntervalDao.insert(frequencyInterval);
+        //new insertFrequencyIntervalAsyncTask(mFrequencyIntervalDao).execute(frequencyInterval);
+    }
+
+    void updateFrequencyInterval(FrequencyInterval frequencyInterval) {
+        mFrequencyIntervalDao.update(frequencyInterval);
+        //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+    }
+
+    /*
+    *
+    * The following methods are created for DataPoints
+    * from DataPointDao
+    *
+     */
+    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
+        return mDataPointDao.getList(listId);
     }
 
     DataSource.Factory getDataPointsInListById(int listId) {
@@ -49,14 +122,6 @@ public class AppRepository {
         return mDataPointDao.getNumberOfDataPointsInList(listID);
     }
 
-    LiveData<List<StatisticalList>> getAllStatisticalLists() {
-        return mAllStatisticalLists;
-    }
-
-    String getListName(int listId) {
-        return mListDao.getListName(listId);
-    }
-
     void insertDataPoints(List<DataPoint> listDataPoints) {
         new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
     }
@@ -71,16 +136,13 @@ public class AppRepository {
         //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
-    //todo id's must be long
 
-    //returns ID
-    long insertStatisticalList(StatisticalList list) {
-        return mListDao.insert(list);
-    }
-
-    void updateListName(String name, int id) {
-        new updateStatisticalListNameAsyncTask(mListDao, id).execute(name);
-    }
+    /*
+     *
+     * The following async tasks support the above methods
+     * these are the ones that are currently being used
+     *
+     */
 
     private static class updateStatisticalListNameAsyncTask extends AsyncTask<String, Void, Void> {
         private StatisticalListDao statListDao;
@@ -109,6 +171,28 @@ public class AppRepository {
             return null;
         }
     }
+
+    private static class removeStatisticalListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
+
+        private StatisticalListDao listDao;
+
+        removeStatisticalListAsyncTask(StatisticalListDao dao) {
+            listDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final StatisticalList... params) {
+            listDao.delete(params[0]);
+            return null;
+        }
+    }
+
+    /*
+     *
+     * The following Async Tasks are reserved for further use
+     * todo These methods if not used should be deleted upon release
+     *
+     */
 
     private static class insertDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
         private DataPointDao dataPointDao;
@@ -152,18 +236,4 @@ public class AppRepository {
     }
 
 
-    private static class removeStatisticalListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
-
-        private StatisticalListDao listDao;
-
-        removeStatisticalListAsyncTask(StatisticalListDao dao) {
-            listDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final StatisticalList... params) {
-            listDao.delete(params[0]);
-            return null;
-        }
-    }
 }

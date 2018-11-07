@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+//todo FIX UI currently the app has no way to delete a single data point
 
 //TODO test that deleting a list deletes the datapoints
 @Entity(tableName = "data_point",

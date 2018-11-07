@@ -28,6 +28,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 //TODO change all concatenated strings to use string builder
@@ -108,11 +110,20 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     //Create a list given the name and return the ID
     private int createList(String name) {
+        Date todaysDate = new Date();
         ActiveListViewModel mListViewModel;
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
-        int lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name));
+        int lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name, false));
         createInitialRecordForList(lastEntry);
         return lastEntry;
+    }
+
+    //todo fix
+
+    private Date getRightNow() {
+        Calendar today = Calendar.getInstance();
+        today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+        return today.getTime();
     }
 
     private void createInitialRecordForList(int listId){

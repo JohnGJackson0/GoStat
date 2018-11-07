@@ -19,6 +19,8 @@ import org.apache.commons.math3.stat.Frequency;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HistogramGraphFragment extends Fragment {
@@ -28,7 +30,6 @@ public class HistogramGraphFragment extends Fragment {
 
     private int mListID;
     private int mNumberOfBins;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -118,7 +119,7 @@ public class HistogramGraphFragment extends Fragment {
 
     private void addFrequencyTable(FrequencyTable frequencyTable) {
 
-        StatisticalList newList = new StatisticalList(0, "FREQUENCY TABLE FOR LIST ID:" + Double.toString(mListID));
+        StatisticalList newList = new StatisticalList(0, "FREQUENCY TABLE FOR LIST ID:" + Integer.toString(mListID), true);
 
         int newListID = getViewModel().insertStatisticalList(newList);
 
@@ -131,7 +132,6 @@ public class HistogramGraphFragment extends Fragment {
 
         getViewModel().insertDataPoints(newDataPoints);
     }
-
 
     private FrequencyTable getFrequencyIntervals() {
         double binWidth = getBinWidth();
