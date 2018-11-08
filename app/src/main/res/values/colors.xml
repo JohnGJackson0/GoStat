@@ -10,7 +10,14 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
-    <color name="divider">#edf0f2</color>
+    <color name="divider">#888a8c</color>
+
+    <color name= "blue"> #0000ff</color>
+
+
+    <color name="orange">#f49842</color>
+    <color name="green">#41f498</color>
+    <color name="yellow">#f4f441</color>
 
 
     <color name="backgroundOffset">#e6e7e8</color>

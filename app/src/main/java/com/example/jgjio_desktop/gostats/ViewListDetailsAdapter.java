@@ -100,10 +100,31 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         TextView listName;
         TextView id;
 
+        TextView userCreatedList;
+        TextView frequencyTableList;
+
+        TextView createdByUserMessage;
+        TextView createdBySystemMessage;
+        TextView editableListMessage;
+        TextView lockedMessage;
+        TextView frequencyTableInfoMessage;
+        TextView staticMessage;
+
+
         public ListDetailViewHolder(View itemView) {
             super(itemView);
             listName = itemView.findViewById(R.id.list_name);
             id = itemView.findViewById(R.id.list_id);
+            userCreatedList = itemView.findViewById(R.id.user_created);
+            frequencyTableList = itemView.findViewById(R.id.frequency_table);
+
+            createdByUserMessage = itemView.findViewById(R.id.created_by_user_message);
+            createdBySystemMessage = itemView.findViewById(R.id.created_by_system_message);
+            editableListMessage = itemView.findViewById(R.id.editable_message);
+            lockedMessage = itemView.findViewById(R.id.locked_message);
+            frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message);
+            staticMessage = itemView.findViewById(R.id.static_message);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,7 +134,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
                 }
             });
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View view) {
                     positionLongHoldClick = getAdapterPosition();
 
@@ -129,9 +150,32 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
 
         }
 
-        void bind (int listIndex) {
+        void bind(int listIndex) {
             listName.setText(mLists.get(listIndex).getName());
             id.setText(Integer.toString(mLists.get(listIndex).getId()));
+
+            if (mLists.get(listIndex).isFrequencyTable()) {
+                userCreatedList.setVisibility(View.GONE);
+                frequencyTableList.setVisibility(View.VISIBLE);
+                createdByUserMessage.setVisibility(View.GONE);
+                createdBySystemMessage.setVisibility(View.VISIBLE);
+                editableListMessage.setVisibility(View.GONE);
+                lockedMessage.setVisibility(View.VISIBLE);
+                //todo not yet implemented
+                frequencyTableInfoMessage.setVisibility(View.GONE);
+                staticMessage.setVisibility(View.VISIBLE);
+
+            } else {
+                userCreatedList.setVisibility(View.VISIBLE);
+                frequencyTableList.setVisibility(View.GONE);
+
+                createdByUserMessage.setVisibility(View.VISIBLE);
+                createdBySystemMessage.setVisibility(View.GONE);
+                editableListMessage.setVisibility(View.VISIBLE);
+                lockedMessage.setVisibility(View.GONE);
+                frequencyTableInfoMessage.setVisibility(View.GONE);
+                staticMessage.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -40,6 +40,17 @@
     <string name="title_activity_graph">Graph</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    //messages for lists
+    <string name="created_by_user_message">Created by user</string>
+    <string name="created_by_system_message">Created by system</string>
+    <string name="editable_message">Editable</string>
+    <string name="locked_message">Locked</string>
+    <string name="static_list_message">Static</string>
+    <string name="frequency_table_information_message">Binded to list id _ on _</string>
+
+    <string name="editable_list_label">A user created list</string>
+    <string name="frequency_table_list_label">System created Frequency Table</string>
+
 
     //menu labels
     <string name="summary_statistics_menu_lable">Summary Statistics</string>
