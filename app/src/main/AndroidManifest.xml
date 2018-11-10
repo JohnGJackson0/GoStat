@@ -26,7 +26,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ViewSingleListActivity"
+            android:name=".ViewSingleEditableListActivity"
             android:label="@string/view_list_name" />
         <activity android:name=".SelectListActivity" />
         <activity
@@ -41,6 +41,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jgjio_desktop.gostats.ViewableListsActivity" />
         </activity>
+        <activity android:name=".ViewFrequencyListActivity"></activity>
     </application>
 
 </manifest>

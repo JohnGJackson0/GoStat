@@ -6,11 +6,11 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
-public class ViewSingleListViewModel extends AndroidViewModel {
+public class ViewSingleEditableListViewModel extends AndroidViewModel {
     private AppRepository mRepository;
     private LiveData<PagedList<DataPoint>> listDataPoints;
 
-    public ViewSingleListViewModel (Application application) {
+    public ViewSingleEditableListViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
     }

@@ -180,7 +180,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
     }
 
     private void startViewIntent(int listIndex) {
-        Intent intent = new Intent(mContext, ViewSingleListActivity.class);
+        Intent intent = new Intent(mContext, ViewSingleEditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listIndex);
         mContext.startActivity(intent);
     }

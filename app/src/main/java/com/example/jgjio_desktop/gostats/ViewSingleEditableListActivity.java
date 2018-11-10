@@ -19,7 +19,7 @@ import android.widget.TextView;
 //TODO edit List button
 //TODO fix layout bug, not correctly showing last entry
 
-public class ViewSingleListActivity extends AppCompatActivity {
+public class ViewSingleEditableListActivity extends AppCompatActivity {
     private int mListId;
     private ViewableListAdapter mViewableListAdapter;
     private RecyclerView mViewableListRecyclerView;
@@ -29,7 +29,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
     private Button mChangeListName;
     private Button mViewOneVarStats;
     private Button mJumpTo;
-    private ViewSingleListViewModel mListViewModel;
+    private ViewSingleEditableListViewModel mListViewModel;
     LinearLayoutManager linearLayoutManager;
 
 
@@ -47,7 +47,7 @@ public class ViewSingleListActivity extends AppCompatActivity {
         mJumpTo = findViewById(R.id.jump_to);
 
         mListId = getIntent().getExtras().getInt(ViewListDetailsAdapter.EXTRA_LIST_ID);
-        mListViewModel = ViewModelProviders.of(this).get(ViewSingleListViewModel.class);
+        mListViewModel = ViewModelProviders.of(this).get(ViewSingleEditableListViewModel.class);
         mViewableListRecyclerView = findViewById(R.id.rv_single_list);
 
         linearLayoutManager = new LinearLayoutManager(this);
@@ -123,10 +123,10 @@ public class ViewSingleListActivity extends AppCompatActivity {
     //todo: validate input for this and changing a list name and creating a list name
     private void jumpToDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleListActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleEditableListActivity.this);
         builder.setTitle("Input Index to Jump to");
 
-        final View viewInflated = LayoutInflater.from(ViewSingleListActivity.this).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) findViewById(R.id.inquire_jump_to_amount), false);
+        final View viewInflated = LayoutInflater.from(ViewSingleEditableListActivity.this).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) findViewById(R.id.inquire_jump_to_amount), false);
         final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);
         builder.setView(viewInflated);
 
@@ -149,10 +149,10 @@ public class ViewSingleListActivity extends AppCompatActivity {
 
     private void changeListNameDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleListActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleEditableListActivity.this);
         builder.setTitle("Input a List New Name");
 
-        final View viewInflated = LayoutInflater.from(ViewSingleListActivity.this).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) findViewById(R.id.inquire_list_name), false);
+        final View viewInflated = LayoutInflater.from(ViewSingleEditableListActivity.this).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) findViewById(R.id.inquire_list_name), false);
         final EditText input = (EditText) viewInflated.findViewById(R.id.list_name_input);
         builder.setView(viewInflated);
 

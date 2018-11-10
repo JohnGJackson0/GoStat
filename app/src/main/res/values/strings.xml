@@ -62,4 +62,26 @@
     <string name="edit_list_menu_lable">Edit List</string>
     <string name="view_list_menu_lable">View List</string>
     <string name="delete_list_menu_lable">Delete List</string>
+
+
+    <string name="function_button_label">GO!</string>
+
+    <string name="interval_header_label">Interval</string>
+    <string name="frequency_header_label">Frequency</string>
+
+
+    <string-array name="frequency_table_functions">
+        <item>Graph</item>
+        <item>Delete</item>
+        <item>View 1-var Stats</item>
+    </string-array>
+
+    <string-array name="editable_list_functions">
+        <item>Edit List</item>
+        <item>Change List Name</item>
+        <item>View 1-var Stats</item>
+        <item>Jump To</item>
+        <item>Graph</item>
+    </string-array>
+
 </resources>
