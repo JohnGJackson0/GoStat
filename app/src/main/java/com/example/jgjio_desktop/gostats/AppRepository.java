@@ -43,6 +43,10 @@ public class AppRepository {
         new removeStatisticalListAsyncTask(mListDao).execute(statList);
     }
 
+    void removeStatisticalListByID(int listID) {
+        mListDao.deleteListById(listID);
+    }
+
     LiveData<List<StatisticalList>> getAllStatisticalLists() {
         return mAllStatisticalLists;
     }

@@ -69,6 +69,8 @@
     <string name="interval_header_label">Interval</string>
     <string name="frequency_header_label">Frequency</string>
 
+    <string name="view_frequency_table_spinner_prompt">Select Function</string>
+
 
     <string-array name="frequency_table_functions">
         <item>Graph</item>

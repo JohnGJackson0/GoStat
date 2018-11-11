@@ -32,7 +32,7 @@ public interface FrequencyIntervalDao {
     void insertFrequencyInterval(FrequencyInterval frequencyInterval);
 
     @Query("SELECT * FROM frequency_interval WHERE list_id = :listId ORDER By id")
-    DataSource.Factory<Integer, FrequencyInterval> getListById(int listId);
+    DataSource.Factory<Integer, FrequencyInterval> getListById(long listId);
 
     @Query("SELECT COUNT(*) FROM frequency_interval WHERE list_id = :listID")
     long getNumberOfIntervalsInList(int listID);

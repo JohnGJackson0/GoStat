@@ -123,14 +123,15 @@ public class HistogramGraphFragment extends Fragment {
 
         int newListID = getViewModel().insertStatisticalList(newList);
 
-        List<DataPoint> newDataPoints = new ArrayList<>();
+        List<FrequencyInterval> newFrequencyIntervals = new ArrayList<>();
 
         for(ExclusiveEndMixedFrequencyInterval freqInterval : frequencyTable.get()) {
-            newDataPoints.add(new DataPoint(newListID, true, freqInterval.getFrequency()));
-            Log.d("testing0","sd");
+            newFrequencyIntervals.add(new FrequencyInterval(0, freqInterval.getFrequency(),
+                    freqInterval.getMin(), freqInterval.getMax(), true, false, newListID));
         }
 
-        getViewModel().insertDataPoints(newDataPoints);
+        getViewModel().insertFrequencyIntervals(newFrequencyIntervals);
+
     }
 
     private FrequencyTable getFrequencyIntervals() {

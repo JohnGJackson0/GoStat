@@ -5,21 +5,126 @@
     android:id="@+id/view_intervals_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.viewfrequencylist.ViewFrequencyListFragment">
+    tools:context=".ViewFrequencyListFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/view_frequency_table_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_iterval_items">
+        app:layout_constraintBottom_toTopOf="@+id/rv_interval_items"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/frequency_table_view_label_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/frequency_table_view_meta_layout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/frequency_table_view_label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="top|start"
+                android:text="@string/frequency_table_list_label"
+                android:textColor="@color/primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/frequency_table_view_meta_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/functions_frequency_table_layout"
+            app:layout_constraintTop_toBottomOf="@+id/frequency_table_view_label_layout">
 
-    </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:id="@+id/list_name_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:textColor="@color/primary_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/list_id_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/secondary_text"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/functions_frequency_table_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/frequency_table_interval_frequency_label_view_layout"
+            app:layout_constraintTop_toBottomOf="@+id/frequency_table_view_meta_layout">
+
+            <Spinner
+                android:id="@+id/frequency_table_functions_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".75"
+                android:prompt="@string/view_frequency_table_spinner_prompt"
+                android:entries="@array/frequency_table_functions"/>
+
+            <Button
+                android:id="@+id/frequency_table_execute_function_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:text="@string/function_button_label" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/frequency_table_interval_frequency_label_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/functions_frequency_table_layout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/interval_header_label"
+                android:textColor="@color/primary_text"
+                android:textSize="19sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/frequency_header_label"
+                android:textColor="@color/primary_text"
+                android:textSize="19sp" />
+        </LinearLayout>
 
 
+    </android.support.constraint.ConstraintLayout>
 
-
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_interval_items"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_frequency_table_header_layout" />
 
 
 </android.support.constraint.ConstraintLayout>

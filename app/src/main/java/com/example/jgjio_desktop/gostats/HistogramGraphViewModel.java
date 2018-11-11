@@ -36,10 +36,11 @@ public class HistogramGraphViewModel extends AndroidViewModel {
     //todo fix errors from long to int (also in other view models)
     int insertStatisticalList(StatisticalList newList) { return (int) mRepository.insertStatisticalList(newList);}
 
-    void insertDataPoints(List<DataPoint> newDataPoints) {
-        mRepository.insertDataPoints(newDataPoints);
-    }
 
+    void insertFrequencyIntervals(List<FrequencyInterval> list){
+        mRepository.insertFrequencyIntervals(list);
+
+    }
 
 
 }

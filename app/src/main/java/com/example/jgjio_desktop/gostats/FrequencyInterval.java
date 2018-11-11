@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import static org.apache.commons.math3.util.Precision.round;
+
 @Entity(tableName = "frequency_interval",
         foreignKeys = @ForeignKey(entity = StatisticalList.class,
                 parentColumns = "id",
@@ -73,4 +75,14 @@ public class FrequencyInterval {
     public boolean isMaxInclusive() {
         return isMaxInclusive;
     }
+
+    @Override
+    public String toString() {
+        String minRangeChar = (isMinInclusive) ? "[" : "(";
+        String maxRangeChar = (isMaxInclusive) ? "]" : ")";
+
+        return minRangeChar + Double.toString(round(minRange, 2)) + " , "
+                + Double.toString(round(maxRange, 2)) + maxRangeChar;
+    }
+
 }

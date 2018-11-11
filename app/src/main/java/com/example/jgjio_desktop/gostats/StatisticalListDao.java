@@ -26,6 +26,9 @@ public interface StatisticalListDao {
     @Delete
     void delete(StatisticalList statisticalList);
 
+    @Query("DELETE FROM list WHERE id = :id")
+    void deleteListById(int id);
+
     @Query("SELECT count(*) FROM list")
     long getListCount();
 

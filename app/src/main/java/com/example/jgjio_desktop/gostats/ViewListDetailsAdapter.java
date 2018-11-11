@@ -40,11 +40,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_view_list:
-                    startViewIntent(mLists.get(positionLongHoldClick).getId());
-                    mode.finish();
-                    return true;
-                case R.id.action_edit_list:
-                    startEditIntent(mLists.get(positionLongHoldClick).getId());
+                    startViewIntent(mLists.get(positionLongHoldClick).getId(), mLists.get(positionLongHoldClick).isFrequencyTable());
                     mode.finish();
                     return true;
                 case R.id.action_delete_list:
@@ -110,7 +106,6 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         TextView frequencyTableInfoMessage;
         TextView staticMessage;
 
-
         public ListDetailViewHolder(View itemView) {
             super(itemView);
             listName = itemView.findViewById(R.id.list_name);
@@ -130,7 +125,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
                 @Override
                 public void onClick(View view) {
                     int idIndex = mLists.get(getAdapterPosition()).getId();
-                    startViewIntent(idIndex);
+                    startViewIntent(idIndex, mLists.get(getAdapterPosition()).isFrequencyTable());
                 }
             });
 
@@ -179,15 +174,15 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         }
     }
 
-    private void startViewIntent(int listIndex) {
-        Intent intent = new Intent(mContext, ViewSingleEditableListActivity.class);
-        intent.putExtra(EXTRA_LIST_ID, listIndex);
-        mContext.startActivity(intent);
-    }
-
-    private void startEditIntent(double listIndex) {
-        Intent intent = new Intent(mContext, EditableListActivity.class);
-        intent.putExtra(EXTRA_LIST_ID, listIndex);
-        mContext.startActivity(intent);
+    private void startViewIntent(int listIndex, boolean isFrequencyTable) {
+        if(!isFrequencyTable) {
+            Intent intent = new Intent(mContext, ViewSingleEditableListActivity.class);
+            intent.putExtra(EXTRA_LIST_ID, listIndex);
+            mContext.startActivity(intent);
+        } else {
+            Intent intent = new Intent(mContext, ViewFrequencyListActivity.class);
+            intent.putExtra(EXTRA_LIST_ID, listIndex);
+            mContext.startActivity(intent);
+        }
     }
 }
