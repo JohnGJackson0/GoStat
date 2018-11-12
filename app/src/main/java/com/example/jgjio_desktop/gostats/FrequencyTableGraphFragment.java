@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,15 +14,11 @@ import android.view.ViewGroup;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 
-import org.apache.commons.math3.stat.Frequency;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-public class HistogramGraphFragment extends Fragment {
+public class FrequencyTableGraphFragment extends Fragment {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     public static final String NUMBER_OF_BINS = "com.example.jgjio_desktop.gostats.extra.NUMBER_OF_BINS";
@@ -51,8 +46,8 @@ public class HistogramGraphFragment extends Fragment {
         Log.d("histogramGraphData3", "list id : " + Double.toString(mListID));
     }
 
-    public static HistogramGraphFragment newInstance(int listId, int numberOfBins) {
-        HistogramGraphFragment fragment = new HistogramGraphFragment();
+    public static FrequencyTableGraphFragment newInstance(int listId, int numberOfBins) {
+        FrequencyTableGraphFragment fragment = new FrequencyTableGraphFragment();
         Bundle args = new Bundle();
         args.putInt(EXTRA_LIST_ID, listId);
         args.putInt(NUMBER_OF_BINS, numberOfBins);

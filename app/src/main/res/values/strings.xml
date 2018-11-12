@@ -12,8 +12,10 @@
     </string>
 
     <string name="instructions_for_histogram_graphing">
-        To plot a histogram you must tell us a bin number that is defined as a consecutive, non-overlapping interval of a variable. Based on the dataset we can generate one for you or you can input your own.
+        Please Input a bin number.
     </string>
+
+
     <string name="generating_bin_number_button_label">Generate Bin Number</string>
     <string name="input_bin_number_hint">Input the amount of bins </string>
     <string name="graph_histogram_button_label">Graph Histogram</string>
@@ -71,11 +73,14 @@
 
     <string name="view_frequency_table_spinner_prompt">Select Function</string>
 
+    <string name="already_histogram_error_message">The selected table is already a histogram.</string>
+
+    <string name="upgrade_menu_label">Upgrade Now</string>
+
 
     <string-array name="frequency_table_functions">
         <item>Graph</item>
         <item>Delete</item>
-        <item>View 1-var Stats</item>
     </string-array>
 
     <string-array name="editable_list_functions">
@@ -83,7 +88,7 @@
         <item>Change List Name</item>
         <item>View 1-var Stats</item>
         <item>Jump To</item>
-        <item>Graph</item>
+        <item>Create Frequency Table</item>
     </string-array>
 
 </resources>

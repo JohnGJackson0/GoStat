@@ -91,23 +91,6 @@ public class ViewableListsActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_summary_statistics) {
-            startSelectListActivity(1);
-            return true;
-        }
-
-        if (id == R.id.action_graph) {
-            startSelectListActivity(2);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     //Create a list given the name and return the ID
     private int createList(String name) {
         Date todaysDate = new Date();
@@ -164,17 +147,5 @@ public class ViewableListsActivity extends AppCompatActivity {
         });
 
         builder.show();
-    }
-
-    // action id 1 : summary statistics
-    //               upon selecting list in this activity, it will start another intent for summary statistics
-
-    // action id 2 : graph
-    //               upon selecting list in this activity, it will start another intent for graphing
-
-    private void startSelectListActivity(int actionId) {
-        Intent intent = new Intent(this, SelectListActivity.class);
-        intent.putExtra(ACTION_ID, actionId);
-        startActivity(intent);
     }
 }

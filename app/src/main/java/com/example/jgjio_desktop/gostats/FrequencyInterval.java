@@ -85,4 +85,8 @@ public class FrequencyInterval {
                 + Double.toString(round(maxRange, 2)) + maxRangeChar;
     }
 
+    public double getWidth() {
+        return maxRange - minRange;
+    }
+
 }

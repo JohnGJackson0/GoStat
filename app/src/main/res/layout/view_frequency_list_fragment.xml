@@ -11,7 +11,7 @@
         android:id="@+id/view_frequency_table_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/rv_interval_items"
+        app:layout_constraintBottom_toTopOf="@+id/view_window"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -119,12 +119,19 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_interval_items"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:id="@+id/view_window"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_frequency_table_header_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/view_frequency_table_header_layout">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_interval_items" />
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

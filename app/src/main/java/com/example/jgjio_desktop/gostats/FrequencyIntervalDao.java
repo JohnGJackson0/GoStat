@@ -36,4 +36,7 @@ public interface FrequencyIntervalDao {
 
     @Query("SELECT COUNT(*) FROM frequency_interval WHERE list_id = :listID")
     long getNumberOfIntervalsInList(int listID);
+
+    @Query("SELECT MAX(frequency) FROM frequency_interval WHERE list_id = :listID")
+    int getMaxValue(int listID);
 }

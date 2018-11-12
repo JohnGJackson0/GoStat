@@ -100,6 +100,10 @@ public class AppRepository {
         //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
+    int getMaxFrequency(int listID) {
+        return mFrequencyIntervalDao.getMaxValue(listID);
+    }
+
     /*
     *
     * The following methods are created for DataPoints
