@@ -14,7 +14,7 @@ public class ViewFrequencyListActivity extends AppCompatActivity {
         setContentView(R.layout.view_frequency_list_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, ViewFrequencyListFragment.newInstance(mListId))
+                    .replace(R.id.container, ViewFrequencyListTemplateFragment.newInstance(mListId))
                     .commitNow();
         }
     }

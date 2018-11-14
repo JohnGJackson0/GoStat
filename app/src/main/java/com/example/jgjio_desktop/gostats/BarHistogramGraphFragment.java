@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -24,6 +25,7 @@ public class BarHistogramGraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
+        resizeFragment(rootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         if (getViewModel().isListAFrequencyTable(mListID)) {
             populateGraphWithFrequencyTable(rootView);
@@ -81,6 +83,14 @@ public class BarHistogramGraphFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    private void resizeFragment(View rootView, int newWidth, int newHeight) {
+        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(newWidth, newHeight);
+        rootView.setLayoutParams(p);
+        rootView.requestLayout();
+
+    }
+
 
     private BarHistogramGraphViewModel getViewModel() {
         return ViewModelProviders.of(this).get(BarHistogramGraphViewModel.class);

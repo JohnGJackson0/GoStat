@@ -5,13 +5,12 @@
     android:id="@+id/view_intervals_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewFrequencyListFragment">
+    tools:context=".ViewFrequencyListTemplateFragment">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/view_frequency_table_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/view_window"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -78,8 +77,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".75"
-                android:prompt="@string/view_frequency_table_spinner_prompt"
-                android:entries="@array/frequency_table_functions"/>
+                android:entries="@array/frequency_table_functions"
+                android:prompt="@string/view_frequency_table_spinner_prompt" />
 
             <Button
                 android:id="@+id/frequency_table_execute_function_button"
@@ -90,47 +89,18 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/frequency_table_interval_frequency_label_view_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="6dp"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/functions_frequency_table_layout">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/interval_header_label"
-                android:textColor="@color/primary_text"
-                android:textSize="19sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/frequency_header_label"
-                android:textColor="@color/primary_text"
-                android:textSize="19sp" />
-        </LinearLayout>
 
 
     </android.support.constraint.ConstraintLayout>
 
     <FrameLayout
+        android:id="@+id/view_window"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/view_window"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_frequency_table_header_layout">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rv_interval_items" />
-
     </FrameLayout>
 
 
