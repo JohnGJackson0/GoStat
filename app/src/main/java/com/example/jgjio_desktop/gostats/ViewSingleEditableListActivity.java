@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,17 +21,10 @@ import android.widget.TextView;
 //TODO fix layout bug, not correctly showing last entry
 
 public class ViewSingleEditableListActivity extends AppCompatActivity {
-    private int mListId;
-    private ViewableListAdapter mViewableListAdapter;
-    private RecyclerView mViewableListRecyclerView;
+    private int mListID;
     private TextView mListName;
     private TextView mListIdText;
-    private Button mEditList;
-    private Button mChangeListName;
-    private Button mViewOneVarStats;
-    private Button mJumpTo;
     private ViewSingleEditableListViewModel mListViewModel;
-    LinearLayoutManager linearLayoutManager;
 
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
@@ -41,74 +35,25 @@ public class ViewSingleEditableListActivity extends AppCompatActivity {
         setContentView(R.layout.content_view_single_list);
         mListName = findViewById(R.id.listName);
         mListIdText = findViewById(R.id.list_id);
-        mEditList = findViewById(R.id.editList);
-        mChangeListName = findViewById(R.id.change_list_name);
-        mViewOneVarStats = findViewById(R.id.view_one_var_stats);
-        mJumpTo = findViewById(R.id.jump_to);
-
-        mListId = getIntent().getExtras().getInt(ViewListDetailsAdapter.EXTRA_LIST_ID);
+        mListID = getIntent().getExtras().getInt(ViewListDetailsAdapter.EXTRA_LIST_ID);
         mListViewModel = ViewModelProviders.of(this).get(ViewSingleEditableListViewModel.class);
-        mViewableListRecyclerView = findViewById(R.id.rv_single_list);
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        mViewableListRecyclerView.setLayoutManager(linearLayoutManager);
-        mViewableListAdapter = new ViewableListAdapter();
-        mListViewModel.getListById(mListId).observe(this, mViewableListAdapter::submitList);
-        mViewableListRecyclerView.setAdapter(mViewableListAdapter);
-        mViewableListRecyclerView.setHasFixedSize(true);
+        mListName.setText(mListViewModel.getName(mListID));
 
-
-        mListName.setText(mListViewModel.getName(mListId));
-
-        mListIdText.setText("ID: " + Integer.toString(mListId));
-
-        mEditList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editList();
-            }
-        });
-
-        mChangeListName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                changeListNameDialog();
-            }
-        });
-
-        mViewOneVarStats.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v) {
-                viewOneVarStats();
-            }
-        });
-
-        mJumpTo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jumpToDialog();
-            }
-        });
+        mListIdText.setText("ID: " + Integer.toString(mListID));
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        //getActionBar().setHomeButtonEnabled(true);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        showDataPoints();
     }
 
-    void editList() {
-        Intent intent = new Intent(this, EditableListActivity.class);
-        intent.putExtra(EXTRA_LIST_ID, mListId);
-        startActivity(intent);
+    private void showDataPoints() {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.view_window, ViewEditableListFragment.newInstance(mListID))
+        .commit();
     }
 
-    void viewOneVarStats() {
-        Intent intent = new Intent(this, ShowSummaryStatisticsActivity.class);
-        intent.putExtra(EXTRA_LIST_ID, mListId);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,31 +65,22 @@ public class ViewSingleEditableListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //todo: validate input for this and changing a list name and creating a list name
-    private void jumpToDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleEditableListActivity.this);
-        builder.setTitle("Input Index to Jump to");
 
-        final View viewInflated = LayoutInflater.from(ViewSingleEditableListActivity.this).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) findViewById(R.id.inquire_jump_to_amount), false);
-        final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);
-        builder.setView(viewInflated);
 
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                int jumpToAmount = Integer.parseInt(input.getText().toString());
-                jumpTo(jumpToAmount-1); //Statistical Lists start at 1
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
+
+    //METHODS
+
+    void editList() {
+        Intent intent = new Intent(this, EditableListActivity.class);
+        intent.putExtra(EXTRA_LIST_ID, mListID);
+        startActivity(intent);
+    }
+
+    void viewOneVarStats() {
+        Intent intent = new Intent(this, ShowSummaryStatisticsActivity.class);
+        intent.putExtra(EXTRA_LIST_ID, mListID);
+        startActivity(intent);
     }
 
     private void changeListNameDialog() {
@@ -174,13 +110,40 @@ public class ViewSingleEditableListActivity extends AppCompatActivity {
         builder.show();
     }
 
+    //todo: validate input for this and changing a list name and creating a list name
+    private void jumpToDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewSingleEditableListActivity.this);
+        builder.setTitle("Input Index to Jump to");
+
+        final View viewInflated = LayoutInflater.from(ViewSingleEditableListActivity.this).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) findViewById(R.id.inquire_jump_to_amount), false);
+        final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);
+        builder.setView(viewInflated);
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                int jumpToAmount = Integer.parseInt(input.getText().toString());
+                jumpTo(jumpToAmount-1); //Statistical Lists start at 1
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
     private void changeListName(String newName) {
-        mListViewModel.updateListName(newName, mListId);
+        mListViewModel.updateListName(newName, mListID);
         mListName.setText(newName);
     }
 
 
     private void jumpTo(int amount) {
-        mViewableListRecyclerView.scrollToPosition(amount);
+        //todo reimplement
     }
 }
