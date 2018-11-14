@@ -25,10 +25,10 @@ public class ViewFrequencyListTemplateFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.view_frequency_list_template_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         setMetaDetails(rootView);
-        Button button = rootView.findViewById(R.id.frequency_table_execute_function_button);
-        Spinner functionSelector = rootView.findViewById(R.id.frequency_table_functions_spinner);
-
         startViewFragment();
+
+        Button button = rootView.findViewById(R.id.editable_list_execute_function_button);
+        Spinner functionSelector = rootView.findViewById(R.id.editable_list_functions_spinner);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

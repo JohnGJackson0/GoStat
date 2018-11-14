@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_intervals_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewFrequencyListTemplateFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ViewEditableListTemplateFragment">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/view_editable_list_header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/frequency_table_view_label_layout"
+            android:id="@+id/editable_list_view_label_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -28,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="top|start"
-                android:text="@string/frequency_table_list_label"
+                android:text="@string/editable_list_label"
                 android:textColor="@color/primary_text"
                 android:textSize="13sp"
                 android:textStyle="bold|italic"
@@ -43,7 +45,7 @@
             android:orientation="vertical"
             android:padding="4dp"
             app:layout_constraintBottom_toTopOf="@+id/functions_editable_list_layout"
-            app:layout_constraintTop_toBottomOf="@+id/frequency_table_view_label_layout">
+            app:layout_constraintTop_toBottomOf="@+id/editable_list_view_label_layout">
 
             <TextView
                 android:id="@+id/list_name_view"
@@ -77,8 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".75"
-                android:entries="@array/frequency_table_functions"
-                android:prompt="@string/view_frequency_table_spinner_prompt" />
+                android:entries="@array/editable_list_functions"
+                android:prompt="@string/view_editable_list_spinner_prompt" />
 
             <Button
                 android:id="@+id/editable_list_execute_function_button"
@@ -88,7 +90,6 @@
                 android:text="@string/function_button_label" />
 
         </LinearLayout>
-
 
 
     </android.support.constraint.ConstraintLayout>
@@ -102,6 +103,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_editable_list_header_layout">
     </FrameLayout>
-
 
 </android.support.constraint.ConstraintLayout>

@@ -72,6 +72,7 @@
     <string name="frequency_header_label">Frequency</string>
 
     <string name="view_frequency_table_spinner_prompt">Select Function</string>
+    <string name="view_editable_list_spinner_prompt">Select Function</string>
 
     <string name="already_histogram_error_message">The selected table is already a histogram.</string>
 
@@ -85,10 +86,11 @@
 
     <string-array name="editable_list_functions">
         <item>Edit List</item>
+        <item>View List</item>
         <item>Change List Name</item>
         <item>View 1-var Stats</item>
+        <item>Create Frequency Table /Histogram</item>
         <item>Jump To</item>
-        <item>Create Frequency Table</item>
     </string-array>
 
 </resources>
