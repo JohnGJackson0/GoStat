@@ -1,10 +1,14 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CreateFrequencyTableFragment extends Fragment {
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private int mListID;
     private Button mGenerateBin;
-    private Button mGraphHistogram;
+    private Button mCreateFrequencyTable;
     private EditText mBinInput;
     private TextView mErrorMessage;
     private int mNumberOfBins;
@@ -26,14 +34,13 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.histogram_graph_settings_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.create_frequency_table_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         initializeLayoutComponents(rootView);
 
         if (getViewModel().isFrequencyTable(mListID)) {
             clearLayout();
             displayAlreadyHistogramErrorMessage(rootView);
-
         } else {
             calcNumberOfBins();
             createOnClickListeners();
@@ -44,7 +51,7 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     private void initializeLayoutComponents(View rootView) {
         mGenerateBin = rootView.findViewById(R.id.generate_bin_number_button);
-        mGraphHistogram = rootView.findViewById(R.id.graph_histogram_button);
+        mCreateFrequencyTable = rootView.findViewById(R.id.create_frequency_table_button);
         mBinInput = rootView.findViewById(R.id.bin_number_input);
         mErrorMessage = rootView.findViewById(R.id.histogram_settings_error_message);
         mInstructions = rootView.findViewById(R.id.instructions_histogram_settings);
@@ -53,7 +60,7 @@ public class CreateFrequencyTableFragment extends Fragment {
     private void clearLayout() {
         mInstructions.setVisibility(View.GONE);
         mGenerateBin.setVisibility(View.GONE);
-        mGraphHistogram.setVisibility(View.GONE);
+        mCreateFrequencyTable.setVisibility(View.GONE);
         mBinInput.setVisibility(View.GONE);
         mErrorMessage.setVisibility(View.GONE);
     }
@@ -90,16 +97,14 @@ public class CreateFrequencyTableFragment extends Fragment {
             }
         });
 
-        mGraphHistogram.setOnClickListener(new View.OnClickListener() {
+        mCreateFrequencyTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mBinInput.getText().toString().isEmpty()) {
                     mErrorMessage.setText(R.string.histogram_bin_input_error_message);
                     mErrorMessage.setVisibility(View.VISIBLE);
                 } else {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.container, FrequencyTableGraphFragment.newInstance(mListID, mNumberOfBins));
-                    ft.commit();
+                    createFrequencyTable();
                 }
             }
         });
@@ -108,5 +113,83 @@ public class CreateFrequencyTableFragment extends Fragment {
     private CreateFrequencyTableViewModel getViewModel() {
         return ViewModelProviders.of(this).get(CreateFrequencyTableViewModel.class);
     }
+
+    //added below
+
+    //todo add names to store min and max freq
+    private void createFrequencyTable() {
+        FrequencyTable frequencyTable = getFrequencyIntervals();
+
+        final LiveData<List<DataPoint>> listObservable = getViewModel().getList(mListID);
+
+        listObservable.observe(this, new Observer<List<DataPoint>>() {
+            @Override
+            public void onChanged(@Nullable List<DataPoint> dataPoints) {
+                listObservable.removeObserver(this);
+                for(ExclusiveEndMixedFrequencyInterval i : frequencyTable.get()) {
+                    for(DataPoint val : dataPoints) {
+                        Log.d("Testing, ", "dsfs");
+
+                        if (val.getValue() >= i.getMin() && val.getValue() < i.getMax()) {
+                            i.addAFrequency();
+                        }
+                    }
+                }
+                addFrequencyTable(frequencyTable);
+            }
+        });
+    }
+
+    private void addFrequencyTable(FrequencyTable frequencyTable) {
+
+        StatisticalList newList = new StatisticalList(0, "FREQUENCY TABLE FOR LIST ID:" + Integer.toString(mListID), true);
+
+        int newListID = getViewModel().insertStatisticalList(newList);
+
+        List<FrequencyInterval> newFrequencyIntervals = new ArrayList<>();
+
+        for(ExclusiveEndMixedFrequencyInterval freqInterval : frequencyTable.get()) {
+            newFrequencyIntervals.add(new FrequencyInterval(0, freqInterval.getFrequency(),
+                    freqInterval.getMin(), freqInterval.getMax(), true, false, newListID));
+        }
+
+        getViewModel().insertFrequencyIntervals(newFrequencyIntervals);
+
+        showFrequencyTable(newListID);
+
+    }
+
+    private void showFrequencyTable(int listID) {
+        Intent intent = new Intent(getActivity(), ViewFrequencyListActivity.class);
+        intent.putExtra(EXTRA_LIST_ID, listID);
+        startActivity(intent);
+    }
+
+    private FrequencyTable getFrequencyIntervals() {
+        double binWidth = getBinWidth();
+        double min = getMinValue();
+        ExclusiveEndMixedFrequencyInterval[] frequencyIntervals = new ExclusiveEndMixedFrequencyInterval[mNumberOfBins];
+
+        for(int i = 0; i < mNumberOfBins; i++) {
+            frequencyIntervals[i] = new ExclusiveEndMixedFrequencyInterval(0, (min +(binWidth*i)),  (min +(binWidth*(i+1))));
+        }
+
+        FrequencyTable val = new FrequencyTable(Arrays.asList(frequencyIntervals));
+
+        return val;
+    }
+
+    private double getMinValue(){
+        return getViewModel().getMinValue(mListID);
+    }
+
+    private double getBinWidth(){
+        double max = getViewModel().getMaxValue(mListID);
+        double min = getViewModel().getMinValue(mListID);
+        double rangeOfValues = max - min;
+
+        return (rangeOfValues / mNumberOfBins)+.1;
+    }
+
 
 }

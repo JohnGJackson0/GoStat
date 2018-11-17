@@ -16,6 +16,10 @@ public class ViewEditableListFragment extends Fragment {
     private int mListID;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
+    private ViewableListAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -26,20 +30,15 @@ public class ViewEditableListFragment extends Fragment {
     }
 
     private void startRecyclerView(View rootView) {
+        mRecyclerView = rootView.findViewById(R.id.rv_single_list);
 
-        ViewableListAdapter adapter;
-        RecyclerView recyclerView;
+        mLinearLayoutManager = new LinearLayoutManager(rootView.getContext());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mAdapter = new ViewableListAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
 
-
-        recyclerView = rootView.findViewById(R.id.rv_single_list);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ViewableListAdapter();
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-
-        getViewModel().getListById(mListID).observe(this, adapter::submitList);
+        getViewModel().getListById(mListID).observe(this, mAdapter::submitList);
     }
 
     public static ViewEditableListFragment newInstance(int listID) {
@@ -58,6 +57,10 @@ public class ViewEditableListFragment extends Fragment {
 
     private ViewEditableListFragmentViewModel getViewModel() {
         return ViewModelProviders.of(this).get(ViewEditableListFragmentViewModel.class);
+    }
+
+    public void jumpTo(int position) {
+        mLinearLayoutManager.scrollToPosition(position);
     }
 
 }

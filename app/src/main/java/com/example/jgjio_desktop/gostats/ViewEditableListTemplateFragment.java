@@ -21,6 +21,9 @@ public class ViewEditableListTemplateFragment extends Fragment {
     private int mListID;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private View mRootView;
+    private ViewEditableListFragment dataPointsFragment;
+
+    TextView mListName;
 
 
     @Override
@@ -67,10 +70,10 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     private void setMetaDetails(View rootView) {
-        TextView name = rootView.findViewById(R.id.list_name_view);
+        mListName = rootView.findViewById(R.id.list_name_view);
         TextView id = rootView.findViewById(R.id.list_id_view);
 
-        name.setText(getViewModel().getListName(mListID));
+        mListName.setText(getViewModel().getListName(mListID));
         id.setText("id " + Integer.toString(mListID));
     }
 
@@ -87,8 +90,9 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     void showDataPointsFragment() {
+        dataPointsFragment = ViewEditableListFragment.newInstance(mListID);
         //todo
-        getFragmentTransaction().replace(R.id.view_window,  ViewEditableListFragment.newInstance(mListID), "Editable List")
+        getFragmentTransaction().replace(R.id.view_window,  dataPointsFragment, "Editable List")
                 .commit();
     }
 
@@ -108,7 +112,7 @@ public class ViewEditableListTemplateFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Input a List New Name");
 
-        final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) mRootView.findViewById(R.id.inquire_list_name), false);
+        final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) getView().findViewById(R.id.inquire_list_name), false);
         final EditText input = (EditText) viewInflated.findViewById(R.id.list_name_input);
         builder.setView(viewInflated);
 
@@ -132,22 +136,20 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     private void showOneVarStats() {
-        //todo to be changed to a fragment to replace in the view window
-        //        Intent intent = new Intent(this, ShowSummaryStatisticsActivity.class);
-        //        intent.putExtra(EXTRA_LIST_ID, mListID);
-        //        startActivity(intent);
-
+        getFragmentTransaction().replace(R.id.view_window, ShowSummaryStatisticsFragment.newInstance(mListID))
+                .commit();
     }
 
     private void showCreateFrequencyTableFragment() {
-
+        getFragmentTransaction().replace(R.id.view_window,  CreateFrequencyTableFragment.newInstance(mListID), "Frequency Table")
+                .commit();
     }
 
     private void showJumpToDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Input Index to Jump to");
 
-        final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) mRootView.findViewById(R.id.inquire_jump_to_amount), false);
+        final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) getView().findViewById(R.id.inquire_jump_to_amount), false);
         final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);
         builder.setView(viewInflated);
 
@@ -170,10 +172,11 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     private void changeListName(String newName){
-
+        getViewModel().updateListName(newName, mListID);
+        mListName.setText(newName);
     }
 
     private void jumpTo(int amount) {
-        //todo reimplement
+        dataPointsFragment.jumpTo(amount);
     }
 }

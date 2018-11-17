@@ -18,6 +18,14 @@ public class ViewEditableListTemplateViewModel extends AndroidViewModel {
         return mRepository.getListName(listID);
     }
 
+    String getName(int listId) {
+        return mRepository.getListName(listId);
+    }
+
+    void updateListName(String name, int id) {
+        mRepository.updateListName(name, id);
+    }
+
     void deleteList(int listID) {
         mRepository.removeStatisticalListByID(listID);
     }

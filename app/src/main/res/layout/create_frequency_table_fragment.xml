@@ -48,13 +48,13 @@
         app:layout_constraintTop_toBottomOf="@+id/generate_bin_number_button" />
 
     <Button
-        android:id="@+id/graph_histogram_button"
+        android:id="@+id/create_frequency_table_button"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="60dp"
-        android:text="@string/graph_histogram_button_label"
+        android:layout_marginBottom="8dp"
+        android:text="@string/create_frequency_table_button_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

@@ -28,9 +28,6 @@
         <activity
             android:name=".ViewSingleEditableListActivity"
             android:label="@string/view_list_name" />
-        <activity
-            android:name=".ShowSummaryStatisticsActivity"
-            android:label="@string/show_summary_statistics" />
         <activity android:name=".ViewFrequencyListActivity"></activity>
     </application>
 

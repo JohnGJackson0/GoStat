@@ -23,7 +23,7 @@ public class BarHistogramGraphFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.graph_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.bar_graph_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         resizeFragment(rootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
