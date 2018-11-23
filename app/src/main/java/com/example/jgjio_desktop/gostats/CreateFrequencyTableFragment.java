@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,7 @@ public class CreateFrequencyTableFragment extends Fragment {
     private Button mCreateFrequencyTable;
     private EditText mBinInput;
     private TextView mErrorMessage;
+    private int mNumberOfRecommendedBins;
     private int mNumberOfBins;
     private TextView mInstructions;
 
@@ -42,7 +42,7 @@ public class CreateFrequencyTableFragment extends Fragment {
             clearLayout();
             displayAlreadyHistogramErrorMessage(rootView);
         } else {
-            calcNumberOfBins();
+            calcNumberOfRecommendedBins();
             createOnClickListeners();
         }
 
@@ -75,10 +75,10 @@ public class CreateFrequencyTableFragment extends Fragment {
     //there are several different alternatives we could possibly support here
     //https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width
 
-    private void calcNumberOfBins() {
+    private void calcNumberOfRecommendedBins() {
         CreateFrequencyTableViewModel vm = ViewModelProviders.of(this).get(CreateFrequencyTableViewModel.class);
         long listLength = vm.getNumberOfDataPointsInList(mListID);
-        mNumberOfBins = (int) Math.ceil(Math.sqrt(listLength));
+        mNumberOfRecommendedBins = (int) Math.ceil(Math.sqrt(listLength));
     }
 
     public static CreateFrequencyTableFragment newInstance(int listId) {
@@ -93,7 +93,7 @@ public class CreateFrequencyTableFragment extends Fragment {
         mGenerateBin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBinInput.setText(Integer.toString(mNumberOfBins));
+                mBinInput.setText(Integer.toString(mNumberOfRecommendedBins));
             }
         });
 
@@ -104,6 +104,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                     mErrorMessage.setText(R.string.histogram_bin_input_error_message);
                     mErrorMessage.setVisibility(View.VISIBLE);
                 } else {
+                    mNumberOfBins = Integer.parseInt(mBinInput.getText().toString());
                     createFrequencyTable();
                 }
             }
@@ -118,7 +119,7 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     //todo add names to store min and max freq
     private void createFrequencyTable() {
-        FrequencyTable frequencyTable = getFrequencyIntervals();
+        FrequencyTable frequencyTable = getFrequencyIntervals(mNumberOfBins);
 
         final LiveData<List<DataPoint>> listObservable = getViewModel().getList(mListID);
 
@@ -165,12 +166,12 @@ public class CreateFrequencyTableFragment extends Fragment {
         startActivity(intent);
     }
 
-    private FrequencyTable getFrequencyIntervals() {
+    private FrequencyTable getFrequencyIntervals(int numberOfBins) {
         double binWidth = getBinWidth();
         double min = getMinValue();
-        ExclusiveEndMixedFrequencyInterval[] frequencyIntervals = new ExclusiveEndMixedFrequencyInterval[mNumberOfBins];
+        ExclusiveEndMixedFrequencyInterval[] frequencyIntervals = new ExclusiveEndMixedFrequencyInterval[numberOfBins];
 
-        for(int i = 0; i < mNumberOfBins; i++) {
+        for(int i = 0; i < numberOfBins; i++) {
             frequencyIntervals[i] = new ExclusiveEndMixedFrequencyInterval(0, (min +(binWidth*i)),  (min +(binWidth*(i+1))));
         }
 
