@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id = "@+id/grid_layout_list_details"
-    android:backgroundTint="@color/colorWhite">
+    android:background="@color/colorWhite">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list_details"

@@ -8,7 +8,10 @@
     <string name="title_activity_editable_list">EditableListActivity</string>
 
     <string name="introductory_text_for_editable_list_activity">
-        To create new entries input a value into the last data row and press enter. When finished press the back button to discard changes or update them.
+        To create new entries input a value into the last data row and press enter. When finished press the back button. All changes saved automatically.
+    </string>
+    <string name="introductory_text_for_viewable_list_activity">
+        Select a list below to get functions for it. Create a list by pressing the + icon on the bottom right.
     </string>
 
     <string name="instructions_for_histogram_graphing">

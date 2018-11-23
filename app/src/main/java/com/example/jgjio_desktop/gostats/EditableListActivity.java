@@ -20,10 +20,10 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_editable_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getListID();
         editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
-        setTitle(editableListViewModel.getListName(mListId));
+        setTitle("Edit list " + editableListViewModel.getListName(mListId));
         configureEditableListRecyclerView();
     }
 
@@ -82,5 +82,12 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     //Also, inserting DataPoints simply replace, because we use OnConflictStrategy.REPLACE in the Dao 
     public void updateRoom() {
         editableListViewModel.insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getNonAppendingUpdates());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        updateRoom();
+        finish();
+        return true;
     }
 }

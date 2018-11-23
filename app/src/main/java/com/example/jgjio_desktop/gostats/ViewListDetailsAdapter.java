@@ -3,6 +3,9 @@ package com.example.jgjio_desktop.gostats;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -93,18 +96,20 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
     }
 
     class ListDetailViewHolder extends RecyclerView.ViewHolder {
+        ConstraintLayout listDetails;
+
         TextView listName;
         TextView id;
 
         TextView userCreatedList;
         TextView frequencyTableList;
 
-        TextView createdByUserMessage;
-        TextView createdBySystemMessage;
-        TextView editableListMessage;
-        TextView lockedMessage;
-        TextView frequencyTableInfoMessage;
-        TextView staticMessage;
+        CardView createdByUserMessage;
+        CardView createdBySystemMessage;
+        CardView editableListMessage;
+        CardView lockedMessage;
+        CardView frequencyTableInfoMessage;
+        CardView staticMessage;
 
         public ListDetailViewHolder(View itemView) {
             super(itemView);
@@ -113,12 +118,13 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
             userCreatedList = itemView.findViewById(R.id.user_created);
             frequencyTableList = itemView.findViewById(R.id.frequency_table);
 
-            createdByUserMessage = itemView.findViewById(R.id.created_by_user_message);
-            createdBySystemMessage = itemView.findViewById(R.id.created_by_system_message);
-            editableListMessage = itemView.findViewById(R.id.editable_message);
-            lockedMessage = itemView.findViewById(R.id.locked_message);
-            frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message);
-            staticMessage = itemView.findViewById(R.id.static_message);
+            createdByUserMessage = itemView.findViewById(R.id.created_by_user_message_container);
+            createdBySystemMessage = itemView.findViewById(R.id.created_by_system_message_container);
+            editableListMessage = itemView.findViewById(R.id.editable_message_container);
+            lockedMessage = itemView.findViewById(R.id.locked_message_container);
+            frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message_container);
+            staticMessage = itemView.findViewById(R.id.static_message_container);
+            listDetails = itemView.findViewById(R.id.list_details_layout);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +177,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
                 frequencyTableInfoMessage.setVisibility(View.GONE);
                 staticMessage.setVisibility(View.GONE);
             }
+
         }
     }
 
