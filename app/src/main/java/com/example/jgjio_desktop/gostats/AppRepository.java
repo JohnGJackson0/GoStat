@@ -144,6 +144,9 @@ public class AppRepository {
         //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
+    void deleteDisabledDataPointsFromList(int listID) {
+        mDataPointDao.deleteDisabledDataPoints(listID);
+    }
 
     /*
      *

@@ -70,6 +70,13 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     }
 
     @Override
+    public boolean onSupportNavigateUp(){
+        updateRoom();
+        finish();
+        return true;
+    }
+
+    @Override
     public void createDataElement() {
         updateRoom();
         DataPoint newDataPoint = new DataPoint(mListId, false, 0.0);
@@ -80,14 +87,12 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     //We just need to update the changes
 
     //Also, inserting DataPoints simply replace, because we use OnConflictStrategy.REPLACE in the Dao 
-    public void updateRoom() {
-        editableListViewModel.insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getNonAppendingUpdates());
+    protected void updateRoom() {
+        editableListViewModel.insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getPendingUpdates());
     }
 
-    @Override
-    public boolean onSupportNavigateUp(){
-        updateRoom();
-        finish();
-        return true;
+    public void deleteDisabledDataPoints() {
+        editableListViewModel.deleteDisabledDataPointsFromList(mListId);
     }
+
 }

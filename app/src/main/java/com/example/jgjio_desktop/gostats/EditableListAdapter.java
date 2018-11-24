@@ -54,7 +54,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         void createDataElement();
     }
 
-    public List<DataPoint> getNonAppendingUpdates() {
+    public List<DataPoint> getPendingUpdates() {
         List<DataPoint> mUpdate = new ArrayList<>(mUpdatedNonAppendingDataPoints);
         mUpdatedNonAppendingDataPoints.clear();
         return mUpdate;

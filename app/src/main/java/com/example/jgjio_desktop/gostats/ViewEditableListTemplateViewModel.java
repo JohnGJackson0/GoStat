@@ -29,4 +29,6 @@ public class ViewEditableListTemplateViewModel extends AndroidViewModel {
     void deleteList(int listID) {
         mRepository.removeStatisticalListByID(listID);
     }
+
+    void deleteDisabledDataPoints(int listID) { mRepository.deleteDisabledDataPointsFromList(listID);}
 }

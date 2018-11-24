@@ -23,6 +23,9 @@ public interface DataPointDao {
     @Delete
     void delete(DataPoint dataPoint);
 
+    @Query("DELETE FROM data_point WHERE list_id = :listId AND isEnabled=0")
+    void deleteDisabledDataPoints(int listId);
+
     @Query("SELECT * FROM data_point WHERE list_id = :listId")
     LiveData<List<DataPoint>> getList(int listId);
 
