@@ -64,6 +64,18 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     }
 
     @Override
+    public void onDestroy(){
+        updateRoom();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop(){
+        updateRoom();
+        super.onStop();
+    }
+
+    @Override
     public void onBackPressed() {
         updateRoom();
         finish();
