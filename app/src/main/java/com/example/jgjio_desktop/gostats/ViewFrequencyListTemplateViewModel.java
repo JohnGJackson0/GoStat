@@ -20,7 +20,7 @@ public class ViewFrequencyListTemplateViewModel extends AndroidViewModel {
                 getFrequencyTable(listID), 30).build();
     }
 
-    String getListName(int listID) {
+    LiveData<String> getListName(int listID) {
         return mRepository.getListName(listID);
     }
 

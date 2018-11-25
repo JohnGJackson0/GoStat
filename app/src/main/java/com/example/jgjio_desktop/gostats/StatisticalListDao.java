@@ -30,15 +30,15 @@ public interface StatisticalListDao {
     void deleteListById(int id);
 
     @Query("SELECT count(*) FROM list")
-    long getListCount();
+    LiveData<Long> getListCount();
 
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
-    String getListName(int id);
+    LiveData<String> getListName(int id);
 
     @Query("UPDATE list SET name =:newName WHERE id = :id")
     void updateName(String newName, int id);
 
     @Query("SELECT is_frequency_table FROM list WHERE id = :id LIMIT 1")
-    boolean isFrequencyTable(int id);
+    LiveData<Boolean> isFrequencyTable(int id);
 
 }

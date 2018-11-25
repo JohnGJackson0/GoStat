@@ -1,6 +1,7 @@
 package com.example.jgjio_desktop.gostats;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -85,7 +86,13 @@ public class ViewEditableListTemplateFragment extends Fragment {
         mListName = rootView.findViewById(R.id.list_name_view);
         TextView id = rootView.findViewById(R.id.list_id_view);
 
-        mListName.setText(getViewModel().getListName(mListID));
+        getViewModel().getListName(mListID).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                mListName.setText(s);
+            }
+        });
+
         id.setText("id " + Integer.toString(mListID));
     }
 

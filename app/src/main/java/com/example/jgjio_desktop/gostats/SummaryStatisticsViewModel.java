@@ -21,7 +21,7 @@ public class SummaryStatisticsViewModel extends AndroidViewModel {
         return mAllLists;
     }
 
-    String getListName(int id) {
+    LiveData<String> getListName(int id) {
         return mRepository.getListName(id);
     }
 

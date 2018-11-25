@@ -21,8 +21,10 @@ public class ActiveListViewModel extends AndroidViewModel{
         return mAllLists;
     }
 
+    //todo fix this cast from long to int
+
     //return the id
-    int insertStatisticalList(StatisticalList newList) { return  (int) mRepository.insertStatisticalList(newList);}
+    int insertStatisticalList(StatisticalList newList) { return (int) mRepository.insertStatisticalList(newList);}
 
     void deleteList(StatisticalList statList) {mRepository.removeStatisticalList(statList); }
 

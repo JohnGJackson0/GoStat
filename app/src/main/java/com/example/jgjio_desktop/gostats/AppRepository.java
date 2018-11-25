@@ -16,16 +16,12 @@ public class AppRepository {
     private StatisticalListDao mListDao;
     private DataPointDao mDataPointDao;
     private FrequencyIntervalDao mFrequencyIntervalDao;
-    LiveData<List<StatisticalList>> mAllStatisticalLists;
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getAppDatabase(application);
         mListDao = db.statisticalListDao();
         mDataPointDao = db.dataPointDao();
         mFrequencyIntervalDao = db.frequencyIntervalDao();
-
-        //todo do we need this ?????????????
-        mAllStatisticalLists = db.statisticalListDao().loadAllLists();
     }
 
     /*
@@ -35,7 +31,7 @@ public class AppRepository {
      *
      */
 
-    boolean isListAFrequencyTable(int id) {
+    LiveData<Boolean> isListAFrequencyTable(int id) {
         return mListDao.isFrequencyTable(id);
     }
 
@@ -48,10 +44,10 @@ public class AppRepository {
     }
 
     LiveData<List<StatisticalList>> getAllStatisticalLists() {
-        return mAllStatisticalLists;
+        return mListDao.loadAllLists();
     }
 
-    String getListName(int listId) {
+    LiveData<String> getListName(int listId) {
         return mListDao.getListName(listId);
     }
 
@@ -135,17 +131,16 @@ public class AppRepository {
     }
 
     void insertDataPoint(DataPoint dataPoint) {
-        mDataPointDao.insert(dataPoint);
-        //new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+        new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
     void updateDataPoint(DataPoint dataPoint) {
-        mDataPointDao.update(dataPoint);
-        //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+        new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
+    //WORKING ON THIS ONE
     void deleteDisabledDataPointsFromList(int listID) {
-        mDataPointDao.deleteDisabledDataPoints(listID);
+        new deleteDisabledDataPointAsyncTask(mDataPointDao).execute(listID);
     }
 
     /*
@@ -154,6 +149,43 @@ public class AppRepository {
      * these are the ones that are currently being used
      *
      */
+
+
+    private static class deleteDisabledDataPointAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private DataPointDao dataPointDao;
+
+        deleteDisabledDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
+
+        @Override
+        protected Void doInBackground(final Integer... params) {
+            dataPointDao.deleteDisabledDataPoints(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
+        private DataPointDao dataPointDao;
+
+        updateDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
+
+        @Override
+        protected Void doInBackground(final DataPoint... params) {
+            dataPointDao.update(params[0]);
+            return null;
+        }
+    }
+
+    private static class insertDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
+        private DataPointDao dataPointDao;
+
+        insertDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
+
+        @Override
+        protected Void doInBackground(final DataPoint... params) {
+            dataPointDao.insertDataPoint(params[0]);
+            return null;
+        }
+    }
 
     private static class updateStatisticalListNameAsyncTask extends AsyncTask<String, Void, Void> {
         private StatisticalListDao statListDao;
@@ -204,30 +236,6 @@ public class AppRepository {
      * todo These methods if not used should be deleted upon release
      *
      */
-
-    private static class insertDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
-        private DataPointDao dataPointDao;
-
-        insertDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
-
-        @Override
-        protected Void doInBackground(final DataPoint... params) {
-            dataPointDao.insertDataPoint(params[0]);
-            return null;
-        }
-    }
-
-    private static class updateDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
-        private DataPointDao dataPointDao;
-
-        updateDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
-
-        @Override
-        protected Void doInBackground(final DataPoint... params) {
-            dataPointDao.update(params[0]);
-            return null;
-        }
-    }
 
     private static class insertListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
 

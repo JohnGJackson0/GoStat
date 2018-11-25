@@ -26,11 +26,7 @@ public class BarHistogramGraphFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.bar_graph_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         resizeFragment(rootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        if (getViewModel().isListAFrequencyTable(mListID)) {
-            populateGraphWithFrequencyTable(rootView);
-        }
-
+        populateGraphWithFrequencyTable(rootView);
         return rootView;
     }
 

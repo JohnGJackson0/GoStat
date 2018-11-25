@@ -1,5 +1,6 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,7 +53,15 @@ public class ViewFrequencyListTemplateFragment extends Fragment {
 
     private void setMetaDetails(View rootView) {
         TextView name = rootView.findViewById(R.id.list_name_view);
-        name.setText(getViewModel().getListName(mListID));
+
+
+        getViewModel().getListName(mListID).observe(this, new Observer<String>() {
+
+            @Override
+            public void onChanged(@Nullable String s) {
+                name.setText(s);
+            }
+        });
         TextView id = rootView.findViewById(R.id.list_id_view);
         id.setText("id " + Integer.toString(mListID));
     }

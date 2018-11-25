@@ -37,7 +37,7 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository.updateDataPoint(newDataPoint);
     }
 
-    String getListName(int listID) {
+    LiveData<String> getListName(int listID) {
         return mRepository.getListName(listID);
     }
 

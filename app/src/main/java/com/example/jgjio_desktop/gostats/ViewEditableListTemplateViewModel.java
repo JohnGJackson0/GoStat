@@ -14,12 +14,8 @@ public class ViewEditableListTemplateViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    String getListName(int listID) {
+    LiveData<String> getListName(int listID) {
         return mRepository.getListName(listID);
-    }
-
-    String getName(int listId) {
-        return mRepository.getListName(listId);
     }
 
     void updateListName(String name, int id) {

@@ -25,7 +25,7 @@ public class BarHistogramGraphViewModel extends AndroidViewModel {
         return mRepository.getFrequencyIntervalsInTable(listID);
     }
 
-    boolean isListAFrequencyTable(int listID) {
+    LiveData<Boolean> isListAFrequencyTable(int listID) {
          return mRepository.isListAFrequencyTable(listID);
     }
 

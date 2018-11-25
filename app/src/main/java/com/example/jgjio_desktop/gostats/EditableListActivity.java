@@ -1,7 +1,9 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,9 +24,9 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         Toolbar toolbar = findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getListID();
-        editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
         configureEditableListRecyclerView();
-        setTitle("Edit list " + editableListViewModel.getListName(mListId));
+
+        setTitle("Editing List");
     }
 
     //EXTRA_LIST_ID can come from multiple Views so that
@@ -47,7 +49,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         mEditableListRecyclerView.setLayoutManager(layoutManager);
         mEditableListRecyclerView.setHasFixedSize(true);
         mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(this);
-        editableListViewModel.getListById(mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
+        getViewModel().getListById(mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
         mEditableListRecyclerView.setAdapter(mEditableDataRowListRecyclerViewAdapter);
 
         mEditableDataRowListRecyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -65,7 +67,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void onStart() {
-        if(editableListViewModel.getNumberOfItemsInList(mListId) == 0)
+        if(getViewModel().getNumberOfItemsInList(mListId) == 0)
             createDataElement();
 
         super.onStart();
@@ -100,7 +102,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     public void createDataElement() {
         updateRoom();
         DataPoint newDataPoint = new DataPoint(mListId, false, 0.0);
-        editableListViewModel.insertDataPoint(newDataPoint);
+        getViewModel().insertDataPoint(newDataPoint);
     }
 
     //dataPoints that are appended to the list already are updated.
@@ -108,11 +110,15 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     //Also, inserting DataPoints simply replace, because we use OnConflictStrategy.REPLACE in the Dao 
     protected void updateRoom() {
-        editableListViewModel.insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getPendingUpdates());
+        getViewModel().insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getPendingUpdates());
     }
 
     public void deleteDisabledDataPoints() {
-        editableListViewModel.deleteDisabledDataPointsFromList(mListId);
+        getViewModel().deleteDisabledDataPointsFromList(mListId);
+    }
+
+    private EditableListViewModel getViewModel() {
+        return ViewModelProviders.of(this).get(EditableListViewModel.class);
     }
 
 }

@@ -38,13 +38,8 @@ public class CreateFrequencyTableFragment extends Fragment {
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         initializeLayoutComponents(rootView);
 
-        if (getViewModel().isFrequencyTable(mListID)) {
-            clearLayout();
-            displayAlreadyHistogramErrorMessage(rootView);
-        } else {
-            calcNumberOfRecommendedBins();
-            createOnClickListeners();
-        }
+        calcNumberOfRecommendedBins();
+        createOnClickListeners();
 
         return rootView;
     }

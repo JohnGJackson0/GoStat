@@ -19,7 +19,7 @@ public class CreateFrequencyTableViewModel extends AndroidViewModel {
         return mRepository.getNumberOfDataPointsInList(listID);
     }
 
-    boolean isFrequencyTable(int listID) {
+    LiveData<Boolean> isFrequencyTable(int listID) {
         return mRepository.isListAFrequencyTable(listID);
     }
 
