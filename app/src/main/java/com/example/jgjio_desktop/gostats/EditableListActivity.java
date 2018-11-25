@@ -23,8 +23,8 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getListID();
         editableListViewModel = ViewModelProviders.of(this).get(EditableListViewModel.class);
-        setTitle("Edit list " + editableListViewModel.getListName(mListId));
         configureEditableListRecyclerView();
+        setTitle("Edit list " + editableListViewModel.getListName(mListId));
     }
 
     //EXTRA_LIST_ID can come from multiple Views so that
@@ -61,6 +61,14 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        if(editableListViewModel.getNumberOfItemsInList(mListId) == 0)
+            createDataElement();
+
+        super.onStart();
     }
 
     @Override

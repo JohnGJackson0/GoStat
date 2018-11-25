@@ -97,23 +97,7 @@ public class ViewableListsActivity extends AppCompatActivity {
         ActiveListViewModel mListViewModel;
         mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
         int lastEntry = mListViewModel.insertStatisticalList(new StatisticalList(0, name, false));
-        createInitialRecordForList(lastEntry);
         return lastEntry;
-    }
-
-    //todo fix
-
-    private Date getRightNow() {
-        Calendar today = Calendar.getInstance();
-        today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
-        return today.getTime();
-    }
-
-    private void createInitialRecordForList(int listId){
-        ActiveListViewModel mListViewModel;
-        mListViewModel = ViewModelProviders.of(this).get(ActiveListViewModel.class);
-        mListViewModel.insertDataPoint(new DataPoint(listId,false, 0.));
-
     }
 
     private void startEditableListIntent(String name) {
