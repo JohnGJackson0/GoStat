@@ -45,7 +45,7 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository.deleteDisabledDataPointsFromList(listID);
     }
 
-    long getNumberOfItemsInList(int listID){
+    LiveData<Long> getNumberOfItemsInList(int listID){
         return mRepository.getNumberOfDataPointsInList(listID);
     }
 }

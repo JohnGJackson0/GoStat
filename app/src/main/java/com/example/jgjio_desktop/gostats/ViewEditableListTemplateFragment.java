@@ -70,18 +70,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
         return mRootView;
     }
 
-    @Override
-    public void onResume() {
-        getViewModel().deleteDisabledDataPoints(mListID);
-        super.onResume();
-    }
-
-    @Override
-    public void onStart(){
-        getViewModel().deleteDisabledDataPoints(mListID);
-        super.onStart();
-    }
-
     private void setMetaDetails(View rootView) {
         mListName = rootView.findViewById(R.id.list_name_view);
         TextView id = rootView.findViewById(R.id.list_id_view);

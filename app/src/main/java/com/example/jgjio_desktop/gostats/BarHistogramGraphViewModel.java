@@ -29,7 +29,7 @@ public class BarHistogramGraphViewModel extends AndroidViewModel {
          return mRepository.isListAFrequencyTable(listID);
     }
 
-    int getMaxFrequency(int listID) {
+    LiveData<Integer> getMaxFrequency(int listID) {
         return mRepository.getMaxFrequency(listID);
     }
 }

@@ -15,7 +15,7 @@ public class CreateFrequencyTableViewModel extends AndroidViewModel {
         mRepository = new AppRepository(application);
     }
 
-    long getNumberOfDataPointsInList(int listID) {
+    LiveData<Long> getNumberOfDataPointsInList(int listID) {
         return mRepository.getNumberOfDataPointsInList(listID);
     }
 
@@ -25,15 +25,6 @@ public class CreateFrequencyTableViewModel extends AndroidViewModel {
 
     LiveData<List<DataPoint>> getList(int listId) {
         return mRepository.getDataPointsInList(listId);
-    }
-
-    //todo make sure all listID is listID not listId
-    double getMaxValue(int listID) {
-        return mRepository.getMaxValue(listID);
-    }
-
-    double getMinValue(int listID) {
-        return mRepository.getMinValue(listID);
     }
 
     //todo fix errors from long to int (also in other view models)

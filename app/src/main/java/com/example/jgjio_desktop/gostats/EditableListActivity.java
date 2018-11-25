@@ -14,7 +14,8 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableListRecyclerView;
     private int mListId;
-    EditableListViewModel editableListViewModel;
+    private boolean dataPointAlreadyInserted = false;
+
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override
@@ -25,6 +26,18 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getListID();
         configureEditableListRecyclerView();
+
+        Observer observer = new Observer<Long>() {
+            @Override
+            public void onChanged(@Nullable Long numberOfItems) {
+                if(numberOfItems == 0 && dataPointAlreadyInserted == false) {
+                    createDataElement();
+                }
+                getViewModel().getNumberOfItemsInList(mListId).removeObserver(this);
+            }
+        };
+
+        getViewModel().getNumberOfItemsInList(mListId).observe(this, observer);
 
         setTitle("Editing List");
     }
@@ -67,14 +80,12 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void onStart() {
-        if(getViewModel().getNumberOfItemsInList(mListId) == 0)
-            createDataElement();
-
         super.onStart();
     }
 
     @Override
     public void onDestroy(){
+        deleteDisabledDataPoints();
         updateRoom();
         super.onDestroy();
     }
@@ -100,6 +111,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void createDataElement() {
+        dataPointAlreadyInserted = true;
         updateRoom();
         DataPoint newDataPoint = new DataPoint(mListId, false, 0.0);
         getViewModel().insertDataPoint(newDataPoint);

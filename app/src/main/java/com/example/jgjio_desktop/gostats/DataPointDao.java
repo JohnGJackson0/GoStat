@@ -29,9 +29,6 @@ public interface DataPointDao {
     @Query("SELECT * FROM data_point WHERE list_id = :listId")
     LiveData<List<DataPoint>> getList(int listId);
 
-    @Query("SELECT * FROM data_point")
-    LiveData<List<DataPoint>> loadAllDataPoints();
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertDataPoints(List<DataPoint> dataPoints);
 
@@ -41,13 +38,7 @@ public interface DataPointDao {
     @Query("SELECT * FROM data_point WHERE list_id = :listId ORDER By id")
     DataSource.Factory<Integer, DataPoint> getListById(long listId);
 
-    @Query("SELECT MAX(value) FROM data_point WHERE list_id = :listID")
-    double getMaxValue(int listID);
-
-    @Query("SELECT MIN(value) FROM data_point WHERE list_id = :listID")
-    double getMinValue(int listID);
-
     @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
-    long getNumberOfDataPointsInList(int listID);
+    LiveData<Long> getNumberOfDataPointsInList(int listID);
 
 }

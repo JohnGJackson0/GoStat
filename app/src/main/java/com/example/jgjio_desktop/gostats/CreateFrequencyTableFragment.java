@@ -31,6 +31,9 @@ public class CreateFrequencyTableFragment extends Fragment {
     private int mNumberOfBins;
     private TextView mInstructions;
 
+    private double mMinOfDataSet = Double.MAX_VALUE;
+    private double mMaxOfDataSet = 0.;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +41,13 @@ public class CreateFrequencyTableFragment extends Fragment {
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         initializeLayoutComponents(rootView);
 
-        calcNumberOfRecommendedBins();
+        getViewModel().getNumberOfDataPointsInList(mListID).observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(@Nullable Long listLength) {
+                calcNumberOfRecommendedBins(listLength);
+            }
+        });
+
         createOnClickListeners();
 
         return rootView;
@@ -70,9 +79,8 @@ public class CreateFrequencyTableFragment extends Fragment {
     //there are several different alternatives we could possibly support here
     //https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width
 
-    private void calcNumberOfRecommendedBins() {
+    private void calcNumberOfRecommendedBins(long listLength) {
         CreateFrequencyTableViewModel vm = ViewModelProviders.of(this).get(CreateFrequencyTableViewModel.class);
-        long listLength = vm.getNumberOfDataPointsInList(mListID);
         mNumberOfRecommendedBins = (int) Math.ceil(Math.sqrt(listLength));
     }
 
@@ -114,7 +122,6 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     //todo add names to store min and max freq
     private void createFrequencyTable() {
-        FrequencyTable frequencyTable = getFrequencyIntervals(mNumberOfBins);
 
         final LiveData<List<DataPoint>> listObservable = getViewModel().getList(mListID);
 
@@ -122,9 +129,16 @@ public class CreateFrequencyTableFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<DataPoint> dataPoints) {
                 listObservable.removeObserver(this);
+
+                for (DataPoint val : dataPoints) {
+                    if(val.getValue() < mMinOfDataSet) mMinOfDataSet = val.getValue();
+                    if(val.getValue() > mMaxOfDataSet) mMaxOfDataSet = val.getValue();
+                }
+
+                FrequencyTable frequencyTable = getFrequencyIntervals(mNumberOfBins);
+
                 for(ExclusiveEndMixedFrequencyInterval i : frequencyTable.get()) {
                     for(DataPoint val : dataPoints) {
-                        Log.d("Testing, ", "dsfs");
 
                         if (val.getValue() >= i.getMin() && val.getValue() < i.getMax()) {
                             i.addAFrequency();
@@ -163,7 +177,7 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     private FrequencyTable getFrequencyIntervals(int numberOfBins) {
         double binWidth = getBinWidth();
-        double min = getMinValue();
+        double min = mMinOfDataSet;
         ExclusiveEndMixedFrequencyInterval[] frequencyIntervals = new ExclusiveEndMixedFrequencyInterval[numberOfBins];
 
         for(int i = 0; i < numberOfBins; i++) {
@@ -175,16 +189,8 @@ public class CreateFrequencyTableFragment extends Fragment {
         return val;
     }
 
-    private double getMinValue(){
-        return getViewModel().getMinValue(mListID);
-    }
-
     private double getBinWidth(){
-        double max = getViewModel().getMaxValue(mListID);
-        double min = getViewModel().getMinValue(mListID);
-        double rangeOfValues = max - min;
-
-        return (rangeOfValues / mNumberOfBins)+.1;
+        return ((mMaxOfDataSet - mMinOfDataSet) / mNumberOfBins)+.1;
     }
 
 

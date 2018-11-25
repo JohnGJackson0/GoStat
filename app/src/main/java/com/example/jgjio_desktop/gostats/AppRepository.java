@@ -77,10 +77,6 @@ public class AppRepository {
         return mFrequencyIntervalDao.getList(listId);
     }
 
-    long getNumberOfFrequencyIntervalsInTable(int listID) {
-        return mFrequencyIntervalDao.getNumberOfIntervalsInList(listID);
-    }
-
     void insertFrequencyIntervals(List<FrequencyInterval> frequencyIntervals) {
         mFrequencyIntervalDao.insertFrequencyIntervals(frequencyIntervals);
         //new insertFrequencyIntervalsAsyncTask(mFrequencyIntervalDao).execute(frequencyIntervals);
@@ -96,7 +92,7 @@ public class AppRepository {
         //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
-    int getMaxFrequency(int listID) {
+    LiveData<Integer> getMaxFrequency(int listID) {
         return mFrequencyIntervalDao.getMaxValue(listID);
     }
 
@@ -114,15 +110,7 @@ public class AppRepository {
         return mDataPointDao.getListById(listId);
     }
 
-    double getMaxValue(int listID) {
-        return mDataPointDao.getMaxValue(listID);
-    }
-
-    double getMinValue(int listID) {
-        return mDataPointDao.getMinValue(listID);
-    }
-
-    long getNumberOfDataPointsInList(int listID) {
+    LiveData<Long> getNumberOfDataPointsInList(int listID) {
         return mDataPointDao.getNumberOfDataPointsInList(listID);
     }
 

@@ -21,6 +21,7 @@ public class BarHistogramGraphFragment extends Fragment {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private int mListID;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.bar_graph_fragment, container, false);
@@ -39,6 +40,7 @@ public class BarHistogramGraphFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<FrequencyInterval> frequencyIntervals) {
                 int i=0;
+                double maxFrequency = 0;
                 series.setDataWidth(frequencyIntervals.get(0).getWidth()-.00001);
 
                 graphView.getViewport().setXAxisBoundsManual(true);
@@ -48,7 +50,6 @@ public class BarHistogramGraphFragment extends Fragment {
 
                 graphView.getViewport().setYAxisBoundsManual(true);
                 graphView.getViewport().setMinY(0);
-                graphView.getViewport().setMaxY(getViewModel().getMaxFrequency(mListID)+1);
 
 
 
@@ -57,12 +58,11 @@ public class BarHistogramGraphFragment extends Fragment {
                     double middleInterval = (freqInterval.getMaxRange() + freqInterval.getMinRange())/2;
                     series.appendData(new com.jjoe64.graphview.series.DataPoint(middleInterval, freqInterval.getFrequency()), false, 500000);
                     i++;
-
-                    Log.d("sdfsdfsdf", Double.toString(middleInterval));
-                    Log.d("sdfsdfsdf", Double.toString(freqInterval.getFrequency()));
-                    Log.d("sdfsdfsdf", Double.toString(series.getDataWidth()));
+                    if (freqInterval.getMaxRange() > maxFrequency) maxFrequency = freqInterval.getMaxRange();
 
                 }
+
+                graphView.getViewport().setMaxY(maxFrequency);
 
 
             }

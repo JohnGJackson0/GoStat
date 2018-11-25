@@ -18,7 +18,7 @@ public interface StatisticalListDao {
     LiveData<List<StatisticalList>> loadAllLists();
 
     @Insert
-    Long insert(StatisticalList statisticalList);
+    long insert(StatisticalList statisticalList);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(StatisticalList statisticalList);

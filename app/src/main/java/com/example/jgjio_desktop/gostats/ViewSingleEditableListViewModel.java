@@ -29,4 +29,6 @@ public class ViewSingleEditableListViewModel extends AndroidViewModel {
         mRepository.updateListName(name, id);
     }
 
+    void deleteDisabledDataPoints(int listID) {mRepository.deleteDisabledDataPointsFromList(listID); }
+
 }
