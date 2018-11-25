@@ -96,6 +96,8 @@
     <string name="summary_quartile_three_label">Q3:</string>
     <string name="summary_max_label">Max X:</string>
 
+    <string name="copy_to_clipboard_button_label">Copy To Clipboard</string>
+
 
 
     <string name="create_frequency_table_button_label">Create Frequency Table</string>

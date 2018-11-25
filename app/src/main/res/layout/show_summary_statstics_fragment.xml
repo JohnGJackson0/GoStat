@@ -24,8 +24,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:text="@string/summary_statistics_title"
-                android:textColor="@color/primary_text"
-                android:textSize="32sp" />
+                android:textColor="@color/colorPrimaryVariant"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size_title" />
 
             <RelativeLayout
                 android:id="@+id/summary_statistics_mean"
@@ -39,8 +40,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_mean_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textColor="@color/colorSecondary"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_mean_value"
@@ -48,8 +50,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_mean_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
-                    android:textSize="22sp" />
+                    android:text="example 52.2554"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="22dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -64,8 +67,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_sigma_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_sigma_x_value"
@@ -73,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_sigma_x_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -89,8 +93,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_sigma_squared_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_sigma_x_squared_value"
@@ -98,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_sigma_x_squared_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -113,9 +118,10 @@
                     android:id="@+id/summary_statistics_sample_standard_deviation_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="italic"
                     android:text="@string/summary_sample_standard_deviation_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_sample_standard_deviation_value"
@@ -123,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_sample_standard_deviation_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -140,8 +146,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_standard_deviation_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_standard_deviation_value"
@@ -149,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_standard_deviation_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -165,8 +172,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_number_of_items_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_number_items_value"
@@ -174,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_number_items_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -190,8 +198,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_min_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_min_value"
@@ -199,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_min_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -215,8 +224,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_quartile_one_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_quartile_one_value"
@@ -224,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_quartile_one_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -240,8 +250,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_median_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_median_value"
@@ -249,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_median_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -265,8 +276,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_quartile_three_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_quartile_three_value"
@@ -274,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_quartile_three_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
 
@@ -290,8 +302,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_max_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="22sp" />
+                    android:textStyle="italic"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/text_list_item_titles" />
 
                 <TextView
                     android:id="@+id/summary_statistics_max_value"
@@ -299,10 +312,34 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/summary_statistics_max_label"
                     android:paddingLeft="4dp"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
             </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/copy_to_clipboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/summary_statistics_max"
+                android:paddingTop="4dp">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/copy_to_clipboard_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorAccent"
+                    android:text="@string/copy_to_clipboard_button_label"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_button"/>
+
+            </RelativeLayout>
+
+
         </RelativeLayout>
+
+
+
 
     </android.support.constraint.ConstraintLayout>
 

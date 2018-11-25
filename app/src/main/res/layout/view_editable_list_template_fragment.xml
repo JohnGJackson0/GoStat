@@ -60,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/colorAccent"
                 android:backgroundTintMode="add"
                 android:popupElevation="5dp"
                 android:layout_weight=".75"
@@ -70,8 +70,10 @@
             <Button
                 android:id="@+id/editable_list_execute_function_button"
                 android:layout_width="0dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorAccent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_button"
+                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:layout_weight=".25"
                 android:text="@string/function_button_label" />
