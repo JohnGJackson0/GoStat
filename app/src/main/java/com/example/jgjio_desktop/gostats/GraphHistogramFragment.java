@@ -9,6 +9,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -77,7 +79,7 @@ public class GraphHistogramFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<FrequencyInterval> frequencyIntervals) {
                 int i=0;
-                double maxFrequency = 0;
+                int maxFrequency = 0;
                 series.setDataWidth(frequencyIntervals.get(0).getWidth());
 
                 graphView.getViewport().setXAxisBoundsManual(true);
@@ -92,11 +94,44 @@ public class GraphHistogramFragment extends Fragment {
                     double middleInterval = (freqInterval.getMaxRange() + freqInterval.getMinRange())/2;
                     series.appendData(new com.jjoe64.graphview.series.DataPoint(middleInterval, freqInterval.getFrequency()), false, 500000);
                     i++;
-                    if (freqInterval.getMaxRange() > maxFrequency) maxFrequency = freqInterval.getMaxRange();
+                    if (freqInterval.getFrequency() > maxFrequency) maxFrequency = freqInterval.getFrequency();
                 }
 
-                graphView.getViewport().setMaxY(maxFrequency);
-                graphView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorWhite));
+                graphView.getViewport().setMaxY(maxFrequency +1);
+
+
+                //try to make the graph look good at edge cases
+                if (maxFrequency > 20000 && frequencyIntervals.get(0).getWidth() > 20000) {
+                    graphView.getGridLabelRenderer().setNumVerticalLabels(3);
+                    graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+                    graphView.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+
+                } else if (maxFrequency > 20000) {
+                    graphView.getGridLabelRenderer().setNumVerticalLabels(3);
+                    graphView.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.VERTICAL);
+
+                } else if(frequencyIntervals.get(0).getWidth() > 20000) {
+                    graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+                    graphView.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
+                }
+
+                graphView.getGridLabelRenderer().setGridColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                graphView.getGridLabelRenderer().setVerticalAxisTitle("Frequency");
+                graphView.getGridLabelRenderer().setHorizontalAxisTitle("Interval");
+                graphView.getGridLabelRenderer().setHorizontalAxisTitleTextSize(getResources().getDimension(R.dimen.text_list_item_titles));
+                graphView.getGridLabelRenderer().setVerticalAxisTitleTextSize(getResources().getDimension(R.dimen.text_list_item_titles));
+
+
+                graphView.getGridLabelRenderer().setVerticalAxisTitleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryVariant));
+                graphView.getGridLabelRenderer().setHorizontalAxisTitleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryVariant));
+
+                graphView.getGridLabelRenderer().setHorizontalLabelsColor(ContextCompat.getColor(getActivity(), R.color.colorSecondary));
+                graphView.getGridLabelRenderer().setVerticalLabelsColor(ContextCompat.getColor(getActivity(), R.color.colorSecondary));
+
+
+                graphView.setTitleTextSize(getResources().getDimension(R.dimen.text_size_title));
+
+                graphView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.light_theme_background_color));
             }
         });
 

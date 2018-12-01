@@ -7,7 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 @Database(entities = {DataPoint.class, StatisticalList.class, FrequencyInterval.class}, version = 1)
-@TypeConverters({DateConverter.class})
+@TypeConverters({BigDecimalConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

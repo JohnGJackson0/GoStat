@@ -131,8 +131,8 @@ public class CreateFrequencyTableFragment extends Fragment {
                 listObservable.removeObserver(this);
 
                 for (DataPoint val : dataPoints) {
-                    if(val.getValue() < mMinOfDataSet) mMinOfDataSet = val.getValue();
-                    if(val.getValue() > mMaxOfDataSet) mMaxOfDataSet = val.getValue();
+                    if(val.getValue().doubleValue() < mMinOfDataSet) mMinOfDataSet = val.getValue().doubleValue();
+                    if(val.getValue().doubleValue() > mMaxOfDataSet) mMaxOfDataSet = val.getValue().doubleValue();
                 }
 
                 FrequencyTable frequencyTable = getFrequencyIntervals(mNumberOfBins);
@@ -140,7 +140,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                 for(ExclusiveEndMixedFrequencyInterval i : frequencyTable.get()) {
                     for(DataPoint val : dataPoints) {
 
-                        if (val.getValue() >= i.getMin() && val.getValue() < i.getMax()) {
+                        if (val.getValue().doubleValue() >= i.getMin() && val.getValue().doubleValue() < i.getMax()) {
                             i.addAFrequency();
                         }
                     }

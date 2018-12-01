@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import java.math.BigDecimal;
+
 
 public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
@@ -114,7 +116,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     public void createDataElement() {
         initialDataPointAlreadyInserted = true;
         updateRoom();
-        DataPoint newDataPoint = new DataPoint(mListId, false, 0.0);
+        DataPoint newDataPoint = new DataPoint(mListId, false, new BigDecimal("0.0"));
         getViewModel().insertDataPoint(newDataPoint);
     }
 

@@ -40,7 +40,6 @@
                 android:inputType="numberDecimal"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorAccent"
-                android:maxLines="1"
                 android:layout_toRightOf="@id/dataPointIndexTextView"
                 android:layout_alignParentRight = "true"/>
 

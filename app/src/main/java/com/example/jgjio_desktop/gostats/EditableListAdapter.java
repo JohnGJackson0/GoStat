@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.arch.paging.PagedList.Callback;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -86,7 +87,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             mIndexOfEditableRow.setText(Integer.toString(listIndex + 1));//statistical lists start at 1
 
             if (dataPoint.isEnabled()) {
-                mEditableDataPoint.setText(Double.toString(dataPoint.getValue()));
+                mEditableDataPoint.setText(dataPoint.getValue().toString());
             } else {
                 mEditableDataPoint.setText(null);
             }
@@ -151,7 +152,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                 getItem(position).setEnabled(false);
             } else {
                 getItem(position).setEnabled(true);
-                getItem(position).setValue(Double.parseDouble(charSequence.toString()));
+                getItem(position).setValue(new BigDecimal(charSequence.toString()));
             }
         }
 

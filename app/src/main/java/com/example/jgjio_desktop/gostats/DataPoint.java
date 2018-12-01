@@ -4,6 +4,9 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
+import java.math.BigDecimal;
 
 //todo FIX UI currently the app has no way to delete a single data point
 
@@ -13,6 +16,8 @@ import android.arch.persistence.room.PrimaryKey;
                 parentColumns = "id",
                 childColumns = "list_id",
                 onDelete = ForeignKey.CASCADE))
+
+@TypeConverters({BigDecimalConverter.class})
 
 public class DataPoint {
 
@@ -24,9 +29,9 @@ public class DataPoint {
 
     private boolean isEnabled;
 
-    private double value;
+    private BigDecimal value;
 
-    public DataPoint(int listId, boolean isEnabled, double value) {
+    public DataPoint(int listId, boolean isEnabled, BigDecimal value) {
         this.listId = listId;
         this.isEnabled = isEnabled;
         this.value = value;
@@ -48,7 +53,7 @@ public class DataPoint {
         this.listId = listId;
     }
 
-    public double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
@@ -60,7 +65,7 @@ public class DataPoint {
         isEnabled = enabled;
     }
 
-    public void setValue(double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 

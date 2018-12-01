@@ -92,7 +92,7 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
                 mDescStat = new DescriptiveStatistics();
                 for(DataPoint v :dataPoints) {
                     if (v.isEnabled()) {
-                        mDescStat.addValue(v.getValue());
+                        mDescStat.addValue(v.getValue().doubleValue());
                     }
                 }
                 mToText ="1 variable Stats : Go! Statistics\n" +
