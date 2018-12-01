@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +22,14 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import java.util.List;
 
-import static android.support.v4.content.ContextCompat.getColor;
-
 public class ShowSummaryStatisticsFragment extends Fragment implements View.OnClickListener {
     private int mListID;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     private Button mCopyToClipboard;
-    private String toText = "";
-
-    private ShowSummaryStatisticsViewModel mViewModel;
+    private String mToText = "";
+    private View mRootView;
+    DescriptiveStatistics mDescStat;
 
     public static ShowSummaryStatisticsFragment newInstance(int listID) {
         ShowSummaryStatisticsFragment fragment = new ShowSummaryStatisticsFragment();
@@ -46,15 +43,14 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mListID = getArguments().getInt(EXTRA_LIST_ID);
-        View rootView = inflater.inflate(R.layout.show_summary_statstics_fragment, container, false);
-        fillOneVariableStatistics(rootView);
-
-        mCopyToClipboard = rootView.findViewById(R.id.copy_to_clipboard_button);
+        mRootView = inflater.inflate(R.layout.show_summary_statstics_fragment, container, false);
+        mCopyToClipboard = mRootView.findViewById(R.id.copy_to_clipboard_button);
         mCopyToClipboard.setOnClickListener(this);
+        fillOneVariableStatistics(mRootView);
 
-        return rootView;
+        return mRootView;
     }
-
+    
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
@@ -90,43 +86,42 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
         quartileThree = rootView.findViewById(R.id.summary_statistics_quartile_three_value);
         max = rootView.findViewById(R.id.summary_statistics_max_value);
 
-        DescriptiveStatistics descStat = new DescriptiveStatistics();
-
         getViewModel().getList(mListID).observe(this, new Observer<List<DataPoint>>() {
             @Override
             public void onChanged(@Nullable List<DataPoint> dataPoints) {
+                mDescStat = new DescriptiveStatistics();
                 for(DataPoint v :dataPoints) {
                     if (v.isEnabled()) {
-                        descStat.addValue(v.getValue());
+                        mDescStat.addValue(v.getValue());
                     }
                 }
-                toText="1 variable Stats : Go! Statistics\n" +
-                        getString(R.string.summary_mean_label) + " " + Double.toString(descStat.getMean()) + "\n" +
-                        getString(R.string.summary_sigma_label) + "  " + Double.toString(descStat.getSum()) + "\n" +
-                        getString(R.string.summary_sigma_squared_label) + "  " + Double.toString(descStat.getSumsq()) + "\n" +
-                        getString(R.string.summary_sample_standard_deviation_label) + "  " + Double.toString(descStat.getStandardDeviation()) + "\n" +
-                        getString(R.string.summary_standard_deviation_label) + "  " + Double.toString(Math.sqrt(descStat.getPopulationVariance())) + "\n" +
-                        getString(R.string.summary_number_of_items_label) + "  " + Long.toString(descStat.getN()) + "\n" +
-                        getString(R.string.summary_min_label) + "  " + Double.toString(descStat.getMin()) + "\n" +
-                        getString(R.string.summary_quartile_one_label) + "  " + Double.toString(descStat.getPercentile(25))+ "\n" +
-                        getString(R.string.summary_median_label) + "  " + Double.toString(descStat.getPercentile(50)) + "\n" +
-                        getString(R.string.summary_quartile_three_label) + "  " + Double.toString(descStat.getPercentile(75)) + "\n" +
-                        getString(R.string.summary_max_label) + "  " + Double.toString(descStat.getMax()) + "\n";
+                mToText ="1 variable Stats : Go! Statistics\n" +
+                        getString(R.string.summary_mean_label) + " " + Double.toString(mDescStat.getMean()) + "\n" +
+                        getString(R.string.summary_sigma_label) + "  " + Double.toString(mDescStat.getSum()) + "\n" +
+                        getString(R.string.summary_sigma_squared_label) + "  " + Double.toString(mDescStat.getSumsq()) + "\n" +
+                        getString(R.string.summary_sample_standard_deviation_label) + "  " + Double.toString(mDescStat.getStandardDeviation()) + "\n" +
+                        getString(R.string.summary_standard_deviation_label) + "  " + Double.toString(Math.sqrt(mDescStat.getPopulationVariance())) + "\n" +
+                        getString(R.string.summary_number_of_items_label) + "  " + Long.toString(mDescStat.getN()) + "\n" +
+                        getString(R.string.summary_min_label) + "  " + Double.toString(mDescStat.getMin()) + "\n" +
+                        getString(R.string.summary_quartile_one_label) + "  " + Double.toString(mDescStat.getPercentile(25))+ "\n" +
+                        getString(R.string.summary_median_label) + "  " + Double.toString(mDescStat.getPercentile(50)) + "\n" +
+                        getString(R.string.summary_quartile_three_label) + "  " + Double.toString(mDescStat.getPercentile(75)) + "\n" +
+                        getString(R.string.summary_max_label) + "  " + Double.toString(mDescStat.getMax()) + "\n";
 
 
-                mean.setText(Double.toString(descStat.getMean()));
-                sigma.setText(Double.toString(descStat.getSum()));
-                sigmaSquared.setText(Double.toString(descStat.getSumsq()));
-                sampleStandardDeviation.setText(Double.toString(descStat.getStandardDeviation()));
-                standardDeviation.setText(Double.toString(Math.sqrt(descStat.getPopulationVariance())));
+                mean.setText(Double.toString(mDescStat.getMean()));
+                sigma.setText(Double.toString(mDescStat.getSum()));
+                sigmaSquared.setText(Double.toString(mDescStat.getSumsq()));
+                sampleStandardDeviation.setText(Double.toString(mDescStat.getStandardDeviation()));
+                standardDeviation.setText(Double.toString(Math.sqrt(mDescStat.getPopulationVariance())));
 
-                numberItems.setText(Long.toString(descStat.getN()));
+                numberItems.setText(Long.toString(mDescStat.getN()));
 
-                min.setText(Double.toString(descStat.getMin()));
-                quartileOne.setText(Double.toString(descStat.getPercentile(25)));
-                median.setText(Double.toString(descStat.getPercentile(50)));
-                quartileThree.setText(Double.toString(descStat.getPercentile(75)));
-                max.setText(Double.toString(descStat.getMax()));
+                min.setText(Double.toString(mDescStat.getMin()));
+                quartileOne.setText(Double.toString(mDescStat.getPercentile(25)));
+                median.setText(Double.toString(mDescStat.getPercentile(50)));
+                quartileThree.setText(Double.toString(mDescStat.getPercentile(75)));
+                max.setText(Double.toString(mDescStat.getMax()));
             }
         });
 
@@ -141,7 +136,7 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        copyToClipboard(toText);
+        copyToClipboard(mToText);
         showCopyToClipboardMessage();
     }
 
@@ -151,8 +146,6 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
                 Toast.LENGTH_SHORT);
 
         View view = toast.getView();
-        TextView text = view.findViewById(R.id.message);
-
         int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);
 
         view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
