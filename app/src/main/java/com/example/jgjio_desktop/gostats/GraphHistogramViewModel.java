@@ -8,28 +8,33 @@ import android.arch.paging.PagedList;
 
 import java.util.List;
 
-public class BarHistogramGraphViewModel extends AndroidViewModel {
+public class GraphHistogramViewModel extends AndroidViewModel {
     private AppRepository mRepository;
     private LiveData<PagedList<DataPoint>> listDataPoints;
 
-    public BarHistogramGraphViewModel(Application application) {
+    public GraphHistogramViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
-    }
-
-    LiveData<List<DataPoint>> getDataPointList(int listID) {
-        return mRepository.getDataPointsInList(listID);
     }
 
     LiveData<List<FrequencyInterval>> getFrequencyIntervalsInTable(int listID) {
         return mRepository.getFrequencyIntervalsInTable(listID);
     }
 
-    LiveData<Boolean> isListAFrequencyTable(int listID) {
-         return mRepository.isListAFrequencyTable(listID);
+    LiveData<String> getName(int listID) {
+        return mRepository.getListName(listID);
     }
 
-    LiveData<Integer> getMaxFrequency(int listID) {
-        return mRepository.getMaxFrequency(listID);
+    String getStaticListName(int listID) {
+        return mRepository.getStaticListName(listID);
     }
+
+    int getAssociatedListID(int listID) {
+        return mRepository.getAssociatedList(listID);
+    }
+
+    boolean hasAssociatedList(int listID) {
+        return mRepository.hasAssociatedList(listID);
+    }
+
 }

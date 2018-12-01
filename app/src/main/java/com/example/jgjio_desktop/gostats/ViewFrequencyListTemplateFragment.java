@@ -86,7 +86,7 @@ public class ViewFrequencyListTemplateFragment extends Fragment {
     void startGraphFragment() {
         //todo needs to use getFragment Manager
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container,  BarHistogramGraphFragment.newInstance(mListID), "BarFragment")
+        fragmentTransaction.replace(R.id.container,  GraphHistogramFragment.newInstance(mListID), "BarFragment")
                 .commit();
 
         fragmentTransaction.addToBackStack(null);

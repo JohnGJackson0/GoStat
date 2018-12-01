@@ -35,10 +35,15 @@ public interface StatisticalListDao {
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
     LiveData<String> getListName(int id);
 
+    @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
+    String getStaticListName(int id);
+
     @Query("UPDATE list SET name =:newName WHERE id = :id")
     void updateName(String newName, int id);
 
     @Query("SELECT is_frequency_table FROM list WHERE id = :id LIMIT 1")
     LiveData<Boolean> isFrequencyTable(int id);
 
+    @Query("SELECT associated_list FROM list WHERE id = :id")
+    int getAssociatedListID(int id);
 }

@@ -43,6 +43,17 @@ public class AppRepository {
         mListDao.deleteListById(listID);
     }
 
+    int getAssociatedList(int listID) {return mListDao.getAssociatedListID(listID);}
+
+    String getStaticListName(int listID) {return mListDao.getStaticListName(listID); }
+
+    boolean hasAssociatedList(int listID) {
+        if (mListDao.getAssociatedListID(listID) == -1) {
+            return false;
+        }
+        return true;
+    }
+
     LiveData<List<StatisticalList>> getAllStatisticalLists() {
         return mListDao.loadAllLists();
     }

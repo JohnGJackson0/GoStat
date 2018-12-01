@@ -2,20 +2,22 @@ package com.example.jgjio_desktop.gostats;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 //TODO add Indexes
 
 @Entity(tableName = "list")
-@TypeConverters({DateConverter.class})
-
 public class StatisticalList {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String name;
+
+    @ColumnInfo(name="associated_list")
+    private int associatedList = -1;
 
     @ColumnInfo(name = "is_frequency_table")
     private boolean isFrequencyTable;
@@ -41,6 +43,20 @@ public class StatisticalList {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    //this list would be associated with another list of same class
+    //  such as a frequency table
+    public void setAssociatedList(int id) {
+        associatedList = id;
+    }
+
+    public int getAssociatedList() {
+        return associatedList;
+    }
+
+    public boolean hasAssociatedList() {
+        return (associatedList != -1);
     }
 
 }
