@@ -16,9 +16,9 @@
             android:id = "@+id/item_position"
             android:text = "0"
             android:textColor="@color/colorSecondary"
-            android:textStyle="bold"
             android:textSize="@dimen/text_list_item_titles"
             android:layout_alignParentLeft="true"
+            android:textStyle="italic"
             android:layout_margin="4dp"/>
 
         <TextView
