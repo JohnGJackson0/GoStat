@@ -54,10 +54,11 @@ public class GraphHistogramFragment extends Fragment {
                     ActivityCompat.requestPermissions(getActivity(),
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+
                     if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
+                            == PackageManager.PERMISSION_GRANTED)
                             takeSnapShot();
-                    }
+
                 } else {
                     takeSnapShot();
                 }
