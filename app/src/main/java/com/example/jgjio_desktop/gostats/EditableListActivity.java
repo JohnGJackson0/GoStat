@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 
 public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableListRecyclerView;
     private int mListId;
-    private boolean dataPointAlreadyInserted = false;
+    private boolean initialDataPointAlreadyInserted = false;
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
@@ -30,7 +31,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         Observer observer = new Observer<Long>() {
             @Override
             public void onChanged(@Nullable Long numberOfItems) {
-                if(numberOfItems == 0 && dataPointAlreadyInserted == false) {
+                if(initialDataPointAlreadyInserted == false && numberOfItems == 0) {
                     createDataElement();
                 }
                 getViewModel().getNumberOfItemsInList(mListId).removeObserver(this);
@@ -111,7 +112,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void createDataElement() {
-        dataPointAlreadyInserted = true;
+        initialDataPointAlreadyInserted = true;
         updateRoom();
         DataPoint newDataPoint = new DataPoint(mListId, false, 0.0);
         getViewModel().insertDataPoint(newDataPoint);

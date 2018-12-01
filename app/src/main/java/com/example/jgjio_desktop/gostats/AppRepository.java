@@ -115,11 +115,13 @@ public class AppRepository {
     }
 
     void insertDataPoints(List<DataPoint> listDataPoints) {
-        new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
+        mDataPointDao.insertDataPoints(listDataPoints);
+        //new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
     }
 
     void insertDataPoint(DataPoint dataPoint) {
-        new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
+        mDataPointDao.insertDataPoint(dataPoint);
+        //new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
 
     void updateDataPoint(DataPoint dataPoint) {
