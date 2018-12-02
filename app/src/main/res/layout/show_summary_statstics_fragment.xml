@@ -52,7 +52,7 @@
                     android:paddingLeft="4dp"
                     android:text="example 52.2554"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="22dp" />
+                    android:textSize="22sp" />
             </RelativeLayout>
 
             <RelativeLayout

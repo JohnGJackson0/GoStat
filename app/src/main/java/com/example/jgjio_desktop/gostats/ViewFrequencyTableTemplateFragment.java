@@ -130,7 +130,7 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
     void startViewFragment() {
         //todo
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.view_window,  FrequencyTableFragment.newInstance(mListID), "FrequencyList")
+        fragmentTransaction.replace(R.id.view_window,  ViewFrequencyTableFragment.newInstance(mListID), "FrequencyList")
                 .commit();
 
     }

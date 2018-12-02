@@ -6,11 +6,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
-public class FrequencyTableFragmentViewModel extends AndroidViewModel {
-    private AppRepository mRepository;
-    private LiveData<PagedList<DataPoint>> listDataPoints;
+import java.util.List;
 
-    public FrequencyTableFragmentViewModel(Application application) {
+public class ViewFrequencyTableFragmentViewModel extends AndroidViewModel {
+    private AppRepository mRepository;
+
+    public ViewFrequencyTableFragmentViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
     }
@@ -26,5 +27,9 @@ public class FrequencyTableFragmentViewModel extends AndroidViewModel {
 
     void deleteList(int listID) {
         mRepository.removeStatisticalListByID(listID);
+    }
+
+    LiveData<List<FrequencyInterval>> getTable(int mListID) {
+        return mRepository.getFrequencyIntervalsInTable(mListID);
     }
 }

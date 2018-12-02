@@ -1,12 +1,19 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class ViewFrequencyTableActivity extends AppCompatActivity {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private int mListId;
+    String mCopyToClipboardText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +22,6 @@ public class ViewFrequencyTableActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.view_frequency_table_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -47,4 +53,9 @@ public class ViewFrequencyTableActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    private ViewFrequencyTableViewModel getViewModel() {
+        return ViewModelProviders.of(this).get(ViewFrequencyTableViewModel.class);
+    }
+
 }
