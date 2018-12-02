@@ -15,6 +15,17 @@
             android:id="@+id/include"
             layout="@layout/viewing_list_instructions" />
 
+        <TextView
+            android:id="@+id/list_show_text"
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:layout_height="match_parent"
+            android:text="@string/no_list_data_message"
+            android:textColor="@color/colorPrimaryVariant"
+            android:textSize="@dimen/text_important_snippet"
+            android:textStyle="italic"
+            android:visibility="gone" />
+
         <fragment
             android:id="@+id/view_list_details_fragment"
             android:name="com.example.jgjio_desktop.gostats.ActiveListSelectionFragment"
@@ -23,13 +34,4 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <TextView
-        android:id = "@+id/list_show_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/primary_text"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/no_list_data_message"
-        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>

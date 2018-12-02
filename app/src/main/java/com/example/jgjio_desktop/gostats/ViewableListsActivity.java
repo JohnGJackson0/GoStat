@@ -44,6 +44,7 @@ import java.util.List;
 public class ViewableListsActivity extends AppCompatActivity {
     private TextView mCreateListInstructions;
     ActiveListViewModel activeListViewModel;
+    View viewListDetails;
     //todo fix caps in list_id
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     public static final String ACTION_ID = "com.example.jgjio_desktop.gostats.extra.action_id";
@@ -54,6 +55,8 @@ public class ViewableListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_lists);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        viewListDetails = findViewById(R.id.view_list_details_fragment);
 
         mCreateListInstructions = findViewById(R.id.list_show_text);
 
@@ -72,8 +75,10 @@ public class ViewableListsActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<StatisticalList> statisticalLists) {
                 if (statisticalLists.size() == 0) {
                     mCreateListInstructions.setVisibility(View.VISIBLE);
+                    viewListDetails.setVisibility(View.GONE);
                 } else {
-                    mCreateListInstructions.setVisibility(View.INVISIBLE);
+                    mCreateListInstructions.setVisibility(View.GONE);
+                    viewListDetails.setVisibility(View.VISIBLE);
                 }
             }
         });
