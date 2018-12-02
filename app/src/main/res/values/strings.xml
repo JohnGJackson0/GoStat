@@ -123,4 +123,11 @@
         <item>Jump To</item>
     </string-array>
 
+    <string-array name="editable_list_functions_no_jump_to">
+        <item>Edit List</item>
+        <item>View List</item>
+        <item>Change List Name</item>
+        <item>View 1-var Stats</item>
+        <item>Create Frequency Table /Histogram</item>
+    </string-array>
 </resources>

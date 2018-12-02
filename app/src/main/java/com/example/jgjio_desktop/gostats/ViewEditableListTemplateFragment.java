@@ -1,5 +1,6 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -16,6 +17,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,7 +36,7 @@ public class ViewEditableListTemplateFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.view_editable_list_template_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.view_editable_list_template_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         setMetaDetails(mRootView);
         showDataPointsFragment();
@@ -103,6 +105,7 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     void showDataPointsFragment() {
+        addJumpToOnSpinner();
         dataPointsFragment = ViewEditableListFragment.newInstance(mListID);
         //todo
         getFragmentTransaction().replace(R.id.view_window,  dataPointsFragment, "Editable List")
@@ -149,11 +152,13 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     private void showOneVarStats() {
+        removeJumpToOnSpinner();
         getFragmentTransaction().replace(R.id.view_window, ShowSummaryStatisticsFragment.newInstance(mListID))
                 .commit();
     }
 
     private void showCreateFrequencyTableFragment() {
+        removeJumpToOnSpinner();
         if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
             Toast toast = Toast.makeText(getActivity(),
                     R.string.no_data_histogram_error_toast_message,
@@ -168,6 +173,20 @@ public class ViewEditableListTemplateFragment extends Fragment {
             getFragmentTransaction().replace(R.id.view_window,  CreateFrequencyTableFragment.newInstance(mListID), "Frequency Table")
                     .commit();
         }
+    }
+
+    private void removeJumpToOnSpinner(){
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions_no_jump_to));
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner functionsSpinner = mRootView.findViewById(R.id.editable_list_functions_spinner);
+        functionsSpinner.setAdapter(spinnerArrayAdapter);
+    }
+
+    private void addJumpToOnSpinner() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions));
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner functionsSpinner = mRootView.findViewById(R.id.editable_list_functions_spinner);
+        functionsSpinner.setAdapter(spinnerArrayAdapter);
     }
 
     private void showJumpToDialog() {

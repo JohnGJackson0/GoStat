@@ -65,8 +65,7 @@
                 android:backgroundTintMode="add"
                 android:popupElevation="5dp"
                 android:layout_weight=".75"
-                android:entries="@array/editable_list_functions"
-                android:prompt="@string/view_frequency_table_spinner_prompt" />
+                android:entries="@array/editable_list_functions" />
 
             <Button
                 android:id="@+id/editable_list_execute_function_button"
