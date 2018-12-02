@@ -29,6 +29,4 @@ public class ViewableListsViewModel extends AndroidViewModel {
     void deleteList(int listID) {
         mRepository.removeStatisticalListByID(listID);
     }
-
-
 }

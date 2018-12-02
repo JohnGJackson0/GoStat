@@ -88,6 +88,8 @@
 
     <string name="summary_statistics_title">1-variable stats</string>
 
+    <string name="no_data_instructions">There is no data in this list. To create data for the list select edit list and hit Go!</string>
+
 
     <string name="summary_mean_label">x̅:</string>
     <string name="summary_sigma_label">Σx:</string>

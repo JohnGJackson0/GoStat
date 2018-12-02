@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".ViewEditableListFragment">
 
+    <TextView
+        android:id="@+id/no_data_text_view_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="@dimen/text_important_snippet"
+        android:textColor="@color/colorPrimaryVariant"
+        android:textStyle="italic"
+        android:padding="5dp"
+        android:text="@string/no_data_instructions"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_single_list"
         android:layout_width="match_parent"

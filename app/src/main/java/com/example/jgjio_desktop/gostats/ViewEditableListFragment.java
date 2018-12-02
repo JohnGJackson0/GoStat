@@ -1,5 +1,6 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class ViewEditableListFragment extends Fragment {
 
@@ -26,6 +28,22 @@ public class ViewEditableListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.view_editable_list_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         startRecyclerView(rootView);
+
+        TextView mNoDataTextView = rootView.findViewById(R.id.no_data_text_view_instructions);
+
+        getViewModel().getNumberOfDataPointsInList(mListID).observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(@Nullable Long numberOfDataPointsInList) {
+                if (numberOfDataPointsInList == 0) {
+                    mNoDataTextView.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
+                } else {
+                    mNoDataTextView.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         return rootView;
     }
 

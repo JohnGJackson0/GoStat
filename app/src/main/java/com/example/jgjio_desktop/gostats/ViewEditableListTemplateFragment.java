@@ -29,7 +29,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private View mRootView;
     private ViewEditableListFragment dataPointsFragment;
-
     TextView mListName;
 
 
