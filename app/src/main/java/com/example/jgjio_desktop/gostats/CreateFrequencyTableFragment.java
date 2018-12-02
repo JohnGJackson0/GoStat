@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -200,7 +199,7 @@ public class CreateFrequencyTableFragment extends Fragment {
     }
 
     private void showFrequencyTable(int listID) {
-        Intent intent = new Intent(getActivity(), ViewFrequencyListActivity.class);
+        Intent intent = new Intent(getActivity(), ViewFrequencyTableActivity.class);
         intent.putExtra(EXTRA_LIST_ID, listID);
         startActivity(intent);
     }

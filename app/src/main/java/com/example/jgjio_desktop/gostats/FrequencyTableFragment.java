@@ -10,12 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
-public class FrequencyListFragment  extends Fragment {
+public class FrequencyTableFragment extends Fragment {
 
     private int mListID;
 
@@ -25,14 +21,14 @@ public class FrequencyListFragment  extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frequency_list_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.frequency_table_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         configureRecyclerView(rootView);
         return rootView;
     }
 
-    public static FrequencyListFragment newInstance(int listId) {
-        FrequencyListFragment fragment = new FrequencyListFragment();
+    public static FrequencyTableFragment newInstance(int listId) {
+        FrequencyTableFragment fragment = new FrequencyTableFragment();
         Bundle args = new Bundle();
         args.putInt(EXTRA_LIST_ID, listId);
         fragment.setArguments(args);
@@ -49,8 +45,8 @@ public class FrequencyListFragment  extends Fragment {
         getViewModel().getListById(mListID).observe(this, adapter::submitList);
     }
 
-    private FrequencyListFragmentViewModel getViewModel() {
-        return ViewModelProviders.of(this).get(FrequencyListFragmentViewModel.class);
+    private FrequencyTableFragmentViewModel getViewModel() {
+        return ViewModelProviders.of(this).get(FrequencyTableFragmentViewModel.class);
     }
 
 }

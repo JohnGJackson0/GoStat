@@ -3,10 +3,8 @@ package com.example.jgjio_desktop.gostats;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
-import android.text.method.ScrollingMovementMethod;
 import android.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -188,7 +186,7 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
             intent.putExtra(EXTRA_LIST_ID, listIndex);
             mContext.startActivity(intent);
         } else {
-            Intent intent = new Intent(mContext, ViewFrequencyListActivity.class);
+            Intent intent = new Intent(mContext, ViewFrequencyTableActivity.class);
             intent.putExtra(EXTRA_LIST_ID, listIndex);
             mContext.startActivity(intent);
         }

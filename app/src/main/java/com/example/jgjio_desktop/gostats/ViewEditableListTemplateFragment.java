@@ -218,8 +218,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-
                 View view = super.getView(position, convertView, parent);
 
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
@@ -231,8 +229,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-
                 View view = super.getView(position, convertView, parent);
 
                 TextView text = (TextView) view.findViewById(android.R.id.text1);

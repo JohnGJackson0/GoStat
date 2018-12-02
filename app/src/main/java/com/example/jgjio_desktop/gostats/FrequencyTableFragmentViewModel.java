@@ -6,11 +6,11 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
-public class ViewFrequencyListTemplateViewModel extends AndroidViewModel {
+public class FrequencyTableFragmentViewModel extends AndroidViewModel {
     private AppRepository mRepository;
     private LiveData<PagedList<DataPoint>> listDataPoints;
 
-    public ViewFrequencyListTemplateViewModel(Application application) {
+    public FrequencyTableFragmentViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
     }

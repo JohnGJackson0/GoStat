@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class ViewFrequencyListActivity extends AppCompatActivity {
+public class ViewFrequencyTableActivity extends AppCompatActivity {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private int mListId;
 
@@ -16,10 +16,10 @@ public class ViewFrequencyListActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.view_frequency_list_activity);
+        setContentView(R.layout.view_frequency_table_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, ViewFrequencyListTemplateFragment.newInstance(mListId))
+                    .replace(R.id.container, ViewFrequencyTableTemplateFragment.newInstance(mListId))
                     .commitNow();
         }
     }
