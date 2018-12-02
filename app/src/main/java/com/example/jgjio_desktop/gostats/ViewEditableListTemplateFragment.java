@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -175,16 +177,71 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     private void removeJumpToOnSpinner(){
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions_no_jump_to));
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner functionsSpinner = mRootView.findViewById(R.id.editable_list_functions_spinner);
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions_no_jump_to)){
+
+            @Override
+            public View getDropDownView(int position, View convertView,ViewGroup parent) {
+                // TODO Auto-generated method stub
+
+                View view = super.getView(position, convertView, parent);
+
+                TextView text = (TextView)view.findViewById(android.R.id.text1);
+                text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                return view;
+
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+
+                View view = super.getView(position, convertView, parent);
+
+                TextView text = (TextView)view.findViewById(android.R.id.text1);
+                text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                return view;
+
+            }
+        };
+
         functionsSpinner.setAdapter(spinnerArrayAdapter);
     }
 
     private void addJumpToOnSpinner() {
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions));
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner functionsSpinner = mRootView.findViewById(R.id.editable_list_functions_spinner);
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions_no_jump_to)) {
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+
+                View view = super.getView(position, convertView, parent);
+
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                return view;
+
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // TODO Auto-generated method stub
+
+                View view = super.getView(position, convertView, parent);
+
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                return view;
+
+            }
+        };
         functionsSpinner.setAdapter(spinnerArrayAdapter);
     }
 

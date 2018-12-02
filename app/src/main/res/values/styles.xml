@@ -23,5 +23,9 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="mySpinnerItemStyle" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/text_important_snippet</item>
+    </style>
 
 </resources>
