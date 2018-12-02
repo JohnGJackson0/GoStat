@@ -76,6 +76,7 @@
                 android:gravity="top|start"
                 android:text="This is my list name"
                 android:textColor="@color/colorPrimary"
+                android:maxLines="3"
                 android:textSize="@dimen/text_important_snippet"
                 android:textStyle="italic|bold"
                 app:layout_constraintBottom_toTopOf="@+id/list_id"
