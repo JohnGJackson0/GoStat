@@ -18,6 +18,10 @@
         Please Input a bin number.
     </string>
 
+    <string name = "histogram_list_no_longer_contains_data_error_message">The list no longer contains data so the app cannot make a Frequency Table for it.</string>
+
+    <string name ="no_data_histogram_error_toast_message">No Data for a Histogram/Table</string>
+
     <string name = "snapshot_graph_button_label">Share</string>
 
     <string name="generating_bin_number_button_label">Generate Bin Number</string>

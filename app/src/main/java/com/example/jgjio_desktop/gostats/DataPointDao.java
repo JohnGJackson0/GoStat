@@ -41,4 +41,7 @@ public interface DataPointDao {
     @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
     LiveData<Long> getNumberOfDataPointsInList(int listID);
 
+    @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
+    Long getStaticNumberOfDataPointsInList(int listID);
+
 }

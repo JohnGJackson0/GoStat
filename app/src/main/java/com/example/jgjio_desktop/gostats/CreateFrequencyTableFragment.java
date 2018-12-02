@@ -103,12 +103,23 @@ public class CreateFrequencyTableFragment extends Fragment {
         mCreateFrequencyTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mBinInput.getText().toString().isEmpty() || Integer.parseInt(mBinInput.getText().toString()) > 20000 ) {
+                try {
+                    if (mBinInput.getText().toString().isEmpty() || Integer.parseInt(mBinInput.getText().toString()) < 1) {
+                        mErrorMessage.setText(R.string.histogram_bin_input_error_message);
+                        mErrorMessage.setVisibility(View.VISIBLE);
+                    } else {
+                        //list can change during fragment lifecycle so we need to recheck if list is blank
+
+                        if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
+                            mErrorMessage.setText(R.string.histogram_list_no_longer_contains_data_error_message);
+                            mErrorMessage.setVisibility(View.VISIBLE);
+                        }
+                        mNumberOfBins = Integer.parseInt(mBinInput.getText().toString());
+                        createFrequencyTable();
+                    }
+                } catch(NumberFormatException e) {
                     mErrorMessage.setText(R.string.histogram_bin_input_error_message);
                     mErrorMessage.setVisibility(View.VISIBLE);
-                } else {
-                    mNumberOfBins = Integer.parseInt(mBinInput.getText().toString());
-                    createFrequencyTable();
                 }
             }
         });

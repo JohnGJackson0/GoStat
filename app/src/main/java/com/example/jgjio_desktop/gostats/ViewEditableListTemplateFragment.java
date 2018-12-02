@@ -5,11 +5,13 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewEditableListTemplateFragment extends Fragment {
     private int mListID;
@@ -151,8 +154,20 @@ public class ViewEditableListTemplateFragment extends Fragment {
     }
 
     private void showCreateFrequencyTableFragment() {
-        getFragmentTransaction().replace(R.id.view_window,  CreateFrequencyTableFragment.newInstance(mListID), "Frequency Table")
-                .commit();
+        if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
+            Toast toast = Toast.makeText(getActivity(),
+                    R.string.no_data_histogram_error_toast_message,
+                    Toast.LENGTH_LONG);
+
+            View view = toast.getView();
+            int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+
+            view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            toast.show();
+        } else {
+            getFragmentTransaction().replace(R.id.view_window,  CreateFrequencyTableFragment.newInstance(mListID), "Frequency Table")
+                    .commit();
+        }
     }
 
     private void showJumpToDialog() {

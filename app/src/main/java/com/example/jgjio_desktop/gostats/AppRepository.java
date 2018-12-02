@@ -117,6 +117,10 @@ public class AppRepository {
         return mDataPointDao.getList(listId);
     }
 
+    long getStaticNumberOfDatapointsInList(int listID) {
+        return mDataPointDao.getStaticNumberOfDataPointsInList(listID);
+    }
+
     DataSource.Factory getDataPointsInListById(int listId) {
         return mDataPointDao.getListById(listId);
     }
