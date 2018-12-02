@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="top|start"
                 android:text="example_list name"
+                android:maxLines="3"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_title"
                 android:textStyle="italic|bold" />

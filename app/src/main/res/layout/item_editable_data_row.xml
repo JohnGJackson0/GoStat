@@ -38,7 +38,7 @@
                 android:layout_centerHorizontal="true"
                 android:hint="Input and press enter"
                 android:inputType="numberDecimal"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorAccent"
                 android:layout_toRightOf="@id/dataPointIndexTextView"
                 android:layout_alignParentRight = "true"/>

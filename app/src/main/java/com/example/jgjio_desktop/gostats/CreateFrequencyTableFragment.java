@@ -103,7 +103,7 @@ public class CreateFrequencyTableFragment extends Fragment {
         mCreateFrequencyTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mBinInput.getText().toString().isEmpty()) {
+                if (mBinInput.getText().toString().isEmpty() || Integer.parseInt(mBinInput.getText().toString()) > 20000 ) {
                     mErrorMessage.setText(R.string.histogram_bin_input_error_message);
                     mErrorMessage.setVisibility(View.VISIBLE);
                 } else {
@@ -152,7 +152,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                          * (given the mixed frequency interval is a non-inclusive end)
                          * but given that the program migrated to much larger values
                          * (and computing with doubles in general) these smaller values are truncated
-                         * in the process. These values should be added.
+                         * in the process. These frequencies should be added.
                          */
 
                         if(frequencyTable.numberOfFrequencyIntervals() == freqIntervalIndex) {
