@@ -136,12 +136,30 @@ public class CreateFrequencyTableFragment extends Fragment {
                 }
 
                 FrequencyTable frequencyTable = getFrequencyIntervals(mNumberOfBins);
+                int freqIntervalIndex = 0;
 
                 for(ExclusiveEndMixedFrequencyInterval i : frequencyTable.get()) {
+                    freqIntervalIndex++;
                     for(DataPoint val : dataPoints) {
 
                         if (val.getValue().doubleValue() >= i.getMin() && val.getValue().doubleValue() < i.getMax()) {
                             i.addAFrequency();
+                        }
+
+                        /*
+                         * The following code is important. I added extra to bin width
+                         * (a value of .1 added) so it would include the last values of the data
+                         * (given the mixed frequency interval is a non-inclusive end)
+                         * but given that the program migrated to much larger values
+                         * (and computing with doubles in general) these smaller values are truncated
+                         * in the process. These values should be added.
+                         */
+
+                        if(frequencyTable.numberOfFrequencyIntervals() == freqIntervalIndex) {
+                            if (val.getValue().doubleValue() >= i.getMax()){
+                                i.addAFrequency();
+                            }
+
                         }
                     }
                 }
