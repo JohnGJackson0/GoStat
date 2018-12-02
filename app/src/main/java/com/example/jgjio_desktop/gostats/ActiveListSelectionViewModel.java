@@ -6,11 +6,11 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
-public class ActiveListViewModel extends AndroidViewModel{
+public class ActiveListSelectionViewModel extends AndroidViewModel{
     private AppRepository mRepository;
     private LiveData<List<StatisticalList>> mAllLists;
 
-    public ActiveListViewModel (Application application) {
+    public ActiveListSelectionViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
 

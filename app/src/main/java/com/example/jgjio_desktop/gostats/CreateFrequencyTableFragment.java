@@ -110,10 +110,10 @@ public class CreateFrequencyTableFragment extends Fragment {
                     } else {
                         //list can change during fragment lifecycle so we need to recheck if list is blank
 
-                        if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
-                            mErrorMessage.setText(R.string.histogram_list_no_longer_contains_data_error_message);
-                            mErrorMessage.setVisibility(View.VISIBLE);
-                        }
+                        //if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
+                           // mErrorMessage.setText(R.string.histogram_list_no_longer_contains_data_error_message);
+                            //mErrorMessage.setVisibility(View.VISIBLE);
+                        //}
                         mNumberOfBins = Integer.parseInt(mBinInput.getText().toString());
                         createFrequencyTable();
                     }
