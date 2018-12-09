@@ -23,6 +23,8 @@ import java.util.List;
 public class ViewableListsActivity extends AppCompatActivity {
     private TextView mCreateListInstructions;
     View viewListDetails;
+    View instructionsContainer;
+
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     public static final String ACTION_ID = "com.example.jgjio_desktop.gostats.extra.action_id";
 
@@ -34,6 +36,7 @@ public class ViewableListsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         viewListDetails = findViewById(R.id.view_list_details_fragment);
+        instructionsContainer = findViewById(R.id.instructions_container);
 
         mCreateListInstructions = findViewById(R.id.list_show_text);
 
@@ -52,6 +55,7 @@ public class ViewableListsActivity extends AppCompatActivity {
                     mCreateListInstructions.setVisibility(View.VISIBLE);
                     viewListDetails.setVisibility(View.GONE);
                 } else {
+                    instructionsContainer.setVisibility(View.GONE);
                     mCreateListInstructions.setVisibility(View.GONE);
                     viewListDetails.setVisibility(View.VISIBLE);
                 }

@@ -1,9 +1,11 @@
 package com.example.jgjio_desktop.gostats;
 
-import android.app.Activity;
+import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +17,147 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
-
-public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetailsAdapter.ListDetailViewHolder> {
-    private List<StatisticalList> mLists;
+public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, ViewListDetailsAdapter.ListDetailViewHolder> {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    private Activity mContext;
+    private Context mContext;
+    private int mPositionLongHoldClick;
     private ActionMode mActionMode;
-    private int positionLongHoldClick;
+
+    protected ViewListDetailsAdapter(Context context) {
+        super(DIFF_CALLBACK);
+        mContext = context;
+    }
+
+    @Override
+    public ViewListDetailsAdapter.ListDetailViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        int templateLayoutID = R.layout.item_list_details;
+        Context context = viewGroup.getContext();
+        boolean shouldAttachToParentImmediately = false;
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(templateLayoutID, viewGroup, shouldAttachToParentImmediately);
+        ViewListDetailsAdapter.ListDetailViewHolder viewHolder = new ViewListDetailsAdapter.ListDetailViewHolder(view);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewListDetailsAdapter.ListDetailViewHolder holder, final int position) {
+        StatisticalList statisticalList =  getItem(position);
+
+        if (statisticalList != null) {
+            holder.bindTo(statisticalList, position);
+        } else {
+            holder.clear();
+        }
+    }
+
+    class ListDetailViewHolder extends RecyclerView.ViewHolder {
+        ConstraintLayout listDetails;
+
+        TextView listName;
+        TextView frequencyTableMessage;
+        TextView listIDMessage;
+
+        CardView createdByUserMessage;
+        CardView createdBySystemMessage;
+        CardView editableListMessage;
+        CardView lockedMessage;
+        CardView frequencyTableInfoMessage;
+        CardView staticMessage;
+
+        public ListDetailViewHolder(View itemView) {
+            super(itemView);
+
+            listName = itemView.findViewById(R.id.list_name);
+            frequencyTableMessage  = itemView.findViewById(R.id.frequency_table_meta_message);
+            createdByUserMessage = itemView.findViewById(R.id.created_by_user_message_container);
+            createdBySystemMessage = itemView.findViewById(R.id.created_by_system_message_container);
+            editableListMessage = itemView.findViewById(R.id.editable_message_container);
+            lockedMessage = itemView.findViewById(R.id.locked_message_container);
+            frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message_container);
+            staticMessage = itemView.findViewById(R.id.static_message_container);
+            listDetails = itemView.findViewById(R.id.list_details_layout);
+            listIDMessage = itemView.findViewById(R.id.list_id_message);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startViewIntent(getItem(getAdapterPosition()).getId(), getItem(getAdapterPosition()).isFrequencyTable());
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View view) {
+                    mPositionLongHoldClick = getAdapterPosition();
+
+                    if (mActionMode != null) {
+                        return false;
+                    }
+
+                    mActionMode = view.startActionMode(mActionModeCallBack);
+                    view.setSelected(true);
+                    return true;
+                }
+            });
+
+
+        }
+
+        void bindTo(StatisticalList statisticalList, int position) {
+            listName.setText(getItem(position).getName());
+
+            if (statisticalList.isFrequencyTable()) {
+                createdByUserMessage.setVisibility(View.GONE);
+                createdBySystemMessage.setVisibility(View.VISIBLE);
+                editableListMessage.setVisibility(View.GONE);
+                lockedMessage.setVisibility(View.VISIBLE);
+                frequencyTableInfoMessage.setVisibility(View.VISIBLE);
+                staticMessage.setVisibility(View.VISIBLE);
+                listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorSecondary));
+                frequencyTableMessage.setText("Associated List ID " + Integer.toString(statisticalList.getAssociatedList()));
+            } else {
+                createdByUserMessage.setVisibility(View.VISIBLE);
+                createdBySystemMessage.setVisibility(View.GONE);
+                editableListMessage.setVisibility(View.VISIBLE);
+                lockedMessage.setVisibility(View.GONE);
+                frequencyTableInfoMessage.setVisibility(View.GONE);
+                staticMessage.setVisibility(View.GONE);
+                listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            }
+
+            listIDMessage.setText("List ID "+ Integer.toString(statisticalList.getId()));
+        }
+
+        void clear() {
+            //TODO IMPLEMENT
+        }
+
+    }
+
+
+    // a Statistical List may have changed if reloaded from the database,
+    // but ID is fixed.
+    private static DiffUtil.ItemCallback<StatisticalList> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<StatisticalList>() {
+
+                @Override
+                public boolean areItemsTheSame(StatisticalList oldStatisticalList, StatisticalList newStatisticalList) {
+                    return oldStatisticalList.getId() == newStatisticalList.getId();
+                }
+                @Override
+                public boolean areContentsTheSame(StatisticalList oldStatisticalList,
+                                                  StatisticalList newStatisticalList) {
+                    return oldStatisticalList.equals(newStatisticalList);
+                }
+            };
+
+    /*
+    * Context menu
+    *
+    *
+    *
+    *
+    *
+     */
 
     private ActionMode.Callback mActionModeCallBack = new ActionMode.Callback() {
         @Override
@@ -42,12 +176,12 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_view_list:
-                    startViewIntent(mLists.get(positionLongHoldClick).getId(), mLists.get(positionLongHoldClick).isFrequencyTable());
+                    startViewIntent(getItem(mPositionLongHoldClick).getId(), getItem(mPositionLongHoldClick).isFrequencyTable());
                     mode.finish();
                     return true;
                 case R.id.action_delete_list:
                     if (mContext instanceof ViewableListsActivity) {
-                        ((ViewableListsActivity)mContext).removeList(mLists.get(positionLongHoldClick));
+                        ((ViewableListsActivity)mContext).removeList(getItem(mPositionLongHoldClick));
                     }
                     mode.finish();
                     return true;
@@ -62,132 +196,15 @@ public class ViewListDetailsAdapter extends RecyclerView.Adapter<ViewListDetails
         }
     };
 
-    ViewListDetailsAdapter(Activity context) {
-        mContext = context;
-    }
 
-    public void setLists(List<StatisticalList> lists) {
-        mLists = lists;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        if (mLists == null) {
-            return 0;
-        } else return mLists.size();
-    }
-
-    @Override
-    public ListDetailViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.item_list_details;
-        LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        ListDetailViewHolder viewHolder = new ListDetailViewHolder(view);
-        return viewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewListDetailsAdapter.ListDetailViewHolder holder, int position) {
-        holder.bind(position);
-    }
-
-    class ListDetailViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout listDetails;
-
-        TextView listName;
-        TextView id;
-
-        TextView userCreatedList;
-        TextView frequencyTableList;
-
-        CardView createdByUserMessage;
-        CardView createdBySystemMessage;
-        CardView editableListMessage;
-        CardView lockedMessage;
-        CardView frequencyTableInfoMessage;
-        CardView staticMessage;
-
-        public ListDetailViewHolder(View itemView) {
-            super(itemView);
-            listName = itemView.findViewById(R.id.list_name);
-            id = itemView.findViewById(R.id.list_id);
-            userCreatedList = itemView.findViewById(R.id.user_created);
-            frequencyTableList = itemView.findViewById(R.id.frequency_table);
-
-            createdByUserMessage = itemView.findViewById(R.id.created_by_user_message_container);
-            createdBySystemMessage = itemView.findViewById(R.id.created_by_system_message_container);
-            editableListMessage = itemView.findViewById(R.id.editable_message_container);
-            lockedMessage = itemView.findViewById(R.id.locked_message_container);
-            frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message_container);
-            staticMessage = itemView.findViewById(R.id.static_message_container);
-            listDetails = itemView.findViewById(R.id.list_details_layout);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int idIndex = mLists.get(getAdapterPosition()).getId();
-                    startViewIntent(idIndex, mLists.get(getAdapterPosition()).isFrequencyTable());
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View view) {
-                    positionLongHoldClick = getAdapterPosition();
-
-                    if (mActionMode != null) {
-                        return false;
-                    }
-
-                    mActionMode = mContext.startActionMode(mActionModeCallBack);
-                    view.setSelected(true);
-                    return true;
-                }
-            });
-
-        }
-
-        void bind(int listIndex) {
-            listName.setText(mLists.get(listIndex).getName());
-            id.setText(Integer.toString(mLists.get(listIndex).getId()));
-
-            if (mLists.get(listIndex).isFrequencyTable()) {
-                userCreatedList.setVisibility(View.GONE);
-                frequencyTableList.setVisibility(View.VISIBLE);
-                createdByUserMessage.setVisibility(View.GONE);
-                createdBySystemMessage.setVisibility(View.VISIBLE);
-                editableListMessage.setVisibility(View.GONE);
-                lockedMessage.setVisibility(View.VISIBLE);
-                //todo not yet implemented
-                frequencyTableInfoMessage.setVisibility(View.GONE);
-                staticMessage.setVisibility(View.VISIBLE);
-
-            } else {
-                userCreatedList.setVisibility(View.VISIBLE);
-                frequencyTableList.setVisibility(View.GONE);
-
-                createdByUserMessage.setVisibility(View.VISIBLE);
-                createdBySystemMessage.setVisibility(View.GONE);
-                editableListMessage.setVisibility(View.VISIBLE);
-                lockedMessage.setVisibility(View.GONE);
-                frequencyTableInfoMessage.setVisibility(View.GONE);
-                staticMessage.setVisibility(View.GONE);
-            }
-
-        }
-    }
-
-    private void startViewIntent(int listIndex, boolean isFrequencyTable) {
+    private void startViewIntent(int listID, boolean isFrequencyTable) {
         if(!isFrequencyTable) {
             Intent intent = new Intent(mContext, ViewSingleEditableListActivity.class);
-            intent.putExtra(EXTRA_LIST_ID, listIndex);
+            intent.putExtra(EXTRA_LIST_ID, listID);
             mContext.startActivity(intent);
         } else {
             Intent intent = new Intent(mContext, ViewFrequencyTableActivity.class);
-            intent.putExtra(EXTRA_LIST_ID, listIndex);
+            intent.putExtra(EXTRA_LIST_ID, listID);
             mContext.startActivity(intent);
         }
     }

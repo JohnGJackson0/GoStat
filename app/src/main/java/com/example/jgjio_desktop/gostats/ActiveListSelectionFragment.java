@@ -34,18 +34,14 @@ public class ActiveListSelectionFragment extends Fragment {
 
         ActiveListSelectionViewModel mListViewModel;
 
-        mListViewModel = ViewModelProviders.of(this).get(ActiveListSelectionViewModel.class);
+        getViewModel().getListById().observe(this, mListDetailsAdapter::submitList);
 
-        mListViewModel.getAllLists().observe(this, new Observer <List<StatisticalList>>() {
-            @Override
-            public void onChanged(@Nullable final List<StatisticalList> lists) {
-
-                mListDetailsAdapter.setLists(lists);
-            }
-        });
 
         return rootView;
     }
 
 
+    private ActiveListSelectionViewModel getViewModel() {
+        return ViewModelProviders.of(this).get(ActiveListSelectionViewModel.class);
+    }
 }

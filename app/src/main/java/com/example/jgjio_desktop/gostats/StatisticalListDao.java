@@ -11,6 +11,8 @@ import android.arch.persistence.room.Update;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 @Dao
 public interface StatisticalListDao {
 
@@ -32,6 +34,10 @@ public interface StatisticalListDao {
     @Query("SELECT count(*) FROM list")
     LiveData<Long> getListCount();
 
+    @Query("SELECT * FROM list ORDER By id")
+    android.arch.paging.DataSource.Factory<Integer, StatisticalList> getAllLists();
+
+
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
     LiveData<String> getListName(int id);
 
@@ -46,4 +52,5 @@ public interface StatisticalListDao {
 
     @Query("SELECT associated_list FROM list WHERE id = :id")
     int getAssociatedListID(int id);
+
 }

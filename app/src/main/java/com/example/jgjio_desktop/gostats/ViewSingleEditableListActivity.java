@@ -30,20 +30,17 @@ public class ViewSingleEditableListActivity extends AppCompatActivity {
                     .replace(R.id.container, ViewEditableListTemplateFragment.newInstance(mListID))
                     .commitNow();
         }
-
     }
 
     //todo sometimes doesn't delete following editList
     @Override
     public void onStart(){
-        Log.d("sad", "asdasd");
         getViewModel().deleteDisabledDataPoints(mListID);
         super.onStart();
     }
 
     @Override
     public void onResume(){
-        Log.d("sad", "hjkhj");
         getViewModel().deleteDisabledDataPoints(mListID);
         super.onResume();
     }

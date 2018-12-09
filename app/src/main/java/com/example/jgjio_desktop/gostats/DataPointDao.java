@@ -10,6 +10,7 @@ import android.arch.persistence.room.Update;
 import android.arch.paging.DataSource;
 import android.provider.ContactsContract;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Dao
@@ -43,5 +44,8 @@ public interface DataPointDao {
 
     @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
     Long getStaticNumberOfDataPointsInList(int listID);
+
+    @Query("SELECT * FROM data_point WHERE list_id = :listId AND isEnabled = 0 LIMIT 10")
+    LiveData<List<DataPoint>> getEditableListPreview(int listId);
 
 }

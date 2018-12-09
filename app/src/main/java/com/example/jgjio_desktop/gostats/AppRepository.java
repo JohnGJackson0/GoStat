@@ -3,11 +3,8 @@ package com.example.jgjio_desktop.gostats;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.DataSource;
-import android.arch.paging.PagedList;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
 
-import java.util.Date;
 import java.util.List;
 
 //TODO check for race conditions
@@ -62,6 +59,11 @@ public class AppRepository {
         return mListDao.getListName(listId);
     }
 
+
+    DataSource.Factory<Integer, StatisticalList> getStatisticalListDetailsByID() {
+        return mListDao.getAllLists();
+    }
+
     //todo ids must be long
 
     //returns ID
@@ -107,6 +109,10 @@ public class AppRepository {
         return mFrequencyIntervalDao.getMaxValue(listID);
     }
 
+    LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) {
+        return mFrequencyIntervalDao.getFrequencyTablePreview(listID);
+    }
+
     /*
     *
     * The following methods are created for DataPoints
@@ -138,6 +144,11 @@ public class AppRepository {
         mDataPointDao.insertDataPoint(dataPoint);
         //new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
     }
+
+    LiveData<List<DataPoint>> getEditableListPreview(int listID) {
+        return mDataPointDao.getEditableListPreview(listID);
+    }
+
 
     void updateDataPoint(DataPoint dataPoint) {
         new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);

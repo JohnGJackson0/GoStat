@@ -3,8 +3,13 @@ package com.example.jgjio_desktop.gostats;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
+import android.view.LayoutInflater;
 
 import java.util.List;
+
+import javax.sql.DataSource;
 
 public class ActiveListSelectionViewModel extends AndroidViewModel{
     private AppRepository mRepository;
@@ -16,6 +21,13 @@ public class ActiveListSelectionViewModel extends AndroidViewModel{
 
         mAllLists = mRepository.getAllStatisticalLists();
     }
+
+    LiveData<PagedList<StatisticalList>> getListById() {
+        LiveData<PagedList<StatisticalList>> statisticalList =
+                new LivePagedListBuilder<>(mRepository.getStatisticalListDetailsByID(), 2).build();
+        return statisticalList;
+    }
+
 
     LiveData<List<StatisticalList>> getAllLists() {
         return mAllLists;
