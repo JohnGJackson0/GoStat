@@ -109,9 +109,6 @@ public class AppRepository {
         return mFrequencyIntervalDao.getMaxValue(listID);
     }
 
-    LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) {
-        return mFrequencyIntervalDao.getFrequencyTablePreview(listID);
-    }
 
     /*
     *

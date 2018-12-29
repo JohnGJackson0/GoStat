@@ -1,12 +1,17 @@
 package com.example.jgjio_desktop.gostats;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,15 +22,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, ViewListDetailsAdapter.ListDetailViewHolder> {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     private Context mContext;
     private int mPositionLongHoldClick;
     private ActionMode mActionMode;
+    private ActiveListSelectionFragment mActiveListSelectionFragment;
 
-    protected ViewListDetailsAdapter(Context context) {
+    protected ViewListDetailsAdapter(Context context, ActiveListSelectionFragment fragmentActivity) {
         super(DIFF_CALLBACK);
         mContext = context;
+        mActiveListSelectionFragment = fragmentActivity;
     }
 
     @Override
@@ -75,8 +84,8 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             lockedMessage = itemView.findViewById(R.id.locked_message_container);
             frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message_container);
             staticMessage = itemView.findViewById(R.id.static_message_container);
-            listDetails = itemView.findViewById(R.id.list_details_layout);
             listIDMessage = itemView.findViewById(R.id.list_id_message);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,6 +158,22 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                     return oldStatisticalList.equals(newStatisticalList);
                 }
             };
+
+    /*
+     * Preview
+     *
+     *
+     *
+     *
+     *
+     */
+
+
+    private ActiveListSelectionViewModel getViewModel() {
+        return ViewModelProviders.of(mActiveListSelectionFragment).get(ActiveListSelectionViewModel.class);
+    }
+
+
 
     /*
     * Context menu

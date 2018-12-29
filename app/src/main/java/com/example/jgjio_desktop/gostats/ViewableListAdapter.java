@@ -55,7 +55,7 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
         }
 
         void bindTo(int listIndex, DataPoint dataPoint) {
-            viewableDataPoint.setText(Double.toString(dataPoint.getValue().doubleValue()));
+            viewableDataPoint.setText(dataPoint.getValue().toString());
             positionDataPoint.setText(Integer.toString(listIndex + 1)); //statistical lists start at 1 instead of 0
 
             if (!dataPoint.isEnabled()) {

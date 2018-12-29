@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,14 +29,13 @@ public class ActiveListSelectionFragment extends Fragment {
         mListDetailsRecyclerView = rootView.findViewById(R.id.rv_list_details);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mListDetailsRecyclerView.setLayoutManager(linearLayoutManager);
-        mListDetailsAdapter = new ViewListDetailsAdapter(getActivity());
+        mListDetailsAdapter = new ViewListDetailsAdapter(getActivity(), this);
         mListDetailsRecyclerView.setAdapter(mListDetailsAdapter);
         registerForContextMenu(mListDetailsRecyclerView);
 
         ActiveListSelectionViewModel mListViewModel;
 
         getViewModel().getListById().observe(this, mListDetailsAdapter::submitList);
-
 
         return rootView;
     }

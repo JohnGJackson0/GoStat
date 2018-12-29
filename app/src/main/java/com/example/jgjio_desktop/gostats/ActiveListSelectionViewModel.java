@@ -28,6 +28,10 @@ public class ActiveListSelectionViewModel extends AndroidViewModel{
         return statisticalList;
     }
 
+    LiveData<List<DataPoint>> getEditableListPreview(int listID){
+        return mRepository.getEditableListPreview(listID);
+    }
+
 
     LiveData<List<StatisticalList>> getAllLists() {
         return mAllLists;
