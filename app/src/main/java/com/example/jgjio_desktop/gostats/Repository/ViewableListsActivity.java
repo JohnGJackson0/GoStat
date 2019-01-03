@@ -1,8 +1,7 @@
-package com.example.jgjio_desktop.gostats;
+package com.example.jgjio_desktop.gostats.Repository;
 
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +16,8 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.jgjio_desktop.gostats.R;
 
 import java.util.List;
 

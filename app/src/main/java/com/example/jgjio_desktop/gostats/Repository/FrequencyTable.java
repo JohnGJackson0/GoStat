@@ -1,6 +1,5 @@
-package com.example.jgjio_desktop.gostats;
+package com.example.jgjio_desktop.gostats.Repository;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.example.jgjio_desktop.gostats;
+package com.example.jgjio_desktop.gostats.Repository;
 
 import android.arch.persistence.room.TypeConverter;
 import java.util.Date;

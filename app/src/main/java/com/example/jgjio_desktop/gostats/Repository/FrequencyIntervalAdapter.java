@@ -1,15 +1,16 @@
-package com.example.jgjio_desktop.gostats;
+package com.example.jgjio_desktop.gostats.Repository;
 
 
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.jgjio_desktop.gostats.R;
 
 public class FrequencyIntervalAdapter extends PagedListAdapter<FrequencyInterval, FrequencyIntervalAdapter.FrequencyIntervalViewHolder> {
 

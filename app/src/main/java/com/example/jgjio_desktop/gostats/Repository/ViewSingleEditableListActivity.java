@@ -1,12 +1,11 @@
-package com.example.jgjio_desktop.gostats;
+package com.example.jgjio_desktop.gostats.Repository;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.example.jgjio_desktop.gostats.R;
 
 //TODO edit List button
 //TODO fix layout bug, not correctly showing last entry

@@ -5,6 +5,10 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.jgjio_desktop.gostats.Repository.AppDatabase;
+import com.example.jgjio_desktop.gostats.Repository.StatisticalList;
+import com.example.jgjio_desktop.gostats.Repository.StatisticalListDao;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

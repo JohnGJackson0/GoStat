@@ -1,4 +1,4 @@
-package com.example.jgjio_desktop.gostats;
+package com.example.jgjio_desktop.gostats.Repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -8,9 +8,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 import android.arch.paging.DataSource;
-import android.provider.ContactsContract;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Dao

@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.jgjio_desktop.gostats.ViewableListsActivity">
+    tools:context="com.example.jgjio_desktop.gostats.Repository.ViewableListsActivity">
 
     <item
         android:id="@+id/Menu_item_upgrade"

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ViewableListsActivity"
+            android:name=".Repository.ViewableListsActivity"
             android:label="@string/view_lists_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,14 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditableListActivity"
+            android:name=".Repository.EditableListActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_editable_list"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ViewSingleEditableListActivity"
+            android:name=".Repository.ViewSingleEditableListActivity"
             android:label="@string/view_list_name" />
-        <activity android:name=".ViewFrequencyTableActivity"></activity>
+        <activity android:name=".Repository.ViewFrequencyTableActivity"></activity>
     </application>
 
 </manifest>

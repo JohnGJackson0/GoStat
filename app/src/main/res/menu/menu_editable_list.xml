@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.jgjio_desktop.gostats.EditableListActivity">
+    tools:context="com.example.jgjio_desktop.gostats.Repository.EditableListActivity">
     <item
         android:id="@+id/action_summary_statistics"
         android:orderInCategory="100"

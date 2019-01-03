@@ -1,6 +1,4 @@
-package com.example.jgjio_desktop.gostats;
-
-import android.util.Log;
+package com.example.jgjio_desktop.gostats.Repository;
 
 public final class ExclusiveEndMixedFrequencyInterval implements Interval {
     private final double mMin;

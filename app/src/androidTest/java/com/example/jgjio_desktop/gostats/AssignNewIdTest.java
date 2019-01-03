@@ -4,6 +4,9 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
+import com.example.jgjio_desktop.gostats.Repository.AppDatabase;
+import com.example.jgjio_desktop.gostats.Repository.StatisticalListDao;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

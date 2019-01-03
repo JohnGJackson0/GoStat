@@ -36,7 +36,7 @@
 
         <fragment
             android:id="@+id/view_list_details_fragment"
-            android:name="com.example.jgjio_desktop.gostats.ActiveListSelectionFragment"
+            android:name="com.example.jgjio_desktop.gostats.Repository.ActiveListSelectionFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
