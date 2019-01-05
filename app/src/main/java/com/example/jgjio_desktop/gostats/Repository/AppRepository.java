@@ -82,6 +82,10 @@ public class AppRepository {
      *
      */
 
+    LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) {
+        return mFrequencyIntervalDao.getFrequencyTablePreview(listID);
+    }
+
     DataSource.Factory getFrequencyTable(int listId) {
         return mFrequencyIntervalDao.getListById(listId);
     }

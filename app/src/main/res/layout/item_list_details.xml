@@ -65,8 +65,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
-                    android:maxLines="6"
-                    android:scrollHorizontally="true"
                     android:textSize="@dimen/text_size_title"
                     android:textColor="@color/colorPrimary"
                     android:text=""

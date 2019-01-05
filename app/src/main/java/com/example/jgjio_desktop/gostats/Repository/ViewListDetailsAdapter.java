@@ -125,6 +125,7 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                 staticMessage.setVisibility(View.VISIBLE);
                 listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorSecondary));
                 frequencyTableMessage.setText("Associated List ID " + Integer.toString(statisticalList.getAssociatedList()));
+                frequencyPreview(position, itemView);
             } else {
                 createdByUserMessage.setVisibility(View.VISIBLE);
                 createdBySystemMessage.setVisibility(View.GONE);
@@ -181,8 +182,34 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
     }
 
     //[2.0, 5.6) -> 2 , [5.6, 9.2) -> 2 ...
+    // 11 freq intervals
 
     private void frequencyPreview(int position, View itemView){
+        TextView previewText = itemView.findViewById(R.id.preview);
+
+        int listID = getItem(position).getId();
+
+        getViewModel().getFrequencyTablePreview(listID).observe(mActiveListSelectionFragment, new Observer<List<FrequencyInterval>>() {
+            @Override
+            public void onChanged(@Nullable List<FrequencyInterval> frequencyIntervals) {
+                String s = "";
+                int index = 0;
+
+                for (FrequencyInterval val: frequencyIntervals) {
+                    if (index != 0)
+                        s = s + "\n";
+
+                    s = s + val.toString() + " -> " + val.getFrequency();
+
+                    if (index == 10) {
+                        s = s + " ... ";
+                    }
+
+                    index++;
+                }
+                previewText.setText(s);
+            }
+        });
 
     }
 

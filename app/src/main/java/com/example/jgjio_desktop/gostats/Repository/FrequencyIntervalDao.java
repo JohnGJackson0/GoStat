@@ -40,6 +40,6 @@ public interface FrequencyIntervalDao {
     @Query("SELECT MAX(frequency) FROM frequency_interval WHERE list_id = :listID")
     LiveData<Integer> getMaxValue(int listID);
 
-    @Query("SELECT * FROM frequency_interval WHERE list_id = :listId LIMIT 10")
+    @Query("SELECT * FROM frequency_interval WHERE list_id = :listId LIMIT 11")
     LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listId);
 }

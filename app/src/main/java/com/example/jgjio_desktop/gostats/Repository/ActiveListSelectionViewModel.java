@@ -29,6 +29,10 @@ public class ActiveListSelectionViewModel extends AndroidViewModel{
         return mRepository.getEditableListPreview(listID);
     }
 
+    LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) {
+        return mRepository.getFrequencyTablePreview(listID);
+    }
+
 
     LiveData<List<StatisticalList>> getAllLists() {
         return mAllLists;
