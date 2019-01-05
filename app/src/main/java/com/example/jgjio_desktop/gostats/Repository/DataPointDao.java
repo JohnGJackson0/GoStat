@@ -43,7 +43,7 @@ public interface DataPointDao {
     @Query("SELECT COUNT(*) FROM data_point WHERE list_id = :listID")
     Long getStaticNumberOfDataPointsInList(int listID);
 
-    @Query("SELECT * FROM data_point WHERE list_id = :listId AND isEnabled = 1 LIMIT 10")
+    @Query("SELECT * FROM data_point WHERE list_id = :listId AND isEnabled = 1 LIMIT 26")
     LiveData<List<DataPoint>> getEditableListPreview(int listId);
 
 }

@@ -1,13 +1,18 @@
 package com.example.jgjio_desktop.gostats.Repository;
 
+import android.app.Activity;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jgjio_desktop.gostats.R;
+
+import java.util.List;
 
 public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, ViewListDetailsAdapter.ListDetailViewHolder> {
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
@@ -56,7 +63,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
     }
 
     class ListDetailViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout listDetails;
 
         TextView listName;
         TextView frequencyTableMessage;
@@ -73,7 +79,7 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             super(itemView);
 
             listName = itemView.findViewById(R.id.list_name);
-            frequencyTableMessage  = itemView.findViewById(R.id.frequency_table_meta_message);
+            frequencyTableMessage = itemView.findViewById(R.id.frequency_table_meta_message);
             createdByUserMessage = itemView.findViewById(R.id.created_by_user_message_container);
             createdBySystemMessage = itemView.findViewById(R.id.created_by_system_message_container);
             editableListMessage = itemView.findViewById(R.id.editable_message_container);
@@ -127,9 +133,10 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                 frequencyTableInfoMessage.setVisibility(View.GONE);
                 staticMessage.setVisibility(View.GONE);
                 listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                listPreview(position, itemView);
             }
 
-            listIDMessage.setText("List ID "+ Integer.toString(statisticalList.getId()));
+            listIDMessage.setText("List ID " + Integer.toString(statisticalList.getId()));
         }
 
         void clear() {
@@ -138,6 +145,46 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
 
     }
 
+
+    private void listPreview(int position, View itemView) {
+
+        TextView previewText = itemView.findViewById(R.id.preview);
+
+        int listID = getItem(position).getId();
+
+        getViewModel().getEditableListPreview(listID).observe(mActiveListSelectionFragment, new Observer<List<DataPoint>>() {
+            @Override
+            public void onChanged(@Nullable List<DataPoint> dataPoints) {
+                String s = "";
+                int index=0;
+
+
+                //todo add ellipses
+                for(DataPoint val: dataPoints) {
+                    if (index != 0)
+                        s=s+", ";
+
+                    s = s + val.getValue().toString();
+
+                    if (index == 25) {
+                        s = s + " ... ";
+                    }
+
+                    index++;
+                }
+
+                Log.d("kjgdflk", s);
+                previewText.setText(s);
+            }
+
+        });
+    }
+
+    //[2.0, 5.6) -> 2 , [5.6, 9.2) -> 2 ...
+
+    private void frequencyPreview(int position, View itemView){
+
+    }
 
     // a Statistical List may have changed if reloaded from the database,
     // but ID is fixed.
