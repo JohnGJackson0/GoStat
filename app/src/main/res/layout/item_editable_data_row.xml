@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id = "@+id/dataRowTemplate"
-    android:background ="@color/colorWhite">
+    android:background ="@color/colorWhite"
+    android:windowSoftInputMode="stateAlwaysVisible">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="afterDescendants"
         android:orientation="horizontal">
 
         <TextView
@@ -34,6 +36,8 @@
                 android:id="@+id/dataPoint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:typeface="monospace"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:hint="Input and press enter"

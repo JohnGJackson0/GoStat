@@ -2,12 +2,17 @@ package com.example.jgjio_desktop.gostats.Repository;
 
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -21,9 +26,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-//TODO disallow invalid and nothing inputs before adding lines
-//currently, the data is added as disabled and 0
 
 //TODO fix layout so that it doesn't studder
 
@@ -39,30 +41,41 @@ import java.util.Set;
 //Todo allow the user to expand the DataPoints in the list
 //todo implement updatable and provide
 
-public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>  {
+public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>   {
     private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();
     private OnLastEditTextOnEnterCallBack mOnLastEnterCallBack;
+    private FocusedEditTextValidationCallBack mValidationCallback;
     private Context mContext;
     private Boolean requestFocusOnLastEditTextInOnBindViewHolder = false;
+    private int mNewItemInsertionIndex = 0;
 
-    public void setLastEditTextToRequestFocus() {
+    public void setLastEditTextToRequestFocus(int indexOfItem) {
         requestFocusOnLastEditTextInOnBindViewHolder = true;
+        mNewItemInsertionIndex = indexOfItem;
+    }
+
+    public interface FocusedEditTextValidationCallBack{
+        void resubmitFocusOnEditTextIfLost(int positionToCheck);
     }
 
     public interface OnLastEditTextOnEnterCallBack {
         void createDataElement();
     }
 
+    //todo everything gets updated
+
     public List<DataPoint> getPendingUpdates() {
-        List<DataPoint> mUpdate = new ArrayList<>(mUpdatedNonAppendingDataPoints);
+        List<DataPoint> updateList = new ArrayList<>(mUpdatedNonAppendingDataPoints);
         mUpdatedNonAppendingDataPoints.clear();
-        return mUpdate;
+        return updateList;
     }
+
 
     protected EditableListAdapter(Context context) {
         super(DIFF_CALLBACK);
         mContext = context;
         mOnLastEnterCallBack = (OnLastEditTextOnEnterCallBack) mContext;
+        mValidationCallback = (FocusedEditTextValidationCallBack) mContext;
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder {
@@ -77,12 +90,15 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             mIndexOfEditableRow =  itemView.findViewById(R.id.dataPointIndexTextView);
             mEditableDataPoint =  itemView.findViewById(R.id.dataPoint);
             this.editTextListener = editTextListener;
+
+
+
+            //before doing this should we check to see if focus is on
             mEditableDataPoint.addTextChangedListener(this.editTextListener);
         }
 
-        void bindTo (DataPoint dataPoint, int listIndex)
-        {
-            mIndexOfEditableRow.setText(Integer.toString(listIndex + 1));//statistical lists start at 1
+        void bindTo (DataPoint dataPoint, int position) {
+            mIndexOfEditableRow.setText(Integer.toString(position + 1));//statistical lists start at 1
 
             if (dataPoint.isEnabled()) {
                 mEditableDataPoint.setText(dataPoint.getValue().toString());
@@ -90,12 +106,16 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                 mEditableDataPoint.setText(null);
             }
 
-            if (requestFocusOnLastEditTextInOnBindViewHolder && (listIndex == getItemCount() -1)) {
+            if (requestFocusOnLastEditTextInOnBindViewHolder && (position == mNewItemInsertionIndex-1)) {
                 mEditableDataPoint.requestFocus();
+                //mEditableDataPoint.setFocusable(false);
                 InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 requestFocusOnLastEditTextInOnBindViewHolder = false;
+
+                mValidationCallback.resubmitFocusOnEditTextIfLost(mNewItemInsertionIndex);
             }
+
         }
 
         void clear() {
@@ -133,6 +153,19 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         return viewHolder;
     }
 
+    //implementing
+    private class EditTextFocusWatcher implements View.OnFocusChangeListener {
+        
+        @Override
+        public void onFocusChange(View view, boolean b) {
+            //if view loses focus, then update
+
+            if (!view.hasFocus()) {
+
+            }
+
+        }
+    }
 
     private class EditTextListener implements TextWatcher {
         private int position;
@@ -154,9 +187,11 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             }
         }
 
+        //todo make more efficient
         @Override
         public void afterTextChanged(Editable editable) {
             mUpdatedNonAppendingDataPoints.add(getItem(position));
+
         }
     }
 
