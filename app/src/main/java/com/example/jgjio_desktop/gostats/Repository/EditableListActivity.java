@@ -3,7 +3,6 @@ package com.example.jgjio_desktop.gostats.Repository;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,22 +10,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 
 import com.example.jgjio_desktop.gostats.R;
 
 import java.math.BigDecimal;
 
 
-public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack, EditableListAdapter.FocusedEditTextValidationCallBack {
+public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
     private RecyclerView mEditableListRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private int mListId;
     private boolean initialDataPointAlreadyInserted = false;
-    int mPrefetchedIndexOfNewlyInsertedItem = 0;
-
+    int mPrefetchIndexOfNewlyInsertedItem = 0;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override
@@ -47,16 +43,8 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
                 getViewModel().getNumberOfItemsInList(mListId).removeObserver(this);
             }
         };
-
         getViewModel().getNumberOfItemsInList(mListId).observe(this, observer);
-
         setTitle("Editing List");
-    }
-
-    //todo if needed
-    @Override
-    public void resubmitFocusOnEditTextIfLost(int position) {
-
     }
 
     //EXTRA_LIST_ID can come from multiple Views so that
@@ -83,29 +71,27 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         mEditableListRecyclerView.setAdapter(mEditableDataRowListRecyclerViewAdapter);
         //switch to true for bottom-up list
         mLinearLayoutManager.setStackFromEnd(false);
-        handleRequestsOnNewDataPoints();
+        mLinearLayoutManager.setReverseLayout(false);
 
-    }
+        mEditableListRecyclerView.setPreserveFocusAfterLayout(true);
 
-    //todo remove if not needed
-    private void handleRequestsOnNewDataPoints() {
         mEditableDataRowListRecyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
 
-                if (itemCount > 0) {
+                int lastVisiblePosition = mLinearLayoutManager.findLastVisibleItemPosition();
+                int position = mEditableDataRowListRecyclerViewAdapter.getItemCount();
 
-                    //mLinearLayoutManager.scrollToPosition(positionStart+itemCount);
+                if(lastVisiblePosition == -1 || positionStart >= position && lastVisiblePosition == positionStart-1)
+                    mEditableListRecyclerView.scrollToPosition(positionStart);
+                else
+                    mEditableListRecyclerView.scrollToPosition(mEditableDataRowListRecyclerViewAdapter.getItemCount()-1);
 
-                    //RecyclerView.ViewHolder myView = mEditableListRecyclerView.findViewHolderForAdapterPosition(itemCount-1);
-
-                    //mEditableDataRowListRecyclerViewAdapter.setLastEditTextToRequestFocus(mPrefetchedIndexOfNewlyInsertedItem);
-                }
             }
         });
-    }
 
+    }
 
     @Override
     public void onStart() {
@@ -140,12 +126,11 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void createDataElement() {
-        mPrefetchedIndexOfNewlyInsertedItem = mEditableDataRowListRecyclerViewAdapter.getItemCount() + 1;
+        mPrefetchIndexOfNewlyInsertedItem = mEditableDataRowListRecyclerViewAdapter.getItemCount() + 1;
         initialDataPointAlreadyInserted = true;
         updateRoom();
         DataPoint newDataPoint = new DataPoint(mListId, false, new BigDecimal("0.0"));
         getViewModel().insertDataPoint(newDataPoint);
-        mEditableDataRowListRecyclerViewAdapter.setLastEditTextToRequestFocus(mPrefetchedIndexOfNewlyInsertedItem);
     }
 
     //dataPoints that are appended to the list already are updated.
@@ -163,4 +148,5 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     private EditableListViewModel getViewModel() {
         return ViewModelProviders.of(this).get(EditableListViewModel.class);
     }
+
 }

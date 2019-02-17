@@ -11,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="afterDescendants"
         android:orientation="horizontal">
 
         <TextView
@@ -38,6 +37,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:typeface="monospace"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:hint="Input and press enter"

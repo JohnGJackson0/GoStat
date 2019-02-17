@@ -44,19 +44,7 @@ import java.util.Set;
 public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>   {
     private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();
     private OnLastEditTextOnEnterCallBack mOnLastEnterCallBack;
-    private FocusedEditTextValidationCallBack mValidationCallback;
     private Context mContext;
-    private Boolean requestFocusOnLastEditTextInOnBindViewHolder = false;
-    private int mNewItemInsertionIndex = 0;
-
-    public void setLastEditTextToRequestFocus(int indexOfItem) {
-        requestFocusOnLastEditTextInOnBindViewHolder = true;
-        mNewItemInsertionIndex = indexOfItem;
-    }
-
-    public interface FocusedEditTextValidationCallBack{
-        void resubmitFocusOnEditTextIfLost(int positionToCheck);
-    }
 
     public interface OnLastEditTextOnEnterCallBack {
         void createDataElement();
@@ -70,12 +58,10 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         return updateList;
     }
 
-
     protected EditableListAdapter(Context context) {
         super(DIFF_CALLBACK);
         mContext = context;
         mOnLastEnterCallBack = (OnLastEditTextOnEnterCallBack) mContext;
-        mValidationCallback = (FocusedEditTextValidationCallBack) mContext;
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder {
@@ -87,11 +73,11 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         public NumberViewHolder(View itemView, EditTextListener editTextListener) {
             super(itemView);
 
+            Log.d("asdhaskjdh", "View Holder Created");
+
             mIndexOfEditableRow =  itemView.findViewById(R.id.dataPointIndexTextView);
             mEditableDataPoint =  itemView.findViewById(R.id.dataPoint);
             this.editTextListener = editTextListener;
-
-
 
             //before doing this should we check to see if focus is on
             mEditableDataPoint.addTextChangedListener(this.editTextListener);
@@ -105,17 +91,6 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             } else {
                 mEditableDataPoint.setText(null);
             }
-
-            if (requestFocusOnLastEditTextInOnBindViewHolder && (position == mNewItemInsertionIndex-1)) {
-                mEditableDataPoint.requestFocus();
-                //mEditableDataPoint.setFocusable(false);
-                InputMethodManager imm = (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                requestFocusOnLastEditTextInOnBindViewHolder = false;
-
-                mValidationCallback.resubmitFocusOnEditTextIfLost(mNewItemInsertionIndex);
-            }
-
         }
 
         void clear() {
@@ -151,20 +126,6 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         View view = inflater.inflate(templateLayoutID, viewGroup, shouldAttachToParentImmediately);
         NumberViewHolder viewHolder = new NumberViewHolder(view, new EditTextListener());
         return viewHolder;
-    }
-
-    //implementing
-    private class EditTextFocusWatcher implements View.OnFocusChangeListener {
-        
-        @Override
-        public void onFocusChange(View view, boolean b) {
-            //if view loses focus, then update
-
-            if (!view.hasFocus()) {
-
-            }
-
-        }
     }
 
     private class EditTextListener implements TextWatcher {
@@ -207,9 +168,11 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             holder.clear();
         }
 
-        if (position == getItemCount()-1) {
+        //todo add to bindTO and test,
+        // holder becomes mEditableDataPoint.listenerForNextEnter
+
+        if (position == getItemCount()-1)
             holder.listenForNextEnter();
-        }
     }
 
     // a DataPoint may have changed if reloaded from the database,
