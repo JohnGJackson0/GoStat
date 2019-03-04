@@ -11,7 +11,8 @@
     tools:context=".Repository.EditableListActivity">
 
     <include layout ="@layout/editing_list_instructions"
-        android:id="@+id/instructions"/>
+        android:id="@+id/instructions"
+        android:visibility="gone"/>
 
 
     <RelativeLayout

@@ -1,10 +1,8 @@
 package com.example.jgjio_desktop.gostats.Repository;
 
+import android.app.Activity;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -12,7 +10,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -27,27 +24,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//TODO fix layout so that it doesn't studder
-
-//TODO allow user to append data, possibly in another adapter
-
-
 //Todo need to build this list to support changes to the Room DataPoints
 //     by pending the data, and waiting to update, if the list changes
 //     on the pending point, it will display update and not the pending point
 //     so user will see the wrong point, even though we have it saved in a
 //     pending list
 
-//Todo allow the user to expand the DataPoints in the list
-//todo implement updatable and provide
+//todo persists the pending datapoints
 
 public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>   {
     private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();
     private OnLastEditTextOnEnterCallBack mOnLastEnterCallBack;
+    private NewViewHolderReceiverCallBack mNewViewHolderReceiverCallBack;
     private Context mContext;
 
     public interface OnLastEditTextOnEnterCallBack {
         void createDataElement();
+    }
+
+    public interface NewViewHolderReceiverCallBack {
+        void receiveNewestViewHolder(EditableListAdapter.NumberViewHolder vh);
     }
 
     //todo everything gets updated
@@ -62,6 +58,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         super(DIFF_CALLBACK);
         mContext = context;
         mOnLastEnterCallBack = (OnLastEditTextOnEnterCallBack) mContext;
+        mNewViewHolderReceiverCallBack = (NewViewHolderReceiverCallBack) mContext;
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder {
@@ -72,9 +69,6 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
 
         public NumberViewHolder(View itemView, EditTextListener editTextListener) {
             super(itemView);
-
-            Log.d("asdhaskjdh", "View Holder Created");
-
             mIndexOfEditableRow =  itemView.findViewById(R.id.dataPointIndexTextView);
             mEditableDataPoint =  itemView.findViewById(R.id.dataPoint);
             this.editTextListener = editTextListener;
@@ -85,11 +79,13 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
 
         void bindTo (DataPoint dataPoint, int position) {
             mIndexOfEditableRow.setText(Integer.toString(position + 1));//statistical lists start at 1
+            Log.v("NumberViewHolder", "bindTo: binding at position: " + Integer.toString(position));
 
             if (dataPoint.isEnabled()) {
-                mEditableDataPoint.setText(dataPoint.getValue().toString());
-            } else {
-                mEditableDataPoint.setText(null);
+                mEditableDataPoint.getText().clear();
+                mEditableDataPoint.append(dataPoint.getValue().toString());
+            } else if (mEditableDataPoint.length() > 0) {
+                mEditableDataPoint.getText().clear();
             }
         }
 
@@ -97,7 +93,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             //TODO IMPLEMENT
         }
 
-        private void listenForNextEnter() {
+        private void createNewDataPointOnNextEnter() {
             mEditableDataPoint.setOnKeyListener(new View.OnKeyListener() {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     // If the event is a key-down event on the "enter" button
@@ -105,6 +101,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                             (keyCode == KeyEvent.KEYCODE_ENTER)) {
                         //add callback to update room
                         mOnLastEnterCallBack.createDataElement();
+                        Log.d("NumberViewHolder", "onKey: Key Event of enter on last EditText, creating data point");
                         removeOnKeyListener(mEditableDataPoint);
                     }
                     return false;
@@ -168,11 +165,14 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
             holder.clear();
         }
 
-        //todo add to bindTO and test,
-        // holder becomes mEditableDataPoint.listenerForNextEnter
+        if (position == getItemCount()-1) {
+            holder.createNewDataPointOnNextEnter();
+            mNewViewHolderReceiverCallBack.receiveNewestViewHolder(holder);
 
-        if (position == getItemCount()-1)
-            holder.listenForNextEnter();
+            //Log.d("EditableListAdapter", "onBindViewHolder: Showing Keyboard for new point insertion");
+            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        }
     }
 
     // a DataPoint may have changed if reloaded from the database,
