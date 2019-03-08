@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Go Stats!</string>
+    <string name="app_name">GoStat</string>
     <string name="action_settings">Settings</string>
     <string name="hint_list_name">Enter a name for a list</string>
     <string name="hint_jump_to_amount">Enter Index Number to Jump to</string>

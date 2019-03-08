@@ -5,7 +5,7 @@
     android:id="@+id/view_frequency_table_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Repository.ViewFrequencyTableTemplateFragment">
+    tools:context=".ViewFrequencyTableTemplateFragment">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/view_frequency_table_header_layout"

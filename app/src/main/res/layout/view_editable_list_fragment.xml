@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Repository.ViewEditableListFragment">
+    tools:context=".ViewEditableListFragment">
 
     <TextView
         android:id="@+id/no_data_text_view_instructions"
