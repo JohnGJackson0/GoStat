@@ -142,9 +142,11 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mActiveViewHolder.mEditableDataPoint.requestFocus();
-                mLinearLayoutManager.scrollToPosition(mPrefetchIndexOfNewlyInsertedItem);
-
+                if(mPrefetchIndexOfNewlyInsertedItem != 0) {
+                    Log.d("EditableListActivity", "run:  requesting focus from index " + Integer.toString(mPrefetchIndexOfNewlyInsertedItem));
+                    mActiveViewHolder.mEditableDataPoint.requestFocus();
+                    mLinearLayoutManager.scrollToPosition(mPrefetchIndexOfNewlyInsertedItem);
+                }
             }
         }, 500);
     }
