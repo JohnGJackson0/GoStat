@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +25,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import app.goStat.R;
 
 public class ViewEditableListTemplateFragment extends Fragment {
     private int mListID;
@@ -126,11 +127,9 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
     private void showChangeListNameDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Input a List New Name");
-
-        final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) getView().findViewById(R.id.inquire_list_name), false);
-        final EditText input = (EditText) viewInflated.findViewById(R.id.list_name_input);
-        builder.setView(viewInflated);
+        final View dialog = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) getView().findViewById(R.id.inquire_list_name), false);
+        final EditText input = (EditText) dialog.findViewById(R.id.list_name_input);
+        builder.setView(dialog);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
@@ -242,7 +241,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
     private void showJumpToDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Input Index to Jump to");
 
         final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) getView().findViewById(R.id.inquire_jump_to_amount), false);
         final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);

@@ -11,14 +11,12 @@
         android:layout_height="wrap_content">
 
         <AutoCompleteTextView
+            style="@style/DefaultEditTextTheme"
             android:id="@+id/jump_to_amount_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_jump_to_amount"
             android:imeOptions="actionDone"
             android:inputType="number" />
-
     </android.support.design.widget.TextInputLayout>
-
-
 </FrameLayout>

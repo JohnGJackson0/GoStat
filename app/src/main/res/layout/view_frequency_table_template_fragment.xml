@@ -41,8 +41,6 @@
                 android:textColor="@color/colorPrimaryVariant"
                 android:textSize="@dimen/text_important_snippet"
                 android:textStyle="italic" />
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -55,27 +53,20 @@
             app:layout_constraintTop_toBottomOf="@+id/frequency_table_view_meta_layout">
 
             <Spinner
+                style="@style/DefaultSpinnerTheme"
                 android:id="@+id/frequency_table_functions_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:backgroundTint="@color/colorAccent"
-                android:backgroundTintMode="add"
-                android:popupElevation="5dp"
                 android:layout_weight=".75"
                 android:entries="@array/frequency_table_functions" />
 
             <Button
+                style="@style/DefaultButtonTheme"
                 android:id="@+id/frequency_table_execute_function_button"
                 android:layout_width="0dp"
-                android:background="@color/colorAccent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_button"
-                android:textStyle="bold"
                 android:layout_weight=".25"
                 android:text="@string/function_button_label" />
-
         </LinearLayout>
 
         <View
@@ -84,9 +75,6 @@
             android:layout_height="6dp"
             android:layout_width="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
     </android.support.constraint.ConstraintLayout>
 
     <FrameLayout
@@ -98,6 +86,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_frequency_table_header_layout">
     </FrameLayout>
-
-
 </android.support.constraint.ConstraintLayout>

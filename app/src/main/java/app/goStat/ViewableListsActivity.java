@@ -17,8 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import app.goStat.R;
-
 import java.util.List;
 
 public class ViewableListsActivity extends AppCompatActivity {
@@ -33,15 +31,12 @@ public class ViewableListsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_lists);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         viewListDetails = findViewById(R.id.view_list_details_fragment);
         instructionsContainer = findViewById(R.id.instructions_container);
-
         mCreateListInstructions = findViewById(R.id.list_show_text);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +57,6 @@ public class ViewableListsActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void removeList(StatisticalList statList) {
@@ -94,10 +88,9 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     private void configureNewListDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewableListsActivity.this);
-        builder.setTitle("Input a List Name");
 
         final View viewInflated = LayoutInflater.from(ViewableListsActivity.this).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) findViewById(R.id.inquire_list_name), false);
-        final EditText input = (EditText) viewInflated.findViewById(R.id.list_name_input);
+        final EditText input = viewInflated.findViewById(R.id.list_name_input);
         builder.setView(viewInflated);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

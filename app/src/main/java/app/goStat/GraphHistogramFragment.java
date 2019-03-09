@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
-import app.goStat.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.ValueDependentColor;
@@ -68,7 +66,7 @@ public class GraphHistogramFragment extends Fragment {
 
     private void takeSnapShot() {
         getViewModel().getStaticListName(mAssociatedListID);
-        graphView.takeSnapshotAndShare(getActivity(), getViewModel().getStaticListName(mAssociatedListID)+ " histogram", "GoStats Histogram");
+        graphView.takeSnapshotAndShare(getActivity(), getViewModel().getStaticListName(mAssociatedListID) + " histogram", "GoStats Histogram");
     }
 
     private void populateGraphWithFrequencyTable(View view) {
@@ -78,7 +76,6 @@ public class GraphHistogramFragment extends Fragment {
         getViewModel().getFrequencyIntervalsInTable(mListID).observe(this, new Observer<List<FrequencyInterval>>() {
             @Override
             public void onChanged(@Nullable List<FrequencyInterval> frequencyIntervals) {
-                int i=0;
                 int maxFrequency = 0;
                 series.setDataWidth(frequencyIntervals.get(0).getWidth());
 
@@ -93,12 +90,10 @@ public class GraphHistogramFragment extends Fragment {
                 for (FrequencyInterval freqInterval : frequencyIntervals) {
                     double middleInterval = (freqInterval.getMaxRange() + freqInterval.getMinRange())/2;
                     series.appendData(new com.jjoe64.graphview.series.DataPoint(middleInterval, freqInterval.getFrequency()), false, 500000);
-                    i++;
                     if (freqInterval.getFrequency() > maxFrequency) maxFrequency = freqInterval.getFrequency();
                 }
 
                 graphView.getViewport().setMaxY(maxFrequency +1);
-
 
                 //try to make the graph look good at edge cases
                 if (maxFrequency > 20000 && frequencyIntervals.get(0).getWidth() > 20000) {

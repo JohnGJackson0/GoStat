@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/viewable_row_cv">
 
     <RelativeLayout
@@ -31,9 +30,5 @@
             android:text="15.0235"
             android:layout_toEndOf="@id/item_position"
             android:layout_centerVertical="true" />
-
-
     </RelativeLayout>
-
-
 </android.support.v7.widget.CardView>

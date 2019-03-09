@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id ="@+id/histogram_settings_container">
@@ -22,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        style="@style/DefaultButtonTheme"
         android:id="@+id/generate_bin_number_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,15 +29,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/generating_bin_number_button_label"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorWhite"
         android:padding="4dp"
-        android:textSize="@dimen/text_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/instructions_histogram_settings" />
 
     <EditText
+        style="@style/DefaultEditTextTheme"
         android:id="@+id/bin_number_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,27 +43,21 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/input_bin_number_hint"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorAccent"
-        android:textSize="@dimen/text_important_snippet"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/generate_bin_number_button" />
 
     <Button
+        style="@style/DefaultButtonTheme"
         android:id="@+id/create_frequency_table_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorWhite"
         android:text="@string/create_frequency_table_button_label"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="@dimen/text_button"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/histogram_settings_error_message" />
 
@@ -83,6 +75,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bin_number_input"
         android:visibility="gone"/>
-
-
 </android.support.constraint.ConstraintLayout>

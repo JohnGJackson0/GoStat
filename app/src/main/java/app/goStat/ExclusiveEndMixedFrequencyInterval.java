@@ -4,7 +4,7 @@ public final class ExclusiveEndMixedFrequencyInterval implements Interval {
     private final double mMin;
     private final double mMax;
 
-    private int mFrequency = 0;
+    private int mFrequency;
 
     ExclusiveEndMixedFrequencyInterval(int frequency, double min, double max){
         mMin = min;

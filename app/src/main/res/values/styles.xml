@@ -9,28 +9,38 @@
         <item name="cardViewStyle">@style/CardView</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionModeBackground">@color/colorPrimary</item>
-
-
-
-
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="appThemeSpinner" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Default application theme. -->
+
+    <style name="DefaultEditTextTheme">
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/text_input</item>
+        <item name="android:typeface">monospace</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
     </style>
 
-    <style name="mySpinnerItemStyle" parent="Base.Widget.AppCompat.Spinner">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">@dimen/text_important_snippet</item>
+    <style name="DefaultButtonTheme">
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:textSize">@dimen/text_button</item>
+        <item name = "android:background">@color/colorAccent</item>
+        <item name = "android:textColor">@color/colorWhite</item>
     </style>
 
+    <style name="DefaultSpinnerTheme">
+        <item name = "android:popupElevation">5dp</item>
+        <item name = "android:backgroundTintMode">add</item>
+        <item name = "android:backgroundTint">@color/colorAccent</item>
+        <item name = "android:textAlignment">center</item>
+    </style>
 </resources>

@@ -327,9 +327,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="22sp" />
                 </RelativeLayout>
-
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 
@@ -343,17 +341,11 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <android.support.v7.widget.AppCompatButton
+            style="@style/DefaultButtonTheme"
             android:id="@+id/copy_to_clipboard_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:background="@color/colorAccent"
-            android:text="@string/copy_to_clipboard_button_label"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_button" />
-
+            android:text="@string/copy_to_clipboard_button_label"/>
     </RelativeLayout>
-
-
-
 </android.support.constraint.ConstraintLayout>

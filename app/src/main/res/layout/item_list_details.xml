@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,7 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <LinearLayout
             android:orientation="horizontal"
@@ -69,10 +67,8 @@
                     android:textColor="@color/colorPrimary"
                     android:text=""
                     android:id="@+id/preview"/>
-
             </android.support.v7.widget.CardView>
         </LinearLayout>
-
 
         <org.apmem.tools.layouts.FlowLayout
             android:id="@+id/tags"
@@ -94,7 +90,6 @@
                 android:textColor="@color/colorSecondary"
                 android:textSize="@dimen/text_secondary" />
 
-
             <android.support.v7.widget.CardView
                 android:id="@+id/list_id"
                 android:layout_width="wrap_content"
@@ -104,7 +99,6 @@
                 android:visibility="visible"
                 app:cardCornerRadius="12dp"
                 app:cardPreventCornerOverlap="true">
-
                 <TextView
                     android:id="@+id/list_id_message"
                     android:layout_width="wrap_content"
@@ -113,9 +107,7 @@
                     android:text="List ID 4"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_caption" />
-
             </android.support.v7.widget.CardView>
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/created_by_user_message_container"
@@ -136,7 +128,6 @@
                     android:textSize="@dimen/text_caption" />
             </android.support.v7.widget.CardView>
 
-
             <android.support.v7.widget.CardView
                 android:id="@+id/editable_message_container"
                 android:layout_width="wrap_content"
@@ -155,7 +146,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_caption" />
             </android.support.v7.widget.CardView>
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/created_by_system_message_container"
@@ -220,7 +210,6 @@
 
             </android.support.v7.widget.CardView>
 
-
             <android.support.v7.widget.CardView
                 android:id="@+id/static_message_container"
                 android:layout_width="wrap_content"
@@ -242,7 +231,6 @@
 
             </android.support.v7.widget.CardView>
 
-
             <TextView
                 android:id="@+id/tags_label_postfix"
                 android:layout_width="wrap_content"
@@ -252,11 +240,7 @@
                 android:text="}"
                 android:textColor="@color/colorSecondary"
                 android:textSize="@dimen/text_secondary" />
-
         </org.apmem.tools.layouts.FlowLayout>
-
-
     </android.support.constraint.ConstraintLayout>
-
 </android.support.v7.widget.CardView>
 

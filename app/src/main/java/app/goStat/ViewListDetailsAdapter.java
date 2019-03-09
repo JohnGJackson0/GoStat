@@ -61,11 +61,9 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
     }
 
     class ListDetailViewHolder extends RecyclerView.ViewHolder {
-
         TextView listName;
         TextView frequencyTableMessage;
         TextView listIDMessage;
-
         CardView createdByUserMessage;
         CardView createdBySystemMessage;
         CardView editableListMessage;
@@ -121,7 +119,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                 lockedMessage.setVisibility(View.VISIBLE);
                 frequencyTableInfoMessage.setVisibility(View.VISIBLE);
                 staticMessage.setVisibility(View.VISIBLE);
-                listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorSecondary));
                 frequencyTableMessage.setText("Associated List ID " + Integer.toString(statisticalList.getAssociatedList()));
                 frequencyPreview(position, itemView);
             } else {
@@ -141,9 +138,7 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
         void clear() {
             //TODO IMPLEMENT
         }
-
     }
-
 
     private void listPreview(int position, View itemView) {
 
@@ -156,7 +151,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             public void onChanged(@Nullable List<DataPoint> dataPoints) {
                 String s = "";
                 int index=0;
-
 
                 //todo add ellipses
                 for(DataPoint val: dataPoints) {
@@ -171,8 +165,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
 
                     index++;
                 }
-
-                Log.d("kjgdflk", s);
                 previewText.setText(s);
             }
 

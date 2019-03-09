@@ -1,7 +1,5 @@
 package app.goStat;
 
-import android.util.Log;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,18 +24,11 @@ public class FrequencyTable implements IntervalSeries{
         return mFreqIntervalsForTable;
     }
 
-    public void addAFrequencyToIntervalAt (int position) {
-        mFreqIntervalsForTable.get(position).addAFrequency();
-        Log.d("dfsdf",Integer.toString(mFreqIntervalsForTable.get(position).getFrequency()));
-        Log.d("dfsdf",Integer.toString(this.get(position).getFrequency()));
-    }
-
     //todo test these methods
 
     @Override
     public boolean isContinuous() {
         sort();
-        double minFreq = mFreqIntervalsForTable.get(0).getMin();
         int i = 0;
 
         double lastEndingFreq = mFreqIntervalsForTable.get(0).getMax();

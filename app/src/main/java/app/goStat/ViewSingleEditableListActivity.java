@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import app.goStat.R;
-
 //TODO edit List button
 //TODO fix layout bug, not correctly showing last entry
 

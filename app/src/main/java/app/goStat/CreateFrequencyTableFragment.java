@@ -13,10 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import app.goStat.R;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -183,7 +179,7 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     private void addFrequencyTable(FrequencyTable frequencyTable) {
 
-        StatisticalList newList = new StatisticalList(0, "Frequency table for id ~ " + Integer.toString(mListID), true);
+        StatisticalList newList = new StatisticalList(0, "~ Frequency Table for ID " + Integer.toString(mListID), true);
         newList.setAssociatedList(mListID);
 
         int newListID = getViewModel().insertStatisticalList(newList);

@@ -11,17 +11,12 @@
         android:layout_height="wrap_content">
 
         <AutoCompleteTextView
+            style="@style/DefaultEditTextTheme"
             android:id="@+id/list_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_list_name"
             android:imeOptions="actionDone"
             android:inputType="text" />
-
     </android.support.design.widget.TextInputLayout>
-
-
-
-
-
 </FrameLayout>

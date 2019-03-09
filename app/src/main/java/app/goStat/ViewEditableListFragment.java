@@ -13,13 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import app.goStat.R;
-
 public class ViewEditableListFragment extends Fragment {
-
     private int mListID;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-
     private ViewableListAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -51,7 +47,6 @@ public class ViewEditableListFragment extends Fragment {
 
     private void startRecyclerView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.rv_single_list);
-
         mLinearLayoutManager = new LinearLayoutManager(rootView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAdapter = new ViewableListAdapter();
@@ -72,7 +67,6 @@ public class ViewEditableListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     private ViewEditableListFragmentViewModel getViewModel() {
@@ -82,5 +76,4 @@ public class ViewEditableListFragment extends Fragment {
     public void jumpTo(int position) {
         mLinearLayoutManager.scrollToPosition(position);
     }
-
 }

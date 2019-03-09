@@ -15,7 +15,6 @@ public class ActiveListSelectionViewModel extends AndroidViewModel{
     public ActiveListSelectionViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
-
         mAllLists = mRepository.getAllStatisticalLists();
     }
 
@@ -32,21 +31,4 @@ public class ActiveListSelectionViewModel extends AndroidViewModel{
     LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) {
         return mRepository.getFrequencyTablePreview(listID);
     }
-
-
-    LiveData<List<StatisticalList>> getAllLists() {
-        return mAllLists;
-    }
-
-    //todo fix this cast from long to int
-
-    //return the id
-    long insertStatisticalList(StatisticalList newList) { return mRepository.insertStatisticalList(newList); }
-
-    void deleteList(StatisticalList statList) {mRepository.removeStatisticalList(statList); }
-
-    void insertDataPoint(DataPoint newDataPoint) {
-        mRepository.insertDataPoint(newDataPoint);
-    }
-
 }
