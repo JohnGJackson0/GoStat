@@ -16,8 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import app.goStat.R;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -168,10 +166,6 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         if (position == getItemCount()-1) {
             holder.createNewDataPointOnNextEnter();
             mNewViewHolderReceiverCallBack.receiveNewestViewHolder(holder);
-
-            //Log.d("EditableListAdapter", "onBindViewHolder: Showing Keyboard for new point insertion");
-            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         }
     }
 

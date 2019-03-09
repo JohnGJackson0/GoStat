@@ -1,5 +1,6 @@
 package app.goStat;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -9,11 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
-import app.goStat.R;
+import android.view.inputmethod.InputMethodManager;
 
 import java.math.BigDecimal;
-
 
 public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack, EditableListAdapter.NewViewHolderReceiverCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
@@ -24,6 +23,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     int mPrefetchIndexOfNewlyInsertedItem = 0;
     private EditableListAdapter.NumberViewHolder mActiveViewHolder;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
+    private boolean hasNewPointRequestedFocus = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,9 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void createDataElement() {
+        Log.d("EditableListActivity", "createDataElement: creating new point");
         mPrefetchIndexOfNewlyInsertedItem = mEditableDataRowListRecyclerViewAdapter.getItemCount();
+        hasNewPointRequestedFocus = false;
         initialDataPointAlreadyInserted = true;
         Log.d("EditableListActivity", "createDataElement: updating non-appending points");
         updateRoom();
@@ -137,12 +139,17 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     @Override
     public void receiveNewestViewHolder(EditableListAdapter.NumberViewHolder vh) {
         mActiveViewHolder = vh;
-        Log.d("EditableListActivity", "receiveNewestViewHolder: requesting focus of newest ViewHolder at index(pos+1): " + Integer.toString(mActiveViewHolder.getAdapterPosition()+1));
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(mPrefetchIndexOfNewlyInsertedItem != 0) {
+                if(mPrefetchIndexOfNewlyInsertedItem != 0 && !hasNewPointRequestedFocus) {
+                    //Log.d("EditableListAdapter", "onBindViewHolder: Showing Keyboard for new point insertion");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+
+                    hasNewPointRequestedFocus = true;
                     Log.d("EditableListActivity", "run:  requesting focus from index " + Integer.toString(mPrefetchIndexOfNewlyInsertedItem));
                     mActiveViewHolder.mEditableDataPoint.requestFocus();
                     mLinearLayoutManager.scrollToPosition(mPrefetchIndexOfNewlyInsertedItem);
