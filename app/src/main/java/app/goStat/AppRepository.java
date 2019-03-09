@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.DataSource;
 import android.os.AsyncTask;
-
 import java.util.List;
 
 //TODO check for race conditions
@@ -32,16 +31,10 @@ public class AppRepository {
         return mListDao.isFrequencyTable(id);
     }
 
-    void removeStatisticalList(StatisticalList statList) {
-        new removeStatisticalListAsyncTask(mListDao).execute(statList);
-    }
-
     void removeStatisticalListByID(int listID) {
         mListDao.deleteListById(listID);
     }
-
     int getAssociatedList(int listID) {return mListDao.getAssociatedListID(listID);}
-
     String getStaticListName(int listID) {return mListDao.getStaticListName(listID); }
 
     boolean hasAssociatedList(int listID) {
@@ -59,21 +52,13 @@ public class AppRepository {
         return mListDao.getListName(listId);
     }
 
+    DataSource.Factory<Integer, StatisticalList> getStatisticalListDetailsByID() { return mListDao.getAllLists(); }
 
-    DataSource.Factory<Integer, StatisticalList> getStatisticalListDetailsByID() {
-        return mListDao.getAllLists();
-    }
-
-    //todo ids must be long
-
-    //returns ID
     long insertStatisticalList(StatisticalList list) {
         return mListDao.insert(list);
     }
 
-    void updateListName(String name, int id) {
-        new updateStatisticalListNameAsyncTask(mListDao, id).execute(name);
-    }
+    void updateListName(String name, int id) { new updateStatisticalListNameAsyncTask(mListDao, id).execute(name); }
 
     /*
      *
@@ -82,37 +67,15 @@ public class AppRepository {
      *
      */
 
-    LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) {
-        return mFrequencyIntervalDao.getFrequencyTablePreview(listID);
-    }
+    LiveData<List<FrequencyInterval>> getFrequencyTablePreview(int listID) { return mFrequencyIntervalDao.getFrequencyTablePreview(listID); }
 
-    DataSource.Factory getFrequencyTable(int listId) {
-        return mFrequencyIntervalDao.getListById(listId);
-    }
+    DataSource.Factory getFrequencyTable(int listId) { return mFrequencyIntervalDao.getListById(listId); }
 
     LiveData<List<FrequencyInterval>> getFrequencyIntervalsInTable(int listId) {
         return mFrequencyIntervalDao.getList(listId);
     }
 
-    void insertFrequencyIntervals(List<FrequencyInterval> frequencyIntervals) {
-        mFrequencyIntervalDao.insertFrequencyIntervals(frequencyIntervals);
-        //new insertFrequencyIntervalsAsyncTask(mFrequencyIntervalDao).execute(frequencyIntervals);
-    }
-
-    void insertFrequencyInterval(FrequencyInterval frequencyInterval) {
-        mFrequencyIntervalDao.insert(frequencyInterval);
-        //new insertFrequencyIntervalAsyncTask(mFrequencyIntervalDao).execute(frequencyInterval);
-    }
-
-    void updateFrequencyInterval(FrequencyInterval frequencyInterval) {
-        mFrequencyIntervalDao.update(frequencyInterval);
-        //new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
-    }
-
-    LiveData<Integer> getMaxFrequency(int listID) {
-        return mFrequencyIntervalDao.getMaxValue(listID);
-    }
-
+    void insertFrequencyIntervals(List<FrequencyInterval> frequencyIntervals) { mFrequencyIntervalDao.insertFrequencyIntervals(frequencyIntervals); }
 
     /*
     *
@@ -120,45 +83,23 @@ public class AppRepository {
     * from DataPointDao
     *
      */
-    LiveData<List<DataPoint>> getDataPointsInList(int listId) {
-        return mDataPointDao.getList(listId);
-    }
+    LiveData<List<DataPoint>> getDataPointsInList(int listId) { return mDataPointDao.getList(listId); }
 
-    long getStaticNumberOfDatapointsInList(int listID) {
-        return mDataPointDao.getStaticNumberOfDataPointsInList(listID);
-    }
+    long getStaticNumberOfDataPointsInList(int listID) { return mDataPointDao.getStaticNumberOfDataPointsInList(listID); }
 
-    DataSource.Factory getDataPointsInListById(int listId) {
-        return mDataPointDao.getListById(listId);
-    }
+    DataSource.Factory getDataPointsInListById(int listId) { return mDataPointDao.getListById(listId); }
 
-    LiveData<Long> getNumberOfDataPointsInList(int listID) {
-        return mDataPointDao.getNumberOfDataPointsInList(listID);
-    }
+    LiveData<Long> getNumberOfDataPointsInList(int listID) { return mDataPointDao.getNumberOfDataPointsInList(listID); }
 
-    void insertDataPoints(List<DataPoint> listDataPoints) {
-        mDataPointDao.insertDataPoints(listDataPoints);
-        //new insertDataPointsAsyncTask(mDataPointDao).execute(listDataPoints);
-    }
+    void insertDataPoints(List<DataPoint> listDataPoints) { mDataPointDao.insertDataPoints(listDataPoints); }
 
-    void insertDataPoint(DataPoint dataPoint) {
-        mDataPointDao.insertDataPoint(dataPoint);
-        //new insertDataPointAsyncTask(mDataPointDao).execute(dataPoint);
-    }
+    void insertDataPoint(DataPoint dataPoint) { mDataPointDao.insertDataPoint(dataPoint); }
 
-    LiveData<List<DataPoint>> getEditableListPreview(int listID) {
-        return mDataPointDao.getEditableListPreview(listID);
-    }
+    LiveData<List<DataPoint>> getEditableListPreview(int listID) { return mDataPointDao.getEditableListPreview(listID); }
 
+    void updateDataPoint(DataPoint dataPoint) { new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint); }
 
-    void updateDataPoint(DataPoint dataPoint) {
-        new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint);
-    }
-
-    //WORKING ON THIS ONE
-    void deleteDisabledDataPointsFromList(int listID) {
-        new deleteDisabledDataPointAsyncTask(mDataPointDao).execute(listID);
-    }
+    void deleteDisabledDataPointsFromList(int listID) { new deleteDisabledDataPointAsyncTask(mDataPointDao).execute(listID); }
 
     /*
      *
@@ -166,7 +107,6 @@ public class AppRepository {
      * these are the ones that are currently being used
      *
      */
-
 
     private static class deleteDisabledDataPointAsyncTask extends AsyncTask<Integer, Void, Void> {
         private DataPointDao dataPointDao;
@@ -192,18 +132,6 @@ public class AppRepository {
         }
     }
 
-    private static class insertDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
-        private DataPointDao dataPointDao;
-
-        insertDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
-
-        @Override
-        protected Void doInBackground(final DataPoint... params) {
-            dataPointDao.insertDataPoint(params[0]);
-            return null;
-        }
-    }
-
     private static class updateStatisticalListNameAsyncTask extends AsyncTask<String, Void, Void> {
         private StatisticalListDao statListDao;
         private int id;
@@ -219,57 +147,4 @@ public class AppRepository {
             return null;
         }
     }
-
-    private static class insertDataPointsAsyncTask extends AsyncTask<List<DataPoint>, Void, Void> {
-        private DataPointDao dataPointDao;
-
-        insertDataPointsAsyncTask(DataPointDao dao) {dataPointDao = dao;}
-
-        @Override
-        protected Void doInBackground(final List<DataPoint>... params) {
-            dataPointDao.insertDataPoints(params[0]);
-            return null;
-        }
-    }
-
-    private static class removeStatisticalListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
-
-        private StatisticalListDao listDao;
-
-        removeStatisticalListAsyncTask(StatisticalListDao dao) {
-            listDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final StatisticalList... params) {
-            listDao.delete(params[0]);
-            return null;
-        }
-    }
-
-    /*
-     *
-     * The following Async Tasks are reserved for further use
-     * todo These methods if not used should be deleted upon release
-     *
-     */
-
-    private static class insertListAsyncTask extends AsyncTask<StatisticalList, Void, Void> {
-
-        private StatisticalListDao listDao;
-
-        insertListAsyncTask(StatisticalListDao dao) {
-            listDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final StatisticalList... params) {
-            listDao.insert(params[0]);
-            return null;
-        }
-
-
-    }
-
-
 }

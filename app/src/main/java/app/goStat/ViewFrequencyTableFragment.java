@@ -19,17 +19,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import app.goStat.R;
-
 import java.util.List;
 
 public class ViewFrequencyTableFragment extends Fragment implements View.OnClickListener {
-
     private int mListID;
     private String mCopyToClipboardText;
     private View mRootView;
     private Button mCopyToClipboard;
-
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Nullable
@@ -37,7 +33,6 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.view_frequency_table_fragment, container, false);
-
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         setCopyTo();
         mCopyToClipboard = mRootView.findViewById(R.id.copy_to_clipboard_button);
@@ -68,15 +63,12 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
         return ViewModelProviders.of(this).get(ViewFrequencyTableFragmentViewModel.class);
     }
 
-    //todo refactor same code in ShowSummaryStatistics
     private void showCopyToClipboardMessage() {
         Toast toast = Toast.makeText(getActivity(),
                 "Copied To Clipboard",
                 Toast.LENGTH_SHORT);
-
         View view = toast.getView();
         int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);
-
         view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         toast.show();
     }
@@ -85,7 +77,6 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
     public void onClick(View view) {
         copyToClipboard();
     }
-
 
     private void setCopyTo() {
         getViewModel().getTable(mListID).observe(this, new Observer<List<FrequencyInterval>>() {
@@ -106,6 +97,4 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
         clipboard.setPrimaryClip(clip);
         showCopyToClipboardMessage();
     }
-
-
 }

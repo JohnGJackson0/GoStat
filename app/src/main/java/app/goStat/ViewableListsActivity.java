@@ -25,7 +25,6 @@ public class ViewableListsActivity extends AppCompatActivity {
     View instructionsContainer;
 
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-    public static final String ACTION_ID = "com.example.jgjio_desktop.gostats.extra.action_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +87,8 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     private void configureNewListDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewableListsActivity.this);
-
-        final View viewInflated = LayoutInflater.from(ViewableListsActivity.this).inflate(R.layout.dialog_inquire_list_name, (ViewGroup) findViewById(R.id.inquire_list_name), false);
+        final View viewInflated = LayoutInflater.from(ViewableListsActivity.this).inflate(R.layout.dialog_inquire_list_name,
+                (ViewGroup) findViewById(R.id.inquire_list_name), false);
         final EditText input = viewInflated.findViewById(R.id.list_name_input);
         builder.setView(viewInflated);
 
@@ -107,7 +106,6 @@ public class ViewableListsActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
         builder.show();
     }
 

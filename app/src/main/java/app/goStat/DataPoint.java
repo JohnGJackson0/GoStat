@@ -8,9 +8,6 @@ import android.arch.persistence.room.TypeConverters;
 
 import java.math.BigDecimal;
 
-//todo FIX UI currently the app has no way to delete a single data point
-
-//TODO test that deleting a list deletes the datapoints
 @Entity(tableName = "data_point",
         foreignKeys = @ForeignKey(entity = StatisticalList.class,
                 parentColumns = "id",
@@ -18,7 +15,6 @@ import java.math.BigDecimal;
                 onDelete = ForeignKey.CASCADE))
 
 @TypeConverters({BigDecimalConverter.class})
-
 public class DataPoint {
 
     @PrimaryKey(autoGenerate = true)

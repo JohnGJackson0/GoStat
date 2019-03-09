@@ -1,6 +1,5 @@
 package app.goStat;
 
-
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import app.goStat.R;
-
 public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableListAdapter.DataPointViewHolder> {
 
     protected ViewableListAdapter() {
@@ -21,30 +18,21 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
 
     @Override
     public void onBindViewHolder(@NonNull DataPointViewHolder holder, int position) {
-
         DataPoint dataPoint = getItem(position);
-
-        if (dataPoint != null) {
-            holder.bindTo(position, dataPoint);
-        } else {
-            holder.clear();
-        }
+        if (dataPoint != null) holder.bindTo(position, dataPoint);
     }
 
-    private static DiffUtil.ItemCallback<DataPoint> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<DataPoint>() {
-                @Override
-                public boolean areItemsTheSame(DataPoint oldDataPoint, DataPoint newDataPoint) {
-                    return oldDataPoint.getId() == newDataPoint.getId();
-                }
+    private static DiffUtil.ItemCallback<DataPoint> DIFF_CALLBACK = new DiffUtil.ItemCallback<DataPoint>() {
+        @Override
+        public boolean areItemsTheSame(DataPoint oldDataPoint, DataPoint newDataPoint) {
+            return oldDataPoint.getId() == newDataPoint.getId();
+        }
 
-                @Override
-                public boolean areContentsTheSame(DataPoint oldDataPoint,
-                                                  DataPoint newDataPoint) {
-                    return oldDataPoint.equals(newDataPoint);
-                }
-            };
-
+        @Override
+        public boolean areContentsTheSame(DataPoint oldDataPoint, DataPoint newDataPoint) {
+            return oldDataPoint.equals(newDataPoint);
+        }
+    };
 
     class DataPointViewHolder extends RecyclerView.ViewHolder {
         TextView viewableDataPoint;
@@ -67,10 +55,6 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
                 itemView.setBackgroundColor(itemView.getContext().getColor(R.color.colorWhite));
             }
         }
-
-        void clear() {
-            //todo what to do here?
-        }
     }
 
     @Override
@@ -83,5 +67,4 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
         DataPointViewHolder viewHolder = new DataPointViewHolder(view);
         return viewHolder;
     }
-
 }

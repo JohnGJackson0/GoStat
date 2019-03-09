@@ -8,7 +8,6 @@ import android.arch.paging.PagedList;
 
 public class ViewFrequencyTableTemplateViewModel extends AndroidViewModel {
     private AppRepository mRepository;
-    private LiveData<PagedList<DataPoint>> listDataPoints;
 
     public ViewFrequencyTableTemplateViewModel(Application application) {
         super(application);

@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import app.goStat.R;
-
 
 import java.util.List;
 
@@ -53,11 +49,7 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
     public void onBindViewHolder(ViewListDetailsAdapter.ListDetailViewHolder holder, final int position) {
         StatisticalList statisticalList =  getItem(position);
 
-        if (statisticalList != null) {
-            holder.bindTo(statisticalList, position);
-        } else {
-            holder.clear();
-        }
+        if (statisticalList != null) holder.bindTo(statisticalList, position);
     }
 
     class ListDetailViewHolder extends RecyclerView.ViewHolder {
@@ -73,7 +65,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
 
         public ListDetailViewHolder(View itemView) {
             super(itemView);
-
             listName = itemView.findViewById(R.id.list_name);
             frequencyTableMessage = itemView.findViewById(R.id.frequency_table_meta_message);
             createdByUserMessage = itemView.findViewById(R.id.created_by_user_message_container);
@@ -83,7 +74,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             frequencyTableInfoMessage = itemView.findViewById(R.id.frequency_table_meta_message_container);
             staticMessage = itemView.findViewById(R.id.static_message_container);
             listIDMessage = itemView.findViewById(R.id.list_id_message);
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,18 +85,12 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View view) {
                     mPositionLongHoldClick = getAdapterPosition();
-
-                    if (mActionMode != null) {
-                        return false;
-                    }
-
+                    if (mActionMode != null) return false;
                     mActionMode = view.startActionMode(mActionModeCallBack);
                     view.setSelected(true);
                     return true;
                 }
             });
-
-
         }
 
         void bindTo(StatisticalList statisticalList, int position) {
@@ -131,28 +115,19 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                 listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                 listPreview(position, itemView);
             }
-
             listIDMessage.setText("List ID " + Integer.toString(statisticalList.getId()));
-        }
-
-        void clear() {
-            //TODO IMPLEMENT
         }
     }
 
     private void listPreview(int position, View itemView) {
-
         TextView previewText = itemView.findViewById(R.id.preview);
-
         int listID = getItem(position).getId();
-
         getViewModel().getEditableListPreview(listID).observe(mActiveListSelectionFragment, new Observer<List<DataPoint>>() {
             @Override
             public void onChanged(@Nullable List<DataPoint> dataPoints) {
                 String s = "";
                 int index=0;
 
-                //todo add ellipses
                 for(DataPoint val: dataPoints) {
                     if (index != 0)
                         s=s+", ";
@@ -162,12 +137,10 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                     if (index == 25) {
                         s = s + " ... ";
                     }
-
                     index++;
                 }
                 previewText.setText(s);
             }
-
         });
     }
 
@@ -184,65 +157,37 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             public void onChanged(@Nullable List<FrequencyInterval> frequencyIntervals) {
                 String s = "";
                 int index = 0;
-
                 for (FrequencyInterval val: frequencyIntervals) {
                     if (index != 0)
                         s = s + "\n";
-
                     s = s + val.toString() + " -> " + val.getFrequency();
-
                     if (index == 10) {
                         s = s + " ... ";
                     }
-
                     index++;
                 }
                 previewText.setText(s);
             }
         });
-
     }
 
     // a Statistical List may have changed if reloaded from the database,
     // but ID is fixed.
-    private static DiffUtil.ItemCallback<StatisticalList> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<StatisticalList>() {
-
-                @Override
-                public boolean areItemsTheSame(StatisticalList oldStatisticalList, StatisticalList newStatisticalList) {
-                    return oldStatisticalList.getId() == newStatisticalList.getId();
-                }
-                @Override
-                public boolean areContentsTheSame(StatisticalList oldStatisticalList,
-                                                  StatisticalList newStatisticalList) {
-                    return oldStatisticalList.equals(newStatisticalList);
-                }
-            };
-
-    /*
-     * Preview
-     *
-     *
-     *
-     *
-     *
-     */
-
+    private static DiffUtil.ItemCallback<StatisticalList> DIFF_CALLBACK = new DiffUtil.ItemCallback<StatisticalList>() {
+        @Override
+        public boolean areItemsTheSame(StatisticalList oldStatisticalList, StatisticalList newStatisticalList) {
+            return oldStatisticalList.getId() == newStatisticalList.getId();
+        }
+        @Override
+        public boolean areContentsTheSame(StatisticalList oldStatisticalList,
+                                          StatisticalList newStatisticalList) {
+            return oldStatisticalList.equals(newStatisticalList);
+        }
+    };
 
     private ActiveListSelectionViewModel getViewModel() {
         return ViewModelProviders.of(mActiveListSelectionFragment).get(ActiveListSelectionViewModel.class);
     }
-
-
-
-    /*
-    * Context menu
-    *
-    *
-    *
-    *
-    *
-     */
 
     private ActionMode.Callback mActionModeCallBack = new ActionMode.Callback() {
         @Override
@@ -280,7 +225,6 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
             mActionMode = null;
         }
     };
-
 
     private void startViewIntent(int listID, boolean isFrequencyTable) {
         if(!isFrequencyTable) {

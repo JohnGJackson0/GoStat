@@ -25,7 +25,6 @@ public class FrequencyTable implements IntervalSeries{
     }
 
     //todo test these methods
-
     @Override
     public boolean isContinuous() {
         sort();

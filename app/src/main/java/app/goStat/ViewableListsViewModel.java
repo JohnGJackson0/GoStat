@@ -21,8 +21,6 @@ public class ViewableListsViewModel extends AndroidViewModel {
         return mAllLists;
     }
 
-    //todo fix this cast from long to int
-
     //return the id
     long insertStatisticalList(StatisticalList newList) { return mRepository.insertStatisticalList(newList); }
 

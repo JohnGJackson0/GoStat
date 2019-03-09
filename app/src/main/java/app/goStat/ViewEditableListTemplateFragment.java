@@ -5,7 +5,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +30,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
     private ViewEditableListFragment dataPointsFragment;
     TextView mListName;
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -44,6 +40,7 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
         Button button = mRootView.findViewById(R.id.editable_list_execute_function_button);
         Spinner functionSelector = mRootView.findViewById(R.id.editable_list_functions_spinner);
+        //todo jumpto is gone
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +70,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
                 }
             }
         });
-
         return mRootView;
     }
 
@@ -89,7 +85,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
         });
 
         mListName.setMovementMethod(new ScrollingMovementMethod());
-
         id.setText("id " + Integer.toString(mListID));
     }
 
@@ -108,11 +103,8 @@ public class ViewEditableListTemplateFragment extends Fragment {
     void showDataPointsFragment() {
         addJumpToOnSpinner();
         dataPointsFragment = ViewEditableListFragment.newInstance(mListID);
-        //todo
-        getFragmentTransaction().replace(R.id.view_window,  dataPointsFragment, "Editable List")
-                .commit();
+        getFragmentTransaction().replace(R.id.view_window,  dataPointsFragment, "Editable List").commit();
     }
-
 
     private FragmentTransaction getFragmentTransaction() {
         return getFragmentManager().beginTransaction();
@@ -122,7 +114,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
         Intent intent = new Intent(getActivity(), EditableListActivity.class);
         intent.putExtra(EXTRA_LIST_ID, mListID);
         startActivity(intent);
-
     }
 
     private void showChangeListNameDialog() {
@@ -147,7 +138,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
         });
 
         builder.show();
-
     }
 
     private void showOneVarStats() {
@@ -176,64 +166,46 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
     private void removeJumpToOnSpinner(){
         Spinner functionsSpinner = mRootView.findViewById(R.id.editable_list_functions_spinner);
-
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions_no_jump_to)){
 
             @Override
             public View getDropDownView(int position, View convertView,ViewGroup parent) {
-                // TODO Auto-generated method stub
-
                 View view = super.getView(position, convertView, parent);
-
                 TextView text = (TextView)view.findViewById(android.R.id.text1);
                 text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
                 return view;
-
             }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-
                 View view = super.getView(position, convertView, parent);
-
                 TextView text = (TextView)view.findViewById(android.R.id.text1);
                 text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
                 return view;
-
             }
         };
-
         functionsSpinner.setAdapter(spinnerArrayAdapter);
     }
 
     private void addJumpToOnSpinner() {
         Spinner functionsSpinner = mRootView.findViewById(R.id.editable_list_functions_spinner);
-
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.editable_list_functions_no_jump_to)) {
-
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.editable_list_functions_no_jump_to)) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
                 return view;
-
             }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
                 return view;
-
             }
         };
         functionsSpinner.setAdapter(spinnerArrayAdapter);
@@ -241,11 +213,9 @@ public class ViewEditableListTemplateFragment extends Fragment {
 
     private void showJumpToDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_inquire_jump_to_amount, (ViewGroup) getView().findViewById(R.id.inquire_jump_to_amount), false);
         final EditText input = (EditText) viewInflated.findViewById(R.id.jump_to_amount_input);
         builder.setView(viewInflated);
-
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -261,7 +231,6 @@ public class ViewEditableListTemplateFragment extends Fragment {
             }
         });
         builder.show();
-
     }
 
     private void changeListName(String newName){

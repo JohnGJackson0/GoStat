@@ -5,12 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-//TODO edit List button
-//TODO fix layout bug, not correctly showing last entry
-
 public class ViewSingleEditableListActivity extends AppCompatActivity {
     private int mListID;
-
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override

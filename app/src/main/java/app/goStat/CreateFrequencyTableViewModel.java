@@ -18,10 +18,6 @@ public class CreateFrequencyTableViewModel extends AndroidViewModel {
         return mRepository.getNumberOfDataPointsInList(listID);
     }
 
-    LiveData<Boolean> isFrequencyTable(int listID) {
-        return mRepository.isListAFrequencyTable(listID);
-    }
-
     LiveData<List<DataPoint>> getList(int listId) {
         return mRepository.getDataPointsInList(listId);
     }
@@ -29,9 +25,7 @@ public class CreateFrequencyTableViewModel extends AndroidViewModel {
     //todo fix errors from long to int (also in other view models)
     int insertStatisticalList(StatisticalList newList) { return (int) mRepository.insertStatisticalList(newList);}
 
-
     void insertFrequencyIntervals(List<FrequencyInterval> list){
         mRepository.insertFrequencyIntervals(list);
-
     }
 }

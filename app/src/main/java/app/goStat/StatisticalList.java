@@ -20,7 +20,6 @@ public class StatisticalList {
     @ColumnInfo(name = "is_frequency_table")
     private boolean isFrequencyTable;
 
-    //ROOM needs access to ID in some form, so pass in null or 0 for ID
     public StatisticalList(int id, String name, boolean isFrequencyTable) {
         this.id = id;
         this.name = name;
@@ -43,7 +42,7 @@ public class StatisticalList {
         this.name = name;
     }
 
-    //this list would be associated with another list of same class
+    //Some lists would be associated with another list of the same class
     //  such as a frequency table
     public void setAssociatedList(int id) {
         associatedList = id;
@@ -51,10 +50,6 @@ public class StatisticalList {
 
     public int getAssociatedList() {
         return associatedList;
-    }
-
-    public boolean hasAssociatedList() {
-        return (associatedList != -1);
     }
 
 }

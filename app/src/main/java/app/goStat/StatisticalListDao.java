@@ -2,28 +2,18 @@ package app.goStat;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
 import java.util.List;
 
 @Dao
 public interface StatisticalListDao {
-
     @Query("SELECT * FROM list ORDER BY id")
     LiveData<List<StatisticalList>> loadAllLists();
 
     @Insert
     long insert(StatisticalList statisticalList);
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    void update(StatisticalList statisticalList);
-
-    @Delete
-    void delete(StatisticalList statisticalList);
 
     @Query("DELETE FROM list WHERE id = :id")
     void deleteListById(int id);
@@ -33,7 +23,6 @@ public interface StatisticalListDao {
 
     @Query("SELECT * FROM list ORDER By id")
     android.arch.paging.DataSource.Factory<Integer, StatisticalList> getAllLists();
-
 
     @Query("SELECT name FROM list WHERE id = :id LIMIT 1;")
     LiveData<String> getListName(int id);
@@ -49,5 +38,4 @@ public interface StatisticalListDao {
 
     @Query("SELECT associated_list FROM list WHERE id = :id")
     int getAssociatedListID(int id);
-
 }

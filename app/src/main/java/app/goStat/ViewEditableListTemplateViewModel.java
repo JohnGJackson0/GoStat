@@ -3,11 +3,9 @@ package app.goStat;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.paging.PagedList;
 
 public class ViewEditableListTemplateViewModel extends AndroidViewModel {
     private AppRepository mRepository;
-    private LiveData<PagedList<DataPoint>> listDataPoints;
 
     public ViewEditableListTemplateViewModel(Application application) {
         super(application);
@@ -22,13 +20,7 @@ public class ViewEditableListTemplateViewModel extends AndroidViewModel {
         mRepository.updateListName(name, id);
     }
 
-    void deleteList(int listID) {
-        mRepository.removeStatisticalListByID(listID);
-    }
-
-    void deleteDisabledDataPoints(int listID) { mRepository.deleteDisabledDataPointsFromList(listID);}
-
     Long getStaticNumberOfDataPointsInList(int listID) {
-        return mRepository.getStaticNumberOfDatapointsInList(listID);
+        return mRepository.getStaticNumberOfDataPointsInList(listID);
     }
 }

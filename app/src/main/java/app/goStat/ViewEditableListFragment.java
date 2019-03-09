@@ -52,7 +52,6 @@ public class ViewEditableListFragment extends Fragment {
         mAdapter = new ViewableListAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
-
         getViewModel().getListById(mListID).observe(this, mAdapter::submitList);
     }
 

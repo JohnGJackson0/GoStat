@@ -21,14 +21,5 @@ public class ViewSingleEditableListViewModel extends AndroidViewModel {
         return listDataPoints;
     }
 
-    LiveData<String> getName(int listId) {
-        return mRepository.getListName(listId);
-    }
-
-    void updateListName(String name, int id) {
-        mRepository.updateListName(name, id);
-    }
-
     void deleteDisabledDataPoints(int listID) {mRepository.deleteDisabledDataPointsFromList(listID); }
-
 }

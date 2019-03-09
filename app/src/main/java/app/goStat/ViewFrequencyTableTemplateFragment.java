@@ -16,11 +16,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import app.goStat.R;
-
 public class ViewFrequencyTableTemplateFragment extends Fragment {
     private int mListID;
-
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
     View mRootView;
     Spinner mFunctionSpinner;
@@ -34,16 +31,13 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
         setMetaDetails();
         startViewFragment();
         colorSpinner();
-
         Button executeFunctionButton = mRootView.findViewById(R.id.frequency_table_execute_function_button);
         mFunctionSpinner = mRootView.findViewById(R.id.frequency_table_functions_spinner);
 
         executeFunctionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 int spinnerPosition = mFunctionSpinner.getSelectedItemPosition();
-
                 switch (spinnerPosition) {
                     case 0:
                         startGraphFragment();
@@ -54,35 +48,26 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
                 }
             }
         });
-
         return mRootView;
     }
 
     private void colorSpinner() {
         mFunctionSpinner = mRootView.findViewById(R.id.frequency_table_functions_spinner);
-
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.frequency_table_functions)) {
-
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
                 return view;
-
             }
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
                 text.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
                 return view;
-
             }
         };
         mFunctionSpinner.setAdapter(spinnerArrayAdapter);
@@ -90,14 +75,9 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
 
     private void setMetaDetails() {
         TextView name = mRootView.findViewById(R.id.list_name_view);
-
-
         getViewModel().getListName(mListID).observe(this, new Observer<String>() {
-
             @Override
-            public void onChanged(@Nullable String s) {
-                name.setText(s);
-            }
+            public void onChanged(@Nullable String s) { name.setText(s); }
         });
         TextView id = mRootView.findViewById(R.id.list_id_view);
         id.setText("id " + Integer.toString(mListID));
@@ -121,20 +101,16 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
     }
 
     void startGraphFragment() {
-        //todo needs to use getFragment Manager
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container,  GraphHistogramFragment.newInstance(mListID), "BarFragment")
+        fragmentTransaction.replace(R.id.container,  GraphHistogramFragment.newInstance(mListID), "HistogramGraph")
                 .commit();
-
         fragmentTransaction.addToBackStack(null);
     }
 
     void startViewFragment() {
-        //todo
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.view_window,  ViewFrequencyTableFragment.newInstance(mListID), "FrequencyList")
                 .commit();
-
     }
 
     void deleteList(){

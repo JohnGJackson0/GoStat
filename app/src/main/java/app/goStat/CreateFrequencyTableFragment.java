@@ -28,26 +28,21 @@ public class CreateFrequencyTableFragment extends Fragment {
     private int mNumberOfRecommendedBins;
     private int mNumberOfBins;
     private TextView mInstructions;
-
     private double mMinOfDataSet = Double.MAX_VALUE;
     private double mMaxOfDataSet = 0.;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_frequency_table_fragment, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         initializeLayoutComponents(rootView);
-
         getViewModel().getNumberOfDataPointsInList(mListID).observe(this, new Observer<Long>() {
             @Override
             public void onChanged(@Nullable Long listLength) {
                 calcNumberOfRecommendedBins(listLength);
             }
         });
-
         createOnClickListeners();
-
         return rootView;
     }
 
@@ -59,28 +54,10 @@ public class CreateFrequencyTableFragment extends Fragment {
         mInstructions = rootView.findViewById(R.id.instructions_histogram_settings);
     }
 
-    private void clearLayout() {
-        mInstructions.setVisibility(View.GONE);
-        mGenerateBin.setVisibility(View.GONE);
-        mCreateFrequencyTable.setVisibility(View.GONE);
-        mBinInput.setVisibility(View.GONE);
-        mErrorMessage.setVisibility(View.GONE);
-    }
-
-    private void displayAlreadyHistogramErrorMessage(View view) {
-        mErrorMessage.setVisibility(View.VISIBLE);
-        mErrorMessage.setText(R.string.already_histogram_error_message);
-    }
-
-    //Square-root choice
-    //this is used by many statistics programs like excel
-    //there are several different alternatives we could possibly support here
+    //square root choice algorithm
     //https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width
 
-    private void calcNumberOfRecommendedBins(long listLength) {
-        CreateFrequencyTableViewModel vm = ViewModelProviders.of(this).get(CreateFrequencyTableViewModel.class);
-        mNumberOfRecommendedBins = (int) Math.ceil(Math.sqrt(listLength));
-    }
+    private void calcNumberOfRecommendedBins(long listLength) { mNumberOfRecommendedBins = (int) Math.ceil(Math.sqrt(listLength)); }
 
     public static CreateFrequencyTableFragment newInstance(int listId) {
         CreateFrequencyTableFragment fragment = new CreateFrequencyTableFragment();
@@ -106,8 +83,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                         mErrorMessage.setText(R.string.histogram_bin_input_error_message);
                         mErrorMessage.setVisibility(View.VISIBLE);
                     } else {
-                        //list can change during fragment lifecycle so we need to recheck if list is blank
-
+                        //todo fix below but low priority, unlikely to happen with current app
                         //if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
                            // mErrorMessage.setText(R.string.histogram_list_no_longer_contains_data_error_message);
                             //mErrorMessage.setVisibility(View.VISIBLE);
@@ -131,7 +107,6 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     //todo add names to store min and max freq
     private void createFrequencyTable() {
-
         final LiveData<List<DataPoint>> listObservable = getViewModel().getList(mListID);
 
         listObservable.observe(this, new Observer<List<DataPoint>>() {
@@ -181,20 +156,15 @@ public class CreateFrequencyTableFragment extends Fragment {
 
         StatisticalList newList = new StatisticalList(0, "~ Frequency Table for ID " + Integer.toString(mListID), true);
         newList.setAssociatedList(mListID);
-
         int newListID = getViewModel().insertStatisticalList(newList);
-
         List<FrequencyInterval> newFrequencyIntervals = new ArrayList<>();
 
         for(ExclusiveEndMixedFrequencyInterval freqInterval : frequencyTable.get()) {
             newFrequencyIntervals.add(new FrequencyInterval(0, freqInterval.getFrequency(),
                     freqInterval.getMin(), freqInterval.getMax(), true, false, newListID));
         }
-
         getViewModel().insertFrequencyIntervals(newFrequencyIntervals);
-
         showFrequencyTable(newListID);
-
     }
 
     private void showFrequencyTable(int listID) {
@@ -213,13 +183,16 @@ public class CreateFrequencyTableFragment extends Fragment {
         }
 
         FrequencyTable val = new FrequencyTable(Arrays.asList(frequencyIntervals));
-
         return val;
     }
 
+    /*
+    * given min and max of dataset, the program divides the interval
+    * evenly to the number of bins. The frequencies are closed end,
+    * which means we need to add a small amount to the interval.
+    * todo add it instead to the max, or figure out a better solution
+     */
     private double getBinWidth(){
         return ((mMaxOfDataSet - mMinOfDataSet) / mNumberOfBins)+.1;
     }
-
-
 }

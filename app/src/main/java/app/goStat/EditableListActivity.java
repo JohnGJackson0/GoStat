@@ -28,7 +28,6 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.content_editable_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getListID();
@@ -70,9 +69,6 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         mEditableDataRowListRecyclerViewAdapter = new EditableListAdapter(this);
         getViewModel().getListById(mListId).observe(this, mEditableDataRowListRecyclerViewAdapter::submitList);
         mEditableListRecyclerView.setAdapter(mEditableDataRowListRecyclerViewAdapter);
-        //switch to true for bottom-up list
-        mLinearLayoutManager.setStackFromEnd(false);
-        mLinearLayoutManager.setReverseLayout(false);
         mEditableListRecyclerView.setPreserveFocusAfterLayout(true);
     }
 
@@ -120,10 +116,6 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
         Log.d("EditableListActivity", "createDataElement: calling the ViewModel to insert new point");
     }
 
-    //dataPoints that are appended to the list already are updated.
-    //We just need to update the changes
-
-    //Also, inserting DataPoints simply replace, because we use OnConflictStrategy.REPLACE in the Dao 
     protected void updateRoom() {
         getViewModel().insertDataPoints(mEditableDataRowListRecyclerViewAdapter.getPendingUpdates());
     }

@@ -32,14 +32,6 @@ public class EditableListViewModel extends AndroidViewModel{
         mRepository.insertDataPoint(newDataPoint);
     }
 
-    void updateDataPoint(DataPoint newDataPoint) {
-        mRepository.updateDataPoint(newDataPoint);
-    }
-
-    LiveData<String> getListName(int listID) {
-        return mRepository.getListName(listID);
-    }
-
     void deleteDisabledDataPointsFromList(int listID) {
         mRepository.deleteDisabledDataPointsFromList(listID);
     }

@@ -1,6 +1,5 @@
 package app.goStat;
 
-
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.support.v7.util.DiffUtil;
@@ -10,19 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import app.goStat.R;
-
 public class FrequencyIntervalAdapter extends PagedListAdapter<FrequencyInterval, FrequencyIntervalAdapter.FrequencyIntervalViewHolder> {
 
     @Override
     public void onBindViewHolder(FrequencyIntervalAdapter.FrequencyIntervalViewHolder holder, final int position) {
         FrequencyInterval frequencyInterval =  getItem(position);
 
-        if (frequencyInterval != null) {
-            holder.bindTo(frequencyInterval, position);
-        } else {
-            holder.clear();
-        }
+        if (frequencyInterval != null) holder.bindTo(frequencyInterval, position);
     }
 
     protected FrequencyIntervalAdapter() {
@@ -54,26 +47,16 @@ public class FrequencyIntervalAdapter extends PagedListAdapter<FrequencyInterval
             frequency.setText(Integer.toString(frequencyInterval.getFrequency()));
             interval.setText(frequencyInterval.toString());
         }
-
-        void clear() {
-            //TODO IMPLEMENT
-        }
     }
 
-    // a FrequencyInterval may have changed if reloaded from the database,
-    // but ID is fixed.
-    private static DiffUtil.ItemCallback<FrequencyInterval> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<FrequencyInterval>() {
-
-                @Override
-                public boolean areItemsTheSame(FrequencyInterval oldFrequencyInterval, FrequencyInterval newFrequencyInterval) {
-                    return oldFrequencyInterval.getId() == newFrequencyInterval.getId();
-                }
-                @Override
-                public boolean areContentsTheSame(FrequencyInterval oldFrequencyInterval,
-                                                  FrequencyInterval newFrequencyInterval) {
-                    return oldFrequencyInterval.equals(newFrequencyInterval);
-                }
-            };
-
+    private static DiffUtil.ItemCallback<FrequencyInterval> DIFF_CALLBACK = new DiffUtil.ItemCallback<FrequencyInterval>() {
+        @Override
+        public boolean areItemsTheSame(FrequencyInterval oldFrequencyInterval, FrequencyInterval newFrequencyInterval) {
+            return oldFrequencyInterval.getId() == newFrequencyInterval.getId();
+        }
+        @Override
+        public boolean areContentsTheSame(FrequencyInterval oldFrequencyInterval, FrequencyInterval newFrequencyInterval) {
+            return oldFrequencyInterval.equals(newFrequencyInterval);
+        }
+    };
 }

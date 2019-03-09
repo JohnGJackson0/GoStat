@@ -1,6 +1,5 @@
 package app.goStat;
 
-import android.app.Activity;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.support.v7.util.DiffUtil;
@@ -12,23 +11,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-//Todo need to build this list to support changes to the Room DataPoints
-//     by pending the data, and waiting to update, if the list changes
-//     on the pending point, it will display update and not the pending point
-//     so user will see the wrong point, even though we have it saved in a
-//     pending list
-
-//todo persists the pending datapoints
 
 public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>   {
     private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();
@@ -43,8 +32,6 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
     public interface NewViewHolderReceiverCallBack {
         void receiveNewestViewHolder(EditableListAdapter.NumberViewHolder vh);
     }
-
-    //todo everything gets updated
 
     public List<DataPoint> getPendingUpdates() {
         List<DataPoint> updateList = new ArrayList<>(mUpdatedNonAppendingDataPoints);
@@ -184,5 +171,4 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                     return oldDataPoint.equals(newDataPoint);
                 }
             };
-
 }

@@ -25,10 +25,6 @@ public class ViewFrequencyTableFragmentViewModel extends AndroidViewModel {
         return mRepository.getListName(listID);
     }
 
-    void deleteList(int listID) {
-        mRepository.removeStatisticalListByID(listID);
-    }
-
     LiveData<List<FrequencyInterval>> getTable(int mListID) {
         return mRepository.getFrequencyIntervalsInTable(mListID);
     }

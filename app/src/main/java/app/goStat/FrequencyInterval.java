@@ -88,5 +88,4 @@ public class FrequencyInterval {
     public double getWidth() {
         return maxRange - minRange;
     }
-
 }

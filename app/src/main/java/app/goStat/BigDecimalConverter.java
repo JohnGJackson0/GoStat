@@ -1,7 +1,6 @@
 package app.goStat;
 
 import android.arch.persistence.room.TypeConverter;
-
 import java.math.BigDecimal;
 
 public class BigDecimalConverter {
@@ -18,7 +17,4 @@ public class BigDecimalConverter {
             return bigDecimal.toString();
         }
     }
-
-
-
 }

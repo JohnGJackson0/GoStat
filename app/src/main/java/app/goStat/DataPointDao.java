@@ -2,7 +2,6 @@ package app.goStat;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -18,9 +17,6 @@ public interface DataPointDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(DataPoint dataPoint);
-
-    @Delete
-    void delete(DataPoint dataPoint);
 
     @Query("DELETE FROM data_point WHERE list_id = :listId AND isEnabled=0")
     void deleteDisabledDataPoints(int listId);

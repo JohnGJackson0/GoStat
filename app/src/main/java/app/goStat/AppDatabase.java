@@ -9,9 +9,7 @@ import android.content.Context;
 @Database(entities = {DataPoint.class, StatisticalList.class, FrequencyInterval.class}, version = 1)
 @TypeConverters({BigDecimalConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
-
     private static AppDatabase INSTANCE;
-
     public abstract StatisticalListDao statisticalListDao();
     public abstract DataPointDao dataPointDao();
     public abstract FrequencyIntervalDao frequencyIntervalDao();
@@ -23,9 +21,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     .allowMainThreadQueries()
                     .build();
         }
-
         return INSTANCE;
-
     }
 
     public static void destroyInstance() {

@@ -17,17 +17,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import app.goStat.R;
-
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-
 import java.util.List;
 
 public class ShowSummaryStatisticsFragment extends Fragment implements View.OnClickListener {
     private int mListID;
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
-
     private Button mCopyToClipboard;
     private String mToText = "";
     private View mRootView;
@@ -49,13 +44,11 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
         mCopyToClipboard = mRootView.findViewById(R.id.copy_to_clipboard_button);
         mCopyToClipboard.setOnClickListener(this);
         fillOneVariableStatistics(mRootView);
-
         return mRootView;
     }
     
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -110,15 +103,12 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
                         getString(R.string.summary_quartile_three_label) + "  " + Double.toString(mDescStat.getPercentile(75)) + "\n" +
                         getString(R.string.summary_max_label) + "  " + Double.toString(mDescStat.getMax()) + "\n";
 
-
                 mean.setText(Double.toString(mDescStat.getMean()));
                 sigma.setText(Double.toString(mDescStat.getSum()));
                 sigmaSquared.setText(Double.toString(mDescStat.getSumsq()));
                 sampleStandardDeviation.setText(Double.toString(mDescStat.getStandardDeviation()));
                 standardDeviation.setText(Double.toString(Math.sqrt(mDescStat.getPopulationVariance())));
-
                 numberItems.setText(Long.toString(mDescStat.getN()));
-
                 min.setText(Double.toString(mDescStat.getMin()));
                 quartileOne.setText(Double.toString(mDescStat.getPercentile(25)));
                 median.setText(Double.toString(mDescStat.getPercentile(50)));
@@ -126,9 +116,7 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
                 max.setText(Double.toString(mDescStat.getMax()));
             }
         });
-
     }
-
 
     private void copyToClipboard(String copyText) {
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -146,12 +134,9 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
         Toast toast = Toast.makeText(getActivity(),
                 "Copied To Clipboard",
                 Toast.LENGTH_SHORT);
-
         View view = toast.getView();
         int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);
-
         view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         toast.show();
-
     }
 }
