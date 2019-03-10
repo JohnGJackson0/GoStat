@@ -27,30 +27,21 @@ public class AppRepository {
      *
      */
 
-    LiveData<Boolean> isListAFrequencyTable(int id) {
-        return mListDao.isFrequencyTable(id);
-    }
-
     void removeStatisticalListByID(int listID) {
         mListDao.deleteListById(listID);
     }
-    int getAssociatedList(int listID) {return mListDao.getAssociatedListID(listID);}
-    String getStaticListName(int listID) {return mListDao.getStaticListName(listID); }
 
-    boolean hasAssociatedList(int listID) {
-        if (mListDao.getAssociatedListID(listID) == -1) {
-            return false;
-        }
-        return true;
-    }
+    int getAssociatedList(int listID) {return mListDao.getAssociatedListID(listID);}
 
     LiveData<List<StatisticalList>> getAllStatisticalLists() {
         return mListDao.loadAllLists();
     }
 
-    LiveData<String> getListName(int listId) {
-        return mListDao.getListName(listId);
+    LiveData<String> getListName(int listID) {
+        return mListDao.getListName(listID);
     }
+
+    String getStaticListName(int listID) { return mListDao.getStaticListName(listID); }
 
     DataSource.Factory<Integer, StatisticalList> getStatisticalListDetailsByID() { return mListDao.getAllLists(); }
 
@@ -75,6 +66,8 @@ public class AppRepository {
         return mFrequencyIntervalDao.getList(listId);
     }
 
+    LiveData<String> getOnCreatedAssociatedListName(int listID)  {return mListDao.getOnCreatedAssociatedListName(listID);}
+
     void insertFrequencyIntervals(List<FrequencyInterval> frequencyIntervals) { mFrequencyIntervalDao.insertFrequencyIntervals(frequencyIntervals); }
 
     /*
@@ -97,8 +90,6 @@ public class AppRepository {
 
     LiveData<List<DataPoint>> getEditableListPreview(int listID) { return mDataPointDao.getEditableListPreview(listID); }
 
-    void updateDataPoint(DataPoint dataPoint) { new updateDataPointAsyncTask(mDataPointDao).execute(dataPoint); }
-
     void deleteDisabledDataPointsFromList(int listID) { new deleteDisabledDataPointAsyncTask(mDataPointDao).execute(listID); }
 
     /*
@@ -116,18 +107,6 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final Integer... params) {
             dataPointDao.deleteDisabledDataPoints(params[0]);
-            return null;
-        }
-    }
-
-    private static class updateDataPointAsyncTask extends AsyncTask<DataPoint, Void, Void> {
-        private DataPointDao dataPointDao;
-
-        updateDataPointAsyncTask(DataPointDao dao) {dataPointDao = dao;}
-
-        @Override
-        protected Void doInBackground(final DataPoint... params) {
-            dataPointDao.update(params[0]);
             return null;
         }
     }

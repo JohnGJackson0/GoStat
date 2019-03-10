@@ -17,13 +17,18 @@ public class StatisticalList {
     @ColumnInfo(name="associated_list")
     private int associatedList = -1;
 
+    //the associated list can be deleted, we need static version of name
+    @ColumnInfo(name="on_created_associated_list_name")
+    private String onCreatedAssociatedListName;
+
     @ColumnInfo(name = "is_frequency_table")
     private boolean isFrequencyTable;
 
-    public StatisticalList(int id, String name, boolean isFrequencyTable) {
+    public StatisticalList(int id, String name, boolean isFrequencyTable, String onCreatedAssociatedListName) {
         this.id = id;
         this.name = name;
         this.isFrequencyTable = isFrequencyTable;
+        this.onCreatedAssociatedListName = onCreatedAssociatedListName;
     }
 
     public int getId() {
@@ -37,6 +42,8 @@ public class StatisticalList {
     public String getName() {
         return name;
     }
+
+    public String getOnCreatedAssociatedListName() {return onCreatedAssociatedListName; };
 
     public void setName(String name) {
         this.name = name;

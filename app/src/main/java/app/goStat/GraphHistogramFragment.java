@@ -29,6 +29,7 @@ public class GraphHistogramFragment extends Fragment {
     private int mAssociatedListID;
     private Button mSnapShotButton;
     GraphView graphView;
+    private String mHistogramTitle = "Histogram";
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,8 +60,7 @@ public class GraphHistogramFragment extends Fragment {
     }
 
     private void takeSnapShot() {
-        getViewModel().getStaticListName(mAssociatedListID);
-        graphView.takeSnapshotAndShare(getActivity(), getViewModel().getStaticListName(mAssociatedListID) + " histogram", "GoStats Histogram");
+        graphView.takeSnapshotAndShare(getActivity(), mHistogramTitle, "GoStat Histogram");
     }
 
     private void populateGraphWithFrequencyTable(View view) {
@@ -119,6 +119,18 @@ public class GraphHistogramFragment extends Fragment {
         graphView.getViewport().setScalable(false);
         graphView.addSeries(series);
         graphView.setTitleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+
+        getViewModel().getOnCreatedAssociatedListName(mListID).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                getActivity().setTitle("Graphing " + s);
+                mHistogramTitle = s + " Histogram";
+                graphView.setTitle(mHistogramTitle);
+            }
+        });
+
+
+        /*
         int associatedListID = getViewModel().getAssociatedListID(mListID);
 
         //todo on deleted list s is "null" make freq tables store associated list name statically
@@ -130,6 +142,8 @@ public class GraphHistogramFragment extends Fragment {
                 graphView.setTitle(s + " Histogram");
             }
         });
+
+        */
 
         series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override

@@ -71,7 +71,7 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     //Create a list given the name and return the ID
     private int createList(String name) {
-        int lastEntry = (int) getViewModel().insertStatisticalList(new StatisticalList(0, name, false));
+        int lastEntry = (int) getViewModel().insertStatisticalList(new StatisticalList(0, name, false, ""));
 
         //find last entry
 

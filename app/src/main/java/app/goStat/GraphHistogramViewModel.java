@@ -18,13 +18,7 @@ public class GraphHistogramViewModel extends AndroidViewModel {
         return mRepository.getFrequencyIntervalsInTable(listID);
     }
 
-    LiveData<String> getName(int listID) {
-        return mRepository.getListName(listID);
-    }
-
-    String getStaticListName(int listID) {
-        return mRepository.getStaticListName(listID);
-    }
+    LiveData<String> getOnCreatedAssociatedListName(int listID){ return mRepository.getOnCreatedAssociatedListName(listID);}
 
     int getAssociatedListID(int listID) {
         return mRepository.getAssociatedList(listID);

@@ -22,8 +22,12 @@ public class CreateFrequencyTableViewModel extends AndroidViewModel {
         return mRepository.getDataPointsInList(listId);
     }
 
+    String getStaticListName(int listID) {
+        return mRepository.getStaticListName(listID);
+    }
+
     //todo fix errors from long to int (also in other view models)
-    int insertStatisticalList(StatisticalList newList) { return (int) mRepository.insertStatisticalList(newList);}
+    int insertStatisticalList(StatisticalList newList) { return (int) mRepository.insertStatisticalList(newList); }
 
     void insertFrequencyIntervals(List<FrequencyInterval> list){
         mRepository.insertFrequencyIntervals(list);

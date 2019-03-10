@@ -83,7 +83,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                         mErrorMessage.setText(R.string.histogram_bin_input_error_message);
                         mErrorMessage.setVisibility(View.VISIBLE);
                     } else {
-                        //todo fix below but low priority, unlikely to happen with current app
+                        //todo fix below but low priority, unlikely to happen with current app implementation
                         //if(getViewModel().getStaticNumberOfDataPointsInList(mListID) == 0) {
                            // mErrorMessage.setText(R.string.histogram_list_no_longer_contains_data_error_message);
                             //mErrorMessage.setVisibility(View.VISIBLE);
@@ -103,9 +103,6 @@ public class CreateFrequencyTableFragment extends Fragment {
         return ViewModelProviders.of(this).get(CreateFrequencyTableViewModel.class);
     }
 
-    //added below
-
-    //todo add names to store min and max freq
     private void createFrequencyTable() {
         final LiveData<List<DataPoint>> listObservable = getViewModel().getList(mListID);
 
@@ -153,9 +150,8 @@ public class CreateFrequencyTableFragment extends Fragment {
     }
 
     private void addFrequencyTable(FrequencyTable frequencyTable) {
-
-        StatisticalList newList = new StatisticalList(0, "~ Frequency Table for ID " + Integer.toString(mListID), true);
-        newList.setAssociatedList(mListID);
+        String associatedListName = getViewModel().getStaticListName(mListID);
+        StatisticalList newList = new StatisticalList(0, "~ Frequency Table for ID " + Integer.toString(mListID), true, associatedListName);
         int newListID = getViewModel().insertStatisticalList(newList);
         List<FrequencyInterval> newFrequencyIntervals = new ArrayList<>();
 
