@@ -152,6 +152,7 @@ public class CreateFrequencyTableFragment extends Fragment {
     private void addFrequencyTable(FrequencyTable frequencyTable) {
         String associatedListName = getViewModel().getStaticListName(mListID);
         StatisticalList newList = new StatisticalList(0, "~ Frequency Table for ID " + Integer.toString(mListID), true, associatedListName);
+        newList.setAssociatedList(mListID);
         int newListID = getViewModel().insertStatisticalList(newList);
         List<FrequencyInterval> newFrequencyIntervals = new ArrayList<>();
 

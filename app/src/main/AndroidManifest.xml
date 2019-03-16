@@ -28,7 +28,9 @@
         <activity
             android:name=".ViewSingleEditableListActivity"
             android:label="@string/view_list_name" />
-        <activity android:name=".ViewFrequencyTableActivity"></activity>
+        <activity
+            android:name=".ViewFrequencyTableActivity"
+            android:label="@string/activity_label_view_frequency_table"/>
     </application>
 
 </manifest>
