@@ -34,6 +34,7 @@ public class GraphHistogramFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.histogram_graph_fragment, container, false);
+        getActivity().setTitle(getResources().getString(R.string.fragment_label_graph_histogram));
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         resizeFragment(rootView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         populateGraphWithFrequencyTable(rootView);
@@ -101,10 +102,9 @@ public class GraphHistogramFragment extends Fragment {
                     graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
                     graphView.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
                 }
-                //todo use string resources
                 graphView.getGridLabelRenderer().setGridColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-                graphView.getGridLabelRenderer().setVerticalAxisTitle("Frequency");
-                graphView.getGridLabelRenderer().setHorizontalAxisTitle("Interval");
+                graphView.getGridLabelRenderer().setVerticalAxisTitle(getResources().getString(R.string.title_vertical_axis_histograms));
+                graphView.getGridLabelRenderer().setHorizontalAxisTitle(getResources().getString(R.string.title_horizontal_axis_histograms));
                 graphView.getGridLabelRenderer().setHorizontalAxisTitleTextSize(getResources().getDimension(R.dimen.text_list_item_titles));
                 graphView.getGridLabelRenderer().setVerticalAxisTitleTextSize(getResources().getDimension(R.dimen.text_list_item_titles));
                 graphView.getGridLabelRenderer().setVerticalAxisTitleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryVariant));
@@ -123,8 +123,7 @@ public class GraphHistogramFragment extends Fragment {
         getViewModel().getOnCreatedAssociatedListName(mListID).observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                getActivity().setTitle("Graphing " + s);
-                mHistogramTitle = s + " Histogram";
+                mHistogramTitle = s + getResources().getString(R.string.title_postfix_for_histogram_graph);
                 graphView.setTitle(mHistogramTitle);
             }
         });
@@ -133,7 +132,7 @@ public class GraphHistogramFragment extends Fragment {
         /*
         int associatedListID = getViewModel().getAssociatedListID(mListID);
 
-        //todo on deleted list s is "null" make freq tables store associated list name statically
+        //todo verify test that app uses the static list then remove
         getViewModel().getName(associatedListID).observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

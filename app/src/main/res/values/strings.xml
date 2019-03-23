@@ -1,125 +1,144 @@
 <resources>
+    <!--
+        manifest.xml related strings app names and activity labels: Activity Labels are found in the
+        action bar corresponding to their activities. They are only to be used in manifest.xml file
+        as the app does not need to use method setTitle when it switched to simplistic titles -
+        i.e. "Edit list" vs "Editing list my.list.name" (because they were often too long).
+
+        ** Exception ViewableListActivity : This is needed to support having a different activity
+        name from the launcher name.
+
+        ** Exception GraphHistogramFragment : This is a fragment so it just updates the parent
+        activity title.
+    -->
+
     <string name="app_name">GoStat</string>
-    <string name="action_settings">Settings</string>
-    <string name="hint_list_name">Enter a name for a list</string>
-    <string name="hint_jump_to_amount">Enter Index Number to Jump to</string>
-    <string name="inquire_list_name_description">Input a list name. This name will later be used to identify the list for functions.</string>
-    <string name="no_list_data_message">You currently do not have a list, press the + icon on bottom right of screen to start.</string>
-    <string name="title_activity_editable_list">EditableListActivity</string>
-
-
     <string name="activity_label_view_frequency_table">View Frequency Table</string>
+    <string name="activity_label_edit_list">Edit List</string>
+    <string name="activity_label_view_all_lists">Your Lists</string>
+    <string name="activity_label_view_list">View List</string>
+    <string name="fragment_label_graph_histogram">Graph Histogram</string>
 
-    <string name="introductory_text_for_editable_list_activity">
-        To create new entries input a value into the last data row and press enter. When finished press the back button. All changes saved automatically.
-    </string>
-    <string name="introductory_text_for_viewable_list_activity">
-        Select a list below to get functions for it. Create a list by pressing the + icon on the bottom right.
+    <!--
+        Hints are used inside of EditTexts as instructions
+    -->
+    <string name="hint_list_name">Enter a name for a list</string>
+    <string name="hint_jump_to_amount">Enter an index number to jump to</string>
+    <string name="hint_editable_data_point_value">Input and press enter</string>
+    <string name="hint_bin_amount_specification">Specify a bin size</string>
+
+    <!--
+        Directions are found in various locations giving the user guidance on how to use the app.
+    -->
+    <string name="directions_create_data_source">You currently do not have a list, press the + icon
+        on bottom right of screen to start.</string>
+
+    <string name="directions_edit_list_title">Edit your lists here</string>
+
+    <string name="directions_create_data_for_list">    <!-- This is not used currently -->
+        To create new entries input a value into the last data row and press enter. When finished
+        press the back button. All changes saved automatically.
     </string>
 
-    <string name="instructions_for_histogram_graphing">
+    <string name="directions_list_selection_and_functions"> <!-- This is not used currently -->
+        Select a list below to get functions for it. Create a list by pressing the + icon on the
+        bottom right. </string>
+
+    <string name="directions_input_bin_number">
         Please Input a bin number.
     </string>
 
-    <string name = "histogram_list_no_longer_contains_data_error_message">The list no longer contains data so the app cannot make a Frequency Table for it.</string>
+    <string name="directions_create_data_for_editable_list">There is no data in this list. To create
+        data for the list select edit list and hit Go!</string>
 
-    <string name ="no_data_histogram_error_toast_message">No Data for a Histogram/Table</string>
+    <string name="directions_view_list_details_title">View and add your lists here</string>
 
-    <string name = "snapshot_graph_button_label">Share</string>
+    <!--
+        Reserved for list details activity
+    -->
 
-    <string name="generating_bin_number_button_label">Generate Bin Number</string>
-    <string name="input_bin_number_hint">Input the amount of bins </string>
-    <string name="graph_histogram_button_label">Graph Histogram</string>
-    <string name="histogram_bin_input_error_message">There was an error with the input for bin number.</string>
+    <string name="text_the_label_preview_of_list_for_list_details_activity">Preview</string>
 
-    <string name="view_lists_name">View Lists</string>
-    <string name="view_list_name">View List</string>
+    <string name="text_the_prefix_label_for_list_tags">Tags {</string>
+    <string name="text_the_postfix_label_for_list_tags">}</string>
 
-    <string name="edit_list_button_label">Edit List</string>
-    <string name="edit_list_name_button_label">Change List Name</string>
-    <string name="view_one_variable_stats_button_label">View 1-var Stats</string>
-    <string name="jump_to_button_label">Jump To</string>
+    <!--
+        Tag messages are descriptive characteristics for lists. Located when you see all lists when
+        opening the app on 3/16/2019
+    -->
 
+    <string name="list_tag_list_was_created_by_user">Created by user</string>
+    <string name="list_tag_list_was_created_by_the_system">Created by system</string>
+    <string name="list_tag_list_is_editable_by_the_user">Editable</string>
+    <string name="list_tag_list_is_not_editable_by_the_user">Read Only</string>
+    <string name="list_tag_list_is_not_dynamic_to_its_associated_list">Static</string>
+    <string name="list_tag_lists_associated_id_is_pretext">Associated List ID</string>
+    <string name="list_tag_the_id_pretext">List ID</string>
+    <string name="list_tag_the_list_was_created_by_the_user">A user created list</string>
+    <string name="list_tag_the_list_was_created_by_the_system">System created Frequency Table
+    </string>
 
-    //Titles
-    <string name="select_list_title_for_summary_statistics">List Selection</string>
-    <string name="show_summary_statistics">Summary</string>
+    <!--
+        Reserved for histograms
+    -->
 
+    <string name="title_vertical_axis_histograms">Frequency</string>
+    <string name="title_horizontal_axis_histograms">Interval</string>
+    <string name="title_postfix_for_histogram_graph"> Histogram</string>
 
-    <string name="select_list_instructions_summary_statistics">Select List</string>
+    <!--
+        Reserved for creation of system list
+    -->
 
-
-    <string name="disabled_data_point_text">Disabled DataPoint</string>
-    <string name="title_activity_graph">Graph</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
-    //messages for lists
-    <string name="created_by_user_message">Created by user</string>
-    <string name="created_by_system_message">Created by system</string>
-    <string name="editable_message">Editable</string>
-    <string name="locked_message">Locked</string>
-    <string name="static_list_message">Static</string>
-    <string name="frequency_table_information_message">Binded to list id _ on _</string>
-
-    <string name="editable_list_label">A user created list</string>
-    <string name="frequency_table_list_label">System created Frequency Table</string>
-
-
-    //menu labels
-    <string name="summary_statistics_menu_lable">Summary Statistics</string>
-    <string name="graph">Graphs</string>
-    <string name="line_chart">Line Graph</string>
-    <string name="bar_chart">Bar Graph</string>
-    <string name="point_chart">Point Graph</string>
-    <string name="histogram_chart">Histogram Chart</string>
-    <string name="edit_list_menu_lable">Edit List</string>
-    <string name="view_list_menu_lable">View List</string>
-    <string name="delete_list_menu_lable">Delete List</string>
+    <string name="title_prefix_of_new_frequency_table_list_names">~ Frequency Table for ID</string>
 
 
-    <string name="function_button_label">GO!</string>
+    <!--
+        Errors are end user validation checks for input
+    -->
 
-    <string name="interval_header_label">Interval</string>
-    <string name="frequency_header_label">Frequency</string>
+    <string name="error_no_data_to_compute_histogram">No Data for a Histogram/Table</string>
 
-    <string name="view_frequency_table_spinner_prompt">Select Function</string>
-    <string name="view_editable_list_spinner_prompt">Select Function</string>
+    <string name="error_bin_input_number_does_not_pass_validation">There was an error with the input
+        for bin number.</string>
 
-    <string name="already_histogram_error_message">The selected table is already a histogram.</string>
+    <!--
+        Button labels are text on the buttons themselves
+    -->
 
-    <string name="upgrade_menu_label">Upgrade Now</string>
+    <string name="button_label_share_histogram">Share</string>
+    <string name="button_label_recommend_bin_number">Generate Bin Number</string>
+    <string name="button_label_graph_a_histogram">Graph Histogram</string>
+    <string name="button_label_execute_spinner_function">GO!</string>
+    <string name="button_label_copy_to_clipboard">Copy To Clipboard</string>
+    <string name="button_label_create_a_frequency_table">Create Frequency Table</string>
 
-    <string name="summary_statistics_title">1-variable stats</string>
+    <!--
+        Toast messages
+    -->
 
-    <string name="no_data_instructions">There is no data in this list. To create data for the list select edit list and hit Go!</string>
+    <string name = "toast_copy_to_clipboard_generic">Copy to Clipboard</string>
 
+    <!--
+        Copy To Clipboard
+    -->
 
-    <string name="summary_mean_label">x̅:</string>
-    <string name="summary_sigma_label">Σx:</string>
-    <string name="summary_sigma_squared_label">Σx²:</string>
-    <string name="summary_sample_standard_deviation_label">Sx:</string>
-    <string name="summary_standard_deviation_label">σx:</string>
-    <string name="summary_number_of_items_label">x:</string>
-    <string name="summary_min_label">Min X:</string>
-    <string name="summary_quartile_one_label">Q1:</string>
-    <string name="summary_median_label">Med X:</string>
-    <string name="summary_quartile_three_label">Q3:</string>
-    <string name="summary_max_label">Max X:</string>
+    <string name = "text_prefix_for_copy_to_clipboard_frequency_table">Frequency Table:</string>
+    <string name = "text_prefix_for_copy_to_clipboard_frequency_interval_line">Interval:</string>
+    <string name = "text_infix_for_copy_to_clipboard_frequency_amount_line"> Frequency:</string>
 
-    <string name="copy_to_clipboard_button_label">Copy To Clipboard</string>
+    <string name= "text_prefix_for_copy_to_clipboard_summary_statistics">One Var Stats:</string>
+    <!--
+        Spinner function names are drop down labels that are selectable. They are found in view
+        single list or view frequency table activities as of the date 3/16/2019
+    -->
 
-
-
-    <string name="create_frequency_table_button_label">Create Frequency Table</string>
-
-
-
-    <string-array name="frequency_table_functions">
+    <string-array name="spinner_items_frequency_table_functions">
         <item>Graph</item>
         <item>Delete</item>
     </string-array>
 
-    <string-array name="editable_list_functions">
+    <string-array name="spinner_items_editable_list_functions">
         <item>Edit List</item>
         <item>View List</item>
         <item>Change List Name</item>
@@ -128,11 +147,92 @@
         <item>Jump To</item>
     </string-array>
 
-    <string-array name="editable_list_functions_no_jump_to">
+    <string-array name="spinner_items_editable_list_functions_without_a_jump_to_function">
         <item>Edit List</item>
         <item>View List</item>
         <item>Change List Name</item>
         <item>View 1-var Stats</item>
         <item>Create Frequency Table /Histogram</item>
     </string-array>
+
+    <!-- The labels for the spinners -->
+
+    <string name="spinner_label_for_frequency_tables">Select Function</string>
+    <string name="spinner_label_for_editable_lists">Select Function</string>
+
+    <!--
+        It overrides the data on the data point when viewing before the point is deleted by the
+        system because the program has flagged it as invalid to the data.
+    -->
+
+    <string name="text_data_point_disabled">Disabled DataPoint</string>
+
+    <!--
+        Specific to ViewFrequencyTableActivity
+    -->
+    <string name="text_label_the_column_represents_the_interval">Interval</string>
+    <string name="text_label_the_column_represents_the_frequency_of_an_interval">Frequency</string>
+
+    <!--
+        Menu labels found on action bars
+    -->
+    <string name="menu_label_upgrade">Upgrade Now</string>
+
+    <string name="menu_view_list">View List</string>
+    <string name="menu_delete_list">Delete List</string>
+
+    <!--
+        Specific to View one var stats fragment
+    -->
+
+    <string name="text_the_title_label_for_one_var_stats">1-variable stats</string>
+
+    <string name="text_the_label_for_representing_x_bar">x̅:</string>
+    <string name="text_the_label_for_representing_summation_of_x">Σx:</string>
+    <string name="text_the_label_for_representing_summation_of_x_squared">Σx²:</string>
+    <string name="text_the_label_for_representing_sample_standard_deviation_of_x">Sx:</string>
+    <string name="text_the_label_for_representing_standard_deviation_of_x">σx:</string>
+    <string name="text_the_label_for_representing_the_number_of_items_of_x">x:</string>
+    <string name="text_the_label_for_representing_the_minimum_of_x">Min X:</string>
+    <string name="text_the_label_for_representing_the_quartile_one_of_the_data">Q1:</string>
+    <string name="text_the_label_for_representing_the_median_of_the_data">Med X:</string>
+    <string name="text_the_label_for_representing_the_quartile_three_of_the_data">Q3:</string>
+    <string name="text_the_label_for_representing_the_maximum_of_x">Max X:</string>
+
+
+    <!--
+        These are design element examples that get updated at runtime, will only be used as samples
+        to view in the XML layouts
+    -->
+
+    <string name="design_sample_point_index_when_editing_list">1</string>
+
+    <string name="design_sample_interval_detail">(3,524] , (542, 653]</string>
+    <string name="design_sample_of_frequency_detail_for_an_interval">15</string>
+
+    <string name="design_sample_for_list_names">This is my List Name</string>
+    <string name="design_sample_for_preview_of_a_list">1, 2, 5, 9, .35, 1</string>
+    <string name="design_sample_for_list_id_tag">List ID 4</string>
+
+    <string name="design_sample_for_list_id_when_selected">id 15</string>
+
+    <string name="design_sample_for_editing_list_index_for_point">1</string>
+    <string name="design_sample_for_editing_list_data_for_point">15.0357</string>
+
+
+    <!--
+        These strings are meta data for various reasons
+        todo add more in future
+    -->
+
+    <string name="meta_label_copy_to_clipboard_one_var_stats">1-var-stats GoStat</string>
+    <string name="meta_label_copy_to_clipboard_frequency_table">Frequency Table</string>
+
+    <string name="meta_label_data_points_fragment">Editable List</string>
+    <string name="meta_label_frequency_table_fragment">Frequency Table</string>
+    <string name="meta_label_for_histogram_fragment">Histogram Graph</string>
+    <string name="meta_label_for_frequency_table_fragment">Frequency Table</string>
+
+
+
 </resources>

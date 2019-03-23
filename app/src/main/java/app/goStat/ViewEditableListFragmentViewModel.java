@@ -23,4 +23,5 @@ public class ViewEditableListFragmentViewModel extends AndroidViewModel {
     LiveData<Long> getNumberOfDataPointsInList(int listID) {
         return mRepository.getNumberOfDataPointsInList(listID);
     }
+
 }

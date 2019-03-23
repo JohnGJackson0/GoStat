@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id = "@+id/item_position"
-            android:text = "0"
+            android:text = "@string/design_sample_for_editing_list_index_for_point"
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/text_list_item_titles"
             android:layout_alignParentLeft="true"
@@ -27,7 +27,7 @@
             android:id = "@+id/viewable_data_point_text_view"
             android:textSize="22sp"
             android:textColor="@color/colorPrimary"
-            android:text="15.0235"
+            android:text="@string/design_sample_for_editing_list_data_for_point"
             android:layout_toEndOf="@id/item_position"
             android:layout_centerVertical="true" />
     </RelativeLayout>

@@ -22,7 +22,7 @@
             android:layout_margin="4dp"
             android:padding="2dp"
             android:textStyle="italic"
-            android:text="1"
+            android:text="@string/design_sample_point_index_when_editing_list"
             android:textSize="@dimen/text_list_item_titles"/>
 
         <android.support.v7.widget.CardView
@@ -39,7 +39,7 @@
                 android:focusableInTouchMode="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:hint="Input and press enter"
+                android:hint="@string/hint_editable_data_point_value"
                 android:inputType="numberDecimal"
                 android:layout_toRightOf="@id/dataPointIndexTextView"
                 android:layout_alignParentRight = "true"/>

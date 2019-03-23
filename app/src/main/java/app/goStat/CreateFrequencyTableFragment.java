@@ -80,7 +80,7 @@ public class CreateFrequencyTableFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     if (mBinInput.getText().toString().isEmpty() || Integer.parseInt(mBinInput.getText().toString()) < 1) {
-                        mErrorMessage.setText(R.string.histogram_bin_input_error_message);
+                        mErrorMessage.setText(R.string.error_bin_input_number_does_not_pass_validation);
                         mErrorMessage.setVisibility(View.VISIBLE);
                     } else {
                         //todo fix below but low priority, unlikely to happen with current app implementation
@@ -92,7 +92,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                         createFrequencyTable();
                     }
                 } catch(NumberFormatException e) {
-                    mErrorMessage.setText(R.string.histogram_bin_input_error_message);
+                    mErrorMessage.setText(R.string.error_bin_input_number_does_not_pass_validation);
                     mErrorMessage.setVisibility(View.VISIBLE);
                 }
             }
@@ -151,7 +151,11 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     private void addFrequencyTable(FrequencyTable frequencyTable) {
         String associatedListName = getViewModel().getStaticListName(mListID);
-        StatisticalList newList = new StatisticalList(0, "~ Frequency Table for ID " + Integer.toString(mListID), true, associatedListName);
+
+        StatisticalList newList = new StatisticalList(0, getResources().getString(
+                R.string.title_prefix_of_new_frequency_table_list_names) + " " + Integer.toString(mListID),
+                true, associatedListName);
+
         newList.setAssociatedList(mListID);
         int newListID = getViewModel().insertStatisticalList(newList);
         List<FrequencyInterval> newFrequencyIntervals = new ArrayList<>();

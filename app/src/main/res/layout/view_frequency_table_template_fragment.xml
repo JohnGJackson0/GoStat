@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top|start"
-                android:text="example_list name"
+                android:text="@string/design_sample_for_list_names"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_title"
                 android:textStyle="italic|bold" />
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="id 15"
+                android:text="@string/design_sample_for_list_id_when_selected"
                 android:textColor="@color/colorPrimaryVariant"
                 android:textSize="@dimen/text_important_snippet"
                 android:textStyle="italic" />
@@ -58,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".75"
-                android:entries="@array/frequency_table_functions" />
+                android:entries="@array/spinner_items_frequency_table_functions" />
 
             <Button
                 style="@style/DefaultButtonTheme"
@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".25"
-                android:text="@string/function_button_label" />
+                android:text="@string/button_label_execute_spinner_function" />
         </LinearLayout>
 
         <View

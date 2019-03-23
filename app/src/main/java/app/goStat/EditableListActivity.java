@@ -44,7 +44,6 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
             }
         };
         getViewModel().getNumberOfItemsInList(mListId).observe(this, observer);
-        setTitle("Editing List");
     }
 
     //EXTRA_LIST_ID can come from multiple Views so that

@@ -65,7 +65,7 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
 
     private void showCopyToClipboardMessage() {
         Toast toast = Toast.makeText(getActivity(),
-                "Copied To Clipboard",
+                getResources().getString(R.string.toast_copy_to_clipboard_generic),
                 Toast.LENGTH_SHORT);
         View view = toast.getView();
         int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);
@@ -83,9 +83,10 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
             @Override
             public void onChanged(@Nullable List<FrequencyInterval> frequencyIntervals) {
                 mCopyToClipboardText = "";
-                mCopyToClipboardText = "Frequency Table: Go! Statistics \n";
+                mCopyToClipboardText = getResources().getString(R.string.text_prefix_for_copy_to_clipboard_frequency_table) + "\n";
                 for (FrequencyInterval val : frequencyIntervals) {
-                    mCopyToClipboardText = mCopyToClipboardText  + "Interval: " + val.toString()  +  " Frequency: " + val.getFrequency() + " \n";
+                    mCopyToClipboardText = mCopyToClipboardText  + getResources().getString(R.string.text_prefix_for_copy_to_clipboard_frequency_interval_line) +
+                            val.toString()  +  getResources().getString(R.string.text_infix_for_copy_to_clipboard_frequency_amount_line)+ val.getFrequency() + " \n";
                 }
             }
         });
@@ -93,7 +94,7 @@ public class ViewFrequencyTableFragment extends Fragment implements View.OnClick
 
     private void copyToClipboard() {
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("Frequency Table", mCopyToClipboardText);
+        ClipData clip = ClipData.newPlainText(getResources().getString(R.string.meta_label_copy_to_clipboard_frequency_table), mCopyToClipboardText);
         clipboard.setPrimaryClip(clip);
         showCopyToClipboardMessage();
     }

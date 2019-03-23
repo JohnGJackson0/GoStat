@@ -103,7 +103,9 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                 lockedMessage.setVisibility(View.VISIBLE);
                 frequencyTableInfoMessage.setVisibility(View.VISIBLE);
                 staticMessage.setVisibility(View.VISIBLE);
-                frequencyTableMessage.setText("Associated List ID " + Integer.toString(statisticalList.getAssociatedList()));
+                frequencyTableMessage.setText(mContext.getResources().getString(
+                        R.string.list_tag_lists_associated_id_is_pretext) + " " +
+                        Integer.toString(statisticalList.getAssociatedList()));
                 frequencyPreview(position, itemView);
             } else {
                 createdByUserMessage.setVisibility(View.VISIBLE);
@@ -115,7 +117,7 @@ public class ViewListDetailsAdapter extends PagedListAdapter<StatisticalList, Vi
                 listName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                 listPreview(position, itemView);
             }
-            listIDMessage.setText("List ID " + Integer.toString(statisticalList.getId()));
+            listIDMessage.setText(mContext.getResources().getString(R.string.list_tag_the_id_pretext) + " "  + Integer.toString(statisticalList.getId()));
         }
     }
 

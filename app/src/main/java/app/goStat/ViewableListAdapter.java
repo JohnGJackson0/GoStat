@@ -50,7 +50,7 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
 
             if (!dataPoint.isEnabled()) {
                 itemView.setBackgroundColor(itemView.getContext().getColor(R.color.highlight));
-                viewableDataPoint.setText(R.string.disabled_data_point_text);
+                viewableDataPoint.setText(R.string.text_data_point_disabled);
             } else {
                 itemView.setBackgroundColor(itemView.getContext().getColor(R.color.colorWhite));
             }

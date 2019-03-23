@@ -32,6 +32,7 @@ public class ViewableListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_lists);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(R.string.activity_label_view_all_lists);
         viewListDetails = findViewById(R.id.view_list_details_fragment);
         instructionsContainer = findViewById(R.id.instructions_container);
         mCreateListInstructions = findViewById(R.id.list_show_text);

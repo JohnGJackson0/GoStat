@@ -90,18 +90,19 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
                         mDescStat.addValue(v.getValue().doubleValue());
                     }
                 }
-                mToText ="1 variable Stats : Go! Statistics\n" +
-                        getString(R.string.summary_mean_label) + " " + Double.toString(mDescStat.getMean()) + "\n" +
-                        getString(R.string.summary_sigma_label) + "  " + Double.toString(mDescStat.getSum()) + "\n" +
-                        getString(R.string.summary_sigma_squared_label) + "  " + Double.toString(mDescStat.getSumsq()) + "\n" +
-                        getString(R.string.summary_sample_standard_deviation_label) + "  " + Double.toString(mDescStat.getStandardDeviation()) + "\n" +
-                        getString(R.string.summary_standard_deviation_label) + "  " + Double.toString(Math.sqrt(mDescStat.getPopulationVariance())) + "\n" +
-                        getString(R.string.summary_number_of_items_label) + "  " + Long.toString(mDescStat.getN()) + "\n" +
-                        getString(R.string.summary_min_label) + "  " + Double.toString(mDescStat.getMin()) + "\n" +
-                        getString(R.string.summary_quartile_one_label) + "  " + Double.toString(mDescStat.getPercentile(25))+ "\n" +
-                        getString(R.string.summary_median_label) + "  " + Double.toString(mDescStat.getPercentile(50)) + "\n" +
-                        getString(R.string.summary_quartile_three_label) + "  " + Double.toString(mDescStat.getPercentile(75)) + "\n" +
-                        getString(R.string.summary_max_label) + "  " + Double.toString(mDescStat.getMax()) + "\n";
+                mToText =
+                        getResources().getString(R.string.text_prefix_for_copy_to_clipboard_summary_statistics) + "\n" +
+                        getString(R.string.text_the_label_for_representing_x_bar) + " " + Double.toString(mDescStat.getMean()) + "\n" +
+                        getString(R.string.text_the_label_for_representing_summation_of_x) + "  " + Double.toString(mDescStat.getSum()) + "\n" +
+                        getString(R.string.text_the_label_for_representing_summation_of_x_squared) + "  " + Double.toString(mDescStat.getSumsq()) + "\n" +
+                        getString(R.string.text_the_label_for_representing_sample_standard_deviation_of_x) + "  " + Double.toString(mDescStat.getStandardDeviation()) + "\n" +
+                        getString(R.string.text_the_label_for_representing_standard_deviation_of_x) + "  " + Double.toString(Math.sqrt(mDescStat.getPopulationVariance())) + "\n" +
+                        getString(R.string.text_the_label_for_representing_the_number_of_items_of_x) + "  " + Long.toString(mDescStat.getN()) + "\n" +
+                        getString(R.string.text_the_label_for_representing_the_minimum_of_x) + "  " + Double.toString(mDescStat.getMin()) + "\n" +
+                        getString(R.string.text_the_label_for_representing_the_quartile_one_of_the_data) + "  " + Double.toString(mDescStat.getPercentile(25))+ "\n" +
+                        getString(R.string.text_the_label_for_representing_the_median_of_the_data) + "  " + Double.toString(mDescStat.getPercentile(50)) + "\n" +
+                        getString(R.string.text_the_label_for_representing_the_quartile_three_of_the_data) + "  " + Double.toString(mDescStat.getPercentile(75)) + "\n" +
+                        getString(R.string.text_the_label_for_representing_the_maximum_of_x) + "  " + Double.toString(mDescStat.getMax()) + "\n";
 
                 mean.setText(Double.toString(mDescStat.getMean()));
                 sigma.setText(Double.toString(mDescStat.getSum()));
@@ -120,7 +121,7 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
 
     private void copyToClipboard(String copyText) {
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("1-var-stats", copyText);
+        ClipData clip = ClipData.newPlainText(getResources().getString(R.string.meta_label_copy_to_clipboard_one_var_stats), copyText);
         clipboard.setPrimaryClip(clip);
     }
 
@@ -132,7 +133,7 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
 
     private void showCopyToClipboardMessage() {
         Toast toast = Toast.makeText(getActivity(),
-                "Copied To Clipboard",
+                getResources().getString(R.string.toast_copy_to_clipboard_generic),
                 Toast.LENGTH_SHORT);
         View view = toast.getView();
         int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);

@@ -14,7 +14,7 @@
         android:textColor="@color/colorPrimaryVariant"
         android:textStyle="italic"
         android:padding="5dp"
-        android:text="@string/no_data_instructions"/>
+        android:text="@string/directions_create_data_for_editable_list"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_single_list"

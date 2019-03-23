@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:text="@string/summary_statistics_title"
+                    android:text="@string/text_the_title_label_for_one_var_stats"
                     android:textColor="@color/colorPrimaryVariant"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
@@ -51,7 +51,7 @@
                         android:id="@+id/summary_statistics_mean_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_mean_label"
+                        android:text="@string/text_the_label_for_representing_x_bar"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -78,7 +78,7 @@
                         android:id="@+id/summary_statistics_sigma_x_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_sigma_label"
+                        android:text="@string/text_the_label_for_representing_summation_of_x"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -104,7 +104,7 @@
                         android:id="@+id/summary_statistics_sigma_x_squared_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_sigma_squared_label"
+                        android:text="@string/text_the_label_for_representing_summation_of_x_squared"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -130,7 +130,7 @@
                         android:id="@+id/summary_statistics_sample_standard_deviation_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_sample_standard_deviation_label"
+                        android:text="@string/text_the_label_for_representing_sample_standard_deviation_of_x"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -157,7 +157,7 @@
                         android:id="@+id/summary_statistics_standard_deviation_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_standard_deviation_label"
+                        android:text="@string/text_the_label_for_representing_standard_deviation_of_x"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -183,7 +183,7 @@
                         android:id="@+id/summary_statistics_number_items_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_number_of_items_label"
+                        android:text="@string/text_the_label_for_representing_the_number_of_items_of_x"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -209,7 +209,7 @@
                         android:id="@+id/summary_statistics_min_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_min_label"
+                        android:text="@string/text_the_label_for_representing_the_minimum_of_x"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -235,7 +235,7 @@
                         android:id="@+id/summary_statistics_quartile_one_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_quartile_one_label"
+                        android:text="@string/text_the_label_for_representing_the_quartile_one_of_the_data"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -261,7 +261,7 @@
                         android:id="@+id/summary_statistics_median_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_median_label"
+                        android:text="@string/text_the_label_for_representing_the_median_of_the_data"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -287,7 +287,7 @@
                         android:id="@+id/summary_statistics_quartile_three_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_quartile_three_label"
+                        android:text="@string/text_the_label_for_representing_the_quartile_three_of_the_data"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -313,7 +313,7 @@
                         android:id="@+id/summary_statistics_max_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_max_label"
+                        android:text="@string/text_the_label_for_representing_the_maximum_of_x"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/text_list_item_titles"
                         android:textStyle="italic" />
@@ -346,6 +346,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:text="@string/copy_to_clipboard_button_label"/>
+            android:text="@string/button_label_copy_to_clipboard"/>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

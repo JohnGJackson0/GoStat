@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 public class ViewSingleEditableListActivity extends AppCompatActivity {
     private int mListID;
+    //todo change to new package names
     public static final String EXTRA_LIST_ID = "com.example.jgjio_desktop.gostats.extra.LIST_ID";
 
     @Override

@@ -17,7 +17,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "user-database")
-                    //we are stuck with an ID of long and not LiveData<Long> for insert list so allow unless we can find a work around later
+                    // todo we are stuck with an ID of long and not LiveData<Long> for insert list so allow unless we can find a work around later
                     .allowMainThreadQueries()
                     .build();
         }

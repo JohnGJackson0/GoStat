@@ -53,7 +53,7 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
 
     private void colorSpinner() {
         mFunctionSpinner = mRootView.findViewById(R.id.frequency_table_functions_spinner);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.frequency_table_functions)) {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.spinner_items_frequency_table_functions)) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -102,14 +102,14 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
 
     void startGraphFragment() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container,  GraphHistogramFragment.newInstance(mListID), "HistogramGraph")
+        fragmentTransaction.replace(R.id.container,  GraphHistogramFragment.newInstance(mListID), getResources().getString(R.string.meta_label_for_histogram_fragment))
                 .commit();
         fragmentTransaction.addToBackStack(null);
     }
 
     void startViewFragment() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.view_window,  ViewFrequencyTableFragment.newInstance(mListID), "FrequencyList")
+        fragmentTransaction.replace(R.id.view_window,  ViewFrequencyTableFragment.newInstance(mListID), getResources().getString(R.string.meta_label_frequency_table_fragment))
                 .commit();
     }
 
