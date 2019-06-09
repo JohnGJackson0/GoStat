@@ -10,6 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import app.goStat.model.AppDatabase;
+import app.goStat.model.StatisticalList;
+import app.goStat.model.StatisticalListDao;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 

@@ -10,6 +10,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import app.goStat.model.AppDatabase;
+import app.goStat.model.StatisticalListDao;
+
 public class AssignNewIdTest {
 
     private StatisticalListDao mStatListDao;

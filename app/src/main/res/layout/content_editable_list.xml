@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:descendantFocusability="afterDescendants"
-    tools:context=".EditableListActivity">
+    tools:context=".view.viewList.EditableListActivity">
 
     <include layout ="@layout/editing_list_instructions"
         android:id="@+id/instructions"
