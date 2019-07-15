@@ -132,7 +132,7 @@ public class CreateFrequencyTableFragment extends Fragment {
                     for(DataPoint val : dataPoints) {
 
                         if (val.getValue().doubleValue() >= i.getMin() && val.getValue().doubleValue() < i.getMax()) {
-                            i.addAFrequency();
+                            i.addOneFrequency();
                         }
 
                         /*
@@ -146,7 +146,7 @@ public class CreateFrequencyTableFragment extends Fragment {
 
                         if(frequencyTable.numberOfFrequencyIntervals() == freqIntervalIndex) {
                             if (val.getValue().doubleValue() >= i.getMax()){
-                                i.addAFrequency();
+                                i.addOneFrequency();
                             }
 
                         }
