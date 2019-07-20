@@ -87,6 +87,9 @@
     <string name="title_postfix_for_histogram_graph"> Histogram</string>
     <string name ="title_for_histogram_graphs">Histogram</string>
 
+    <string name="title_alert_dialog_external_storage_permission_request">Permission Needed</string>
+    <string name="text_alert_dialog_external_storage_permission_request">Permitting us access to external storage allows us to save the chart to your device.</string>
+
     <!--
         Reserved for creation of system list
     -->
@@ -119,6 +122,8 @@
     -->
 
     <string name = "toast_copy_to_clipboard_generic">Copy to Clipboard</string>
+    <string name = "toast_external_storage_denied">Permission Denied</string>
+    <string name = "toast_external_storage_never_ask_again">Never Asking Again</string>
 
     <!--
         Copy To Clipboard
