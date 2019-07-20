@@ -1,14 +1,14 @@
 package app.goStat.util.frequencyTables;
 
-public final class ExclusiveEndMixedFrequencyInterval implements Interval {
+public final class ExclusiveEndMixedFrequencyInterval implements FrequencyInterval {
     private final double mMin;
     private final double mMax;
     private int mFrequency;
 
-    public ExclusiveEndMixedFrequencyInterval(int frequency, double min, double max){
+    public ExclusiveEndMixedFrequencyInterval(int initialFrequency, double min, double max){
         mMin = min;
         mMax = max;
-        mFrequency = frequency;
+        mFrequency = initialFrequency;
     }
 
     @Override
@@ -29,12 +29,13 @@ public final class ExclusiveEndMixedFrequencyInterval implements Interval {
         return mFrequency;
     }
 
-    public void setFrequency (int frequency) {
-        mFrequency = frequency;
+    @Override
+    public void addOneFrequency() {
+        mFrequency++;
     }
 
-    public void addAFrequency() {
-        mFrequency++;
+    public void setFrequency (int frequency) {
+        mFrequency = frequency;
     }
 
     @Override
