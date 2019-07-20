@@ -25,4 +25,5 @@
     <dimen name="text_button">14sp</dimen> //medium weight
     <dimen name= "text_tabs">14sp</dimen> //medium weight
     <dimen name= "text_input">16sp</dimen>
+    <dimen name= "text_graph_description">8sp</dimen>
 </resources>

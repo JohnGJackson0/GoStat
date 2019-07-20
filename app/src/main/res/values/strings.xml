@@ -85,6 +85,7 @@
     <string name="title_vertical_axis_histograms">Frequency</string>
     <string name="title_horizontal_axis_histograms">Interval</string>
     <string name="title_postfix_for_histogram_graph"> Histogram</string>
+    <string name ="title_for_histogram_graphs">Histogram</string>
 
     <!--
         Reserved for creation of system list
