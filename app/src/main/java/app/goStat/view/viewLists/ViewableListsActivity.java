@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import app.goStat.R;
 import app.goStat.model.StatisticalList;
+import app.goStat.view.functions.FunctionsActivity;
 import app.goStat.view.viewList.EditableListActivity;
 
 public class ViewableListsActivity extends AppCompatActivity {
@@ -65,6 +67,19 @@ public class ViewableListsActivity extends AppCompatActivity {
 
     public void removeList(StatisticalList statList) {
         getViewModel().deleteList(statList.getId());
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_functions:
+                Intent i = new Intent(this, FunctionsActivity.class);
+                this.startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

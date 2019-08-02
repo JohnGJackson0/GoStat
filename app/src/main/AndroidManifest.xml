@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.goStat">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="app.goStat.fileprovider"
@@ -29,6 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,13 +39,15 @@
             android:hardwareAccelerated="false"
             android:label="@string/activity_label_edit_list"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".view.viewList.ViewSingleEditableListActivity"
             android:label="@string/activity_label_view_list" />
         <activity
             android:name=".view.viewFrequencyTable.ViewFrequencyTableActivity"
-            android:label="@string/activity_label_view_frequency_table"/>
-</application>
+            android:label="@string/activity_label_view_frequency_table" />
+        <activity
+            android:name=".view.functions.FunctionsActivity"
+            android:label="@string/activity_label_functions" />
+    </application>
 
 </manifest>

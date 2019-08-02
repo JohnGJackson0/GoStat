@@ -1,15 +1,6 @@
 <resources>
     <!--
-        manifest.xml related strings app names and activity labels: Activity Labels are found in the
-        action bar corresponding to their activities. They are only to be used in manifest.xml file
-        as the app does not need to use method setTitle when it switched to simplistic titles -
-        i.e. "Edit list" vs "Editing list my.list.name" (because they were often too long).
-
-        ** Exception ViewableListActivity : This is needed to support having a different activity
-        name from the launcher name.
-
-        ** Exception GraphHistogramFragment : This is a fragment so it just updates the parent
-        activity title.
+        Activity Names
     -->
 
     <string name="app_name">GoStat</string>
@@ -18,6 +9,7 @@
     <string name="activity_label_view_all_lists">Your Lists</string>
     <string name="activity_label_view_list">View List</string>
     <string name="fragment_label_graph_histogram">Graph Histogram</string>
+    <string name="activity_label_functions">Calculate Functions</string>
 
     <!--
         Hints are used inside of EditTexts as instructions
@@ -63,6 +55,14 @@
     <string name="text_the_postfix_label_for_list_tags">}</string>
 
     <!--
+        Reserved for Functions (stat functions without lists of data)
+    -->
+
+    <string name="text_label_for_user_input_for_calculations">Input</string>
+    <string name="text_label_for_output_of_calculations">Output</string>
+
+
+    <!--
         Tag messages are descriptive characteristics for lists. Located when you see all lists when
         opening the app on 3/16/2019
     -->
@@ -85,7 +85,7 @@
     <string name="title_vertical_axis_histograms">Frequency</string>
     <string name="title_horizontal_axis_histograms">Interval</string>
     <string name="title_postfix_for_histogram_graph"> Histogram</string>
-    <string name ="title_for_histogram_graphs">Histogram</string>
+    <string name="title_for_histogram_graphs">Histogram</string>
 
     <string name="title_alert_dialog_external_storage_permission_request">Permission Needed</string>
     <string name="text_alert_dialog_external_storage_permission_request">Permitting us access to external storage allows us to save the chart to your device.</string>
@@ -121,19 +121,19 @@
         Toast messages
     -->
 
-    <string name = "toast_copy_to_clipboard_generic">Copy to Clipboard</string>
-    <string name = "toast_external_storage_denied">Permission Denied</string>
-    <string name = "toast_external_storage_never_ask_again">Never Asking Again</string>
+    <string name="toast_copy_to_clipboard_generic">Copy to Clipboard</string>
+    <string name="toast_external_storage_denied">Permission Denied</string>
+    <string name="toast_external_storage_never_ask_again">Never Asking Again</string>
 
     <!--
         Copy To Clipboard
     -->
 
-    <string name = "text_prefix_for_copy_to_clipboard_frequency_table">Frequency Table:</string>
-    <string name = "text_prefix_for_copy_to_clipboard_frequency_interval_line">Interval:</string>
-    <string name = "text_infix_for_copy_to_clipboard_frequency_amount_line"> Frequency:</string>
+    <string name="text_prefix_for_copy_to_clipboard_frequency_table">Frequency Table:</string>
+    <string name="text_prefix_for_copy_to_clipboard_frequency_interval_line">Interval:</string>
+    <string name="text_infix_for_copy_to_clipboard_frequency_amount_line"> Frequency:</string>
 
-    <string name= "text_prefix_for_copy_to_clipboard_summary_statistics">One Var Stats:</string>
+    <string name="text_prefix_for_copy_to_clipboard_summary_statistics">One Var Stats:</string>
     <!--
         Spinner function names are drop down labels that are selectable. They are found in view
         single list or view frequency table activities as of the date 3/16/2019
@@ -161,10 +161,23 @@
         <item>Create Frequency Table /Histogram</item>
     </string-array>
 
+    <string-array name="spinner_items_static_functions_selection">
+        <item>Binomial CDF/PDF - supported</item>
+        <item>Frequency Distribution</item>
+        <item>Descriptive with Frequency</item>
+        <item>Regression with Sum</item>
+        <item>Poisson</item>
+        <item>T-Test - One Sample</item>
+        <item>T-Test - Two Samples</item>
+        <item>Chi-squared Test</item>
+
+    </string-array>
+
     <!-- The labels for the spinners -->
 
     <string name="spinner_label_for_frequency_tables">Select Function</string>
     <string name="spinner_label_for_editable_lists">Select Function</string>
+    <string name="spinner_label_for_function_selection">Select Function</string>
 
     <!--
         It overrides the data on the data point when viewing before the point is deleted by the
@@ -183,7 +196,7 @@
         Menu labels found on action bars
     -->
     <string name="menu_label_upgrade">Upgrade Now</string>
-
+    <string name="menu_label_functions">Functions</string>
     <string name="menu_view_list">View List</string>
     <string name="menu_delete_list">Delete List</string>
 
@@ -238,6 +251,34 @@
     <string name="meta_label_frequency_table_fragment">Frequency Table</string>
     <string name="meta_label_for_histogram_fragment">Histogram Graph</string>
     <string name="meta_label_for_frequency_table_fragment">Frequency Table</string>
+    <string name="meta_label_copy_to_clipboard_result">Binomial Result</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <string name="text_label_for_binomial_number_of_trials">Number of Trials (n)</string>
+    <string name="text_label_for_binomial_prob_success_one_trial">Probability of Success for One Trial (p)</string>
+    <string name="text_label_for_binomial_number_of_successes">Number of Successes from Trials (x)</string>
+    <string name="text_label_for_binomial_range_of_probability">Define the Range of Probability</string>
+    <string name="hint_binomial_number_of_trials">Enter the number of trials</string>
+    <string name="hint_binomial_probability_of_success">Enter the probability of success</string>
+    <string name="hint_binomial_number_of_successes">Enter the number of successes</string>
+    <string name="radio_button_label_binomial_exact">Exact / PDF</string>
+    <string name="radio_button_label_binomial_max">Max / CDF</string>
+    <string name="button_label_binomial_calculate">Calculate</string>
+    <string name="button_label_binomial_copy_answer">Copy Answer</string>
+    <string name="button_label_binomial_copy_all_output">Copy All Text</string>
+    <string name="text_label_binomial_result_output">Result</string>
+    <string name="text_label_binomial_error_output">Error</string>
+    <string name="directions_error_on_edit_text_binomial_prob_success_over_100_percent">Input must be no greater than 1 with 1 being 100% and .35 being 35% ect.</string>
+    <string name="directions_error_on_edit_text_binomial_decimal_format">invalid decimal format ex .1234</string>
+    <string name="directions_error_on_edit_text_binomial_successes_less_than_trials">Number of successes from trials must be less than the number of trials</string>
+    <string name="directions_error_binomial_input_empty_and_errors">There are errors and blank input. All text boxes are required for calculation.
+        For input errors you can get more information by clicking on the text box.</string>
+    <string name="directions_error_binomial_empty">There is an empty input. All text boxes are required for correct calculation.</string>
+    <string name="directions_error_binomial_errors">There is an error on a text box. Please solve by reviewing the error message when clicking on the text box.</string>
 
 
 

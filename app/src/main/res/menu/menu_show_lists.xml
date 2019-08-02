@@ -4,9 +4,9 @@
     tools:context="app.goStat.view.viewLists.ViewableListsActivity">
 
     <item
-        android:id="@+id/Menu_item_upgrade"
+        android:id="@+id/menu_item_functions"
         android:orderInCategory="100"
-        android:title="@string/menu_label_upgrade"
-        app:showAsAction="always" />
+        android:title="@string/menu_label_functions"
+        android:showAsAction="always" />
 
 </menu>

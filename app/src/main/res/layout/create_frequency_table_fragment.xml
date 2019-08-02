@@ -7,15 +7,11 @@
     android:id ="@+id/histogram_settings_container">
 
     <TextView
+        style="@style/DefaultTextViewLabel"
         android:id="@+id/instructions_histogram_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:text="@string/directions_input_bin_number"
-        android:textColor="@color/colorPrimaryVariant"
-        android:textSize="@dimen/text_size_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,9 +35,6 @@
         android:id="@+id/bin_number_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:hint="@string/hint_bin_amount_specification"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,13 +42,10 @@
         app:layout_constraintTop_toBottomOf="@+id/generate_bin_number_button" />
 
     <Button
-        style="@style/DefaultButtonTheme"
+        style="@style/DefaultContentButtonTheme"
         android:id="@+id/create_frequency_table_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:text="@string/button_label_create_a_frequency_table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
