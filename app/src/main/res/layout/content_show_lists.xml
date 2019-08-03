@@ -24,14 +24,11 @@
         </LinearLayout>
 
         <TextView
+            style="@style/DefaultTextInstructionsLabel"
             android:id="@+id/list_show_text"
             android:layout_width="wrap_content"
-            android:padding="5dp"
             android:layout_height="match_parent"
             android:text="@string/directions_create_data_source"
-            android:textColor="@color/colorPrimaryVariant"
-            android:textSize="@dimen/text_important_snippet"
-            android:textStyle="italic"
             android:visibility="gone" />
 
         <fragment

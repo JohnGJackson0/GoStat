@@ -23,7 +23,9 @@
         Directions are found in various locations giving the user guidance on how to use the app.
     -->
     <string name="directions_create_data_source">You currently do not have a list, press the + icon
-        on bottom right of screen to start.</string>
+        on bottom right of screen to make one or select the menu for statistical functions. Lists allow
+        you to make frequency tables, histograms and view 1-var-stats as well as naming and storing
+        the data for further use. </string>
 
     <string name="directions_edit_list_title">Edit your lists here</string>
 
@@ -114,7 +116,7 @@
     <string name="button_label_recommend_bin_number">Generate Bin Number</string>
     <string name="button_label_graph_a_histogram">Graph Histogram</string>
     <string name="button_label_execute_spinner_function">GO!</string>
-    <string name="button_label_copy_to_clipboard">Copy To Clipboard</string>
+    <string name="button_label_copy_to_clipboard">Copied To Clipboard</string>
     <string name="button_label_create_a_frequency_table">Create Frequency Table</string>
 
     <!--
@@ -162,15 +164,9 @@
     </string-array>
 
     <string-array name="spinner_items_static_functions_selection">
-        <item>Binomial CDF/PDF - supported</item>
-        <item>Frequency Distribution</item>
-        <item>Descriptive with Frequency</item>
-        <item>Regression with Sum</item>
-        <item>Poisson</item>
-        <item>T-Test - One Sample</item>
-        <item>T-Test - Two Samples</item>
-        <item>Chi-squared Test</item>
-
+        <item>Instructions</item>
+        <item>Binomial CDF/PDF</item>
+        <item>T-Test</item>
     </string-array>
 
     <!-- The labels for the spinners -->
@@ -257,7 +253,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
     <string name="text_label_for_binomial_number_of_trials">Number of Trials (n)</string>
     <string name="text_label_for_binomial_prob_success_one_trial">Probability of Success for One Trial (p)</string>
     <string name="text_label_for_binomial_number_of_successes">Number of Successes from Trials (x)</string>
@@ -279,7 +274,7 @@
         For input errors you can get more information by clicking on the text box.</string>
     <string name="directions_error_binomial_empty">There is an empty input. All text boxes are required for correct calculation.</string>
     <string name="directions_error_binomial_errors">There is an error on a text box. Please solve by reviewing the error message when clicking on the text box.</string>
-
+    <string name="directions_functions">Select the function above and press GO!</string>
 
 
 </resources>
