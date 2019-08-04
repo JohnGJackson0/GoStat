@@ -1,12 +1,8 @@
 package app.goStat.view.functions.functionFragments;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import app.goStat.R;
 import app.goStat.util.android.TextValidator;
+import app.goStat.util.android.ClipboardUtil;
 
 
 /*
@@ -89,7 +85,7 @@ public class BinomialFragment extends Fragment{
         calc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validate()) {
+                if(isValid()) {
                     calculate();
                 } else {
                     displayError();
@@ -128,10 +124,10 @@ public class BinomialFragment extends Fragment{
                         actualProbability = new BigDecimal(mProbabilityOfSuccessEditText.getText().toString());
 
                         if (actualProbability.compareTo(BigDecimal.ONE) > 0) {
-                            mProbabilityOfSuccessEditText.setError(getString(R.string.directions_error_on_edit_text_binomial_prob_success_over_100_percent));
+                            mProbabilityOfSuccessEditText.setError(getString(R.string.directions_error_on_edit_text_prob_over_100_percent));
                         }
                     } catch (Exception e){
-                        mProbabilityOfSuccessEditText.setError(getString(R.string.directions_error_on_edit_text_binomial_decimal_format));
+                        mProbabilityOfSuccessEditText.setError(getString(R.string.directions_error_on_edit_text_decimal_format));
                     }
                 }
             }
@@ -191,13 +187,15 @@ public class BinomialFragment extends Fragment{
     }
 
     private void copyAnswerToClipboard(){
-        copyToClipboard(mAnswer);
-        showCopyToClipboardMessage();
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mAnswer, getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
     }
 
     private void copyAllTextToClipboard(){
-        copyToClipboard(mOutput);
-        showCopyToClipboardMessage();
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mOutput,getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
     }
 
     public void onMaxClicked(){
@@ -221,7 +219,7 @@ public class BinomialFragment extends Fragment{
                 mProbabilityOfSuccessEditText.getError() != null);
     }
 
-    private boolean validate(){
+    private boolean isValid(){
         return !isAnInputEmpty() && !doesEditTextContainError();
     }
 
@@ -239,11 +237,11 @@ public class BinomialFragment extends Fragment{
         String errorMessage;
 
         if(isAnInputEmpty() && doesEditTextContainError()) {
-            errorMessage = getString(R.string.directions_error_binomial_input_empty_and_errors);
+            errorMessage = getString(R.string.directions_error_generic_input_empty_and_errors);
         } else if (isAnInputEmpty()) {
-            errorMessage = getString(R.string.directions_error_binomial_empty);
+            errorMessage = getString(R.string.directions_error_generic_empty);
         } else {
-            errorMessage = getString(R.string.directions_error_binomial_errors);
+            errorMessage = (String) getString(R.string.directions_error_generic_input);
         }
 
         return errorMessage;
@@ -315,22 +313,6 @@ public class BinomialFragment extends Fragment{
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
 
-    }
-
-    private void copyToClipboard(String copyText) {
-        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(getString(R.string.meta_label_copy_to_clipboard_result), copyText);
-        clipboard.setPrimaryClip(clip);
-    }
-
-    private void showCopyToClipboardMessage() {
-        Toast toast = Toast.makeText(getActivity(),
-                getResources().getString(R.string.toast_copy_to_clipboard_generic),
-                Toast.LENGTH_SHORT);
-        View view = toast.getView();
-        int color = ContextCompat.getColor(getContext(), R.color.colorPrimary);
-        view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        toast.show();
     }
 
     public static double round(double value, int places) {
