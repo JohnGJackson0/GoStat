@@ -2,13 +2,13 @@ package app.goStat;
 
 import org.junit.Test;
 
-import app.goStat.util.TTest;
+import app.goStat.util.TTestUtil;
 
 import static org.junit.Assert.assertEquals;
 
 public class TTestTest {
 
-    TTest SUT;
+    TTestUtil SUT;
 
     @Test
     public void addition_isCorrect() {

@@ -123,7 +123,7 @@
         Toast messages
     -->
 
-    <string name="toast_copy_to_clipboard_generic">Copy to Clipboard</string>
+    <string name="toast_copy_to_clipboard_generic">Copied to Clipboard</string>
     <string name="toast_external_storage_denied">Permission Denied</string>
     <string name="toast_external_storage_never_ask_again">Never Asking Again</string>
 
@@ -253,6 +253,39 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--
+     Below are for activities related to functions
+
+    -->
+
+    <!-- generic -->
+
+    <string name="button_label_generic_calculate">Calculate</string>
+    <string name="button_label_copy_answer">Copy Answer</string>
+    <string name="button_label_copy_all_output">Copy All Text</string>
+    <string name="directions_error_on_edit_text_prob_over_100_percent">Input must be no greater than 1 with 1 being 100% and .35 being 35% ect.</string>
+    <string name="directions_error_on_edit_text_decimal_format">invalid decimal format ex .1234</string>
+    <string name="directions_error_generic_input_empty_and_errors">There are errors and blank input. All text boxes are required for calculation.
+        For input errors you can get more information by clicking on the text box.</string>
+    <string name="directions_error_generic_empty">There is an empty input. All text boxes are required for correct calculation.</string>
+    <string name="directions_error_generic_input">There is an error on a text box. Please solve by reviewing the error message when clicking on the text box.</string>
+    <string name="directions_error_generic_more_than_one_data_entry">This list needs to have more then one DataPoint before it can be calculated with a t-test.</string>
+    <string name="directions_fill_out_required_inputs">Please fill out all required inputs for this calculation.</string>
+    <string name="directions_error_create_a_list_for_calculation">Please create a new list by going to Lists in the menu. If you don\'t have sample data for a list for this calculation then go to T-Test Stats instead.</string>
+    <string name="directions_warning_high_alpha">WARNING: An alpha higher then 10 is not very common. Please make sure alpha is correct.</string>
+    <string name="directions_alpha_text_box_for_more_analysis">You can fill out alpha text box for more analysis.</string>
+    <string name="directions_generic_fix_alpha_text_box_for_more_analysis">Fix alpha text box for more analysis.</string>
+    <string name="text_reject_null_analysis">Reject null hypothesis and result is statistically significant.</string>
+    <string name="text_fail_to_reject_null_analysis">We Fail to reject the null hypothesis.</string>
+
+    <!-- functions -->
+
+    <string name="directions_functions">Select the function above and press GO!</string>
+    <string name="text_title_generic_error_output">Error</string>
+    <string name="text_title_generic_result_output">Result</string>
+
+    <!-- binomial -->
+
 
     <string name="text_label_for_binomial_number_of_trials">Number of Trials (n)</string>
     <string name="text_label_for_binomial_prob_success_one_trial">Probability of Success for One Trial (p)</string>
@@ -263,19 +296,32 @@
     <string name="hint_binomial_number_of_successes">Enter the number of successes</string>
     <string name="radio_button_label_binomial_exact">Exact / PDF</string>
     <string name="radio_button_label_binomial_max">Max / CDF</string>
-    <string name="button_label_binomial_calculate">Calculate</string>
-    <string name="button_label_binomial_copy_answer">Copy Answer</string>
-    <string name="button_label_binomial_copy_all_output">Copy All Text</string>
-    <string name="text_label_binomial_result_output">Result</string>
-    <string name="text_label_binomial_error_output">Error</string>
-    <string name="directions_error_on_edit_text_prob_over_100_percent">Input must be no greater than 1 with 1 being 100% and .35 being 35% ect.</string>
-    <string name="directions_error_on_edit_text_decimal_format">invalid decimal format ex .1234</string>
     <string name="directions_error_on_edit_text_binomial_successes_less_than_trials">Number of successes from trials must be less than the number of trials</string>
-    <string name="directions_error_generic_input_empty_and_errors">There are errors and blank input. All text boxes are required for calculation.
-        For input errors you can get more information by clicking on the text box.</string>
-    <string name="directions_error_generic_empty">There is an empty input. All text boxes are required for correct calculation.</string>
-    <string name="directions_error_generic_input">There is an error on a text box. Please solve by reviewing the error message when clicking on the text box.</string>
-    <string name="directions_functions">Select the function above and press GO!</string>
 
+
+    <!-- ttest stats/data -->
+
+    <string name="test_label_for_ttest_data_population_mean">Hypothesized Population Mean of Test (µ0)</string>
+    <string name="label_for_ttest_data_list_selection">Select a list</string>
+    <string name="label_for_ttest_data_alpha">Alpha (α) (optional)</string>
+    <string name="label_for_ttest_data_variance_type">Variance Type to Test (µ)</string>
+    <string name="text_label_for_ttest_stats_hypothesized_mean">Hypothesized Population Mean of Test (µ0)</string>
+    <string name="hint_ttest_hypothesized_mean">Enter the hypothesized population mean of test</string>
+    <string name="text_label_for_ttest_stats_mean_of_sample">Mean of Sample (x̅)</string>
+    <string name="text_label_for_ttest_stats_sample_standard_deviation">Sample Standard Deviation (Sx)</string>
+    <string name="text_label_for_ttest_stats_sample_size_n">Sample Size (n)</string>
+    <string name="text_label_for_ttest_stats_alpha">Alpha (α) (optional)</string>
+    <string name="text_label_for_ttest_stats_variance_type">Variance Type to Test (µ)</string>
+    <string name="hint_ttest_data_population_mean">Enter the population mean</string>
+    <string name="hint_ttest_data_alpha">Enter alpha ex .05</string>
+    <string name="text_ttest_data_variance_equality">≠µ0 (has or does not have test)</string>
+    <string name="text_ttest_data_variance_less_than"><![CDATA[<µ0 (hypothesis is less than test)]]></string>
+    <string name="text_ttest_data_variance_variance_more_than"><![CDATA[>µ0 (hypothesis is more than test)]]></string>
+    <string name="hint_ttest_mean_of_sample">Enter the mean of sample</string>
+    <string name="hint_ttest_standard_deviation">Enter the standard deviation</string>
+    <string name="hint_ttest_sample_size">Enter the sample size</string>
+    <string name="hint_ttest_alpha">Enter alpha ex .05</string>
+    <string name="directions_error_sample_size_less_than_2">The number must be above 1</string>
+    <string name="directions_sample_size_format_error">Must be a whole number above 1</string>
 
 </resources>

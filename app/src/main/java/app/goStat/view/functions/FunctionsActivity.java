@@ -13,6 +13,7 @@ import android.widget.TextView;
 import app.goStat.R;
 import app.goStat.view.functions.functionFragments.BinomialFragment;
 import app.goStat.view.functions.functionFragments.InstructionsFragment;
+import app.goStat.view.functions.functionFragments.TTestData;
 import app.goStat.view.functions.functionFragments.TTestStats;
 
 public class FunctionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -66,6 +67,11 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
             case 2:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.function_content_fragment, TTestStats.newInstance())
+                        .commitNow();
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.function_content_fragment, TTestData.newInstance())
                         .commitNow();
                 break;
         }

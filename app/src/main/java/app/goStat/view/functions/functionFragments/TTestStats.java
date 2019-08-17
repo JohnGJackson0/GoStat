@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 
 import app.goStat.R;
-import app.goStat.util.TTest;
+import app.goStat.util.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 import app.goStat.util.android.TextValidator;
 
@@ -34,7 +34,7 @@ public class TTestStats extends Fragment {
     private String mAnswer;
     private String mOutput;
 
-    private RadioGroup variances;
+    private RadioGroup mVariances;
 
     private enum Variance {
         EQUALITY,
@@ -74,8 +74,8 @@ public class TTestStats extends Fragment {
 
         validateNMoreThan1();
 
-        variances = mRootView.findViewById(R.id.variances_radio_group);
-        variances.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mVariances = mRootView.findViewById(R.id.variances_radio_group);
+        mVariances.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
                 switch(checkedID) {
@@ -169,10 +169,10 @@ public class TTestStats extends Fragment {
                     try {
                         int val = Integer.parseInt(mSampleSize.getText().toString());
                         if (val<2) {
-                            mSampleSize.setError("The number must be above 1");
+                            mSampleSize.setError(getString(R.string.directions_error_sample_size_less_than_2));
                         }
                     } catch (Exception e) {
-                        mSampleSize.setError("Must be a whole number above 1");
+                        mSampleSize.setError(getString(R.string.directions_sample_size_format_error));
                     }
                 }
             }
@@ -211,7 +211,7 @@ public class TTestStats extends Fragment {
         } else if (isAnInputEmpty()) {
             result = getString(R.string.directions_error_generic_empty);
         } else {
-            result = (String) getString(R.string.directions_error_generic_input);
+            result = getString(R.string.directions_error_generic_input);
         }
         return result;
 
@@ -239,7 +239,7 @@ public class TTestStats extends Fragment {
                 "".equals(mSampleMean.getText().toString()) ||
                 "".equals(mSampleStandardDeviation.getText().toString()) ||
                 "".equals(mSampleSize.getText().toString()) ||
-                variances.getCheckedRadioButtonId() == -1);
+                mVariances.getCheckedRadioButtonId() == -1);
     }
 
     private void calculate() {
@@ -269,8 +269,8 @@ public class TTestStats extends Fragment {
         double sampleMean = Double.parseDouble(mSampleMean.getText().toString());
         double sampleStandardDeviation = Double.parseDouble(mSampleStandardDeviation.getText().toString());
         double sampleSize = Double.parseDouble(mSampleSize.getText().toString());
-        double answerT = new TTest().getT(sampleMean,hypothesisValue,sampleSize,sampleStandardDeviation);
-        double answerP = new TTest().getPTwoTailed(sampleSize-1, answerT);
+        double answerT = new TTestUtil().getT(sampleMean,hypothesisValue,sampleSize,sampleStandardDeviation);
+        double answerP = new TTestUtil().getPTwoTailed(sampleSize-1, answerT);
 
         String realAnswerT = Double.toString(answerT);
         String realAnswerP = Double.toString(answerP);
@@ -295,8 +295,8 @@ public class TTestStats extends Fragment {
         double sampleStandardDeviation = Double.parseDouble(mSampleStandardDeviation.getText().toString());
         double sampleSize = Double.parseDouble(mSampleSize.getText().toString());
 
-        double answerT = new TTest().getT(sampleMean,hypothesisValue,sampleSize,sampleStandardDeviation);
-        double answerP = new TTest().getPMoreThan(sampleSize-1, answerT);
+        double answerT = new TTestUtil().getT(sampleMean,hypothesisValue,sampleSize,sampleStandardDeviation);
+        double answerP = new TTestUtil().getPMoreThan(sampleSize-1, answerT);
 
         String realAnswerT = Double.toString(answerT);
         String realAnswerP = Double.toString(answerP);
@@ -320,8 +320,8 @@ public class TTestStats extends Fragment {
         double sampleStandardDeviation = Double.parseDouble(mSampleStandardDeviation.getText().toString());
         double sampleSize = Double.parseDouble(mSampleSize.getText().toString());
 
-        double answerT = new TTest().getT(sampleMean,hypothesisValue,sampleSize,sampleStandardDeviation);
-        double answerP = new TTest().getPLessThan(sampleSize-1, answerT);
+        double answerT = new TTestUtil().getT(sampleMean,hypothesisValue,sampleSize,sampleStandardDeviation);
+        double answerP = new TTestUtil().getPLessThan(sampleSize-1, answerT);
 
         String realAnswerT = Double.toString(answerT);
         String realAnswerP = Double.toString(answerP);
@@ -341,21 +341,21 @@ public class TTestStats extends Fragment {
 
     private String alphaAndPValueAnalysis(double alpha, double pValue) {
         if ("".equals(mAlphaOptionalEditText.getText().toString())) {
-            return "You can fill out alpha text box for more analysis.";
+            return getString(R.string.directions_alpha_text_box_for_more_analysis);
         } else {
             if (mAlphaOptionalEditText.getError() != null){
-                return "Fix alpha text box for more analysis.";
+                return getString(R.string.directions_generic_fix_alpha_text_box_for_more_analysis);
             }
         }
         String warning = "";
         if (alpha > .1) {
-            warning = "WARNING: An alpha higher then 10 is not very common. Please make sure alpha is correct.";
+            warning = getString(R.string.directions_warning_high_alpha);
         }
 
         if (pValue <= alpha) {
-            return "Reject null hypothesis and result is statistically significant. " + warning;
+            return getString(R.string.text_reject_null_analysis) + warning;
         } else {
-            return "We Fail to reject the null hypothesis. " + warning;
+            return getString(R.string.text_fail_to_reject_null_analysis) + warning;
         }
     }
 

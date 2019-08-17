@@ -41,7 +41,7 @@
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hypothesized Value of Test (µ0)"
+                        android:text="@string/text_label_for_ttest_stats_hypothesized_mean"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
                         style="@style/DefaultEditTextTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Enter the hypothesized value of test"
+                        android:hint="@string/hint_ttest_hypothesized_mean"
                         android:inputType="numberDecimal|numberSigned"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mean of Sample (x̅)"
+                        android:text="@string/text_label_for_ttest_stats_mean_of_sample"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/hypothesized_value_edit_text"/>
@@ -74,7 +74,7 @@
                         style="@style/DefaultEditTextTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Enter the mean of sample"
+                        android:hint="@string/hint_ttest_mean_of_sample"
                         android:inputType="numberDecimal|numberSigned"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sample Standard Deviation (Sx)"
+                        android:text="@string/text_label_for_ttest_stats_sample_standard_deviation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/mean_of_sample_edit_text" />
@@ -97,7 +97,7 @@
                         style="@style/DefaultEditTextTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Enter the standard deviation"
+                        android:hint="@string/hint_ttest_standard_deviation"
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sample Size (n)"
+                        android:text="@string/text_label_for_ttest_stats_sample_size_n"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/sample_standard_deviation_edit_text" />
@@ -120,7 +120,7 @@
                         style="@style/DefaultEditTextTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Enter the sample size"
+                        android:hint="@string/hint_ttest_sample_size"
                         android:inputType="number"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +134,7 @@
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Alpha (α) (optional)"
+                        android:text="@string/text_label_for_ttest_stats_alpha"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/sample_size_edit_text_view" />
@@ -144,7 +144,7 @@
                         style="@style/DefaultEditTextTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Enter alpha ex .05"
+                        android:hint="@string/hint_ttest_alpha"
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +158,7 @@
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Variance Type to Test (µ)"
+                        android:text="@string/text_label_for_ttest_stats_variance_type"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/alpha_edit_text" />
@@ -178,21 +178,21 @@
                             style="@style/DefaultRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="≠µ0 (has or does not have test)" />
+                            android:text="@string/text_ttest_data_variance_equality" />
 
                         <RadioButton
                             android:id="@+id/variances_less_than_radio_button"
                             style="@style/DefaultRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="&lt;µ0 (hypothesis is less than test)" />
+                            android:text="@string/text_ttest_data_variance_less_than" />
 
                         <RadioButton
                             android:id="@+id/variances_more_than_radio_button"
                             style="@style/DefaultRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="&gt;µ0 (hypothesis is more than test)" />
+                            android:text="text_ttest_data_variance_variance_more_than" />
                     </RadioGroup>
 
                     <Button
@@ -200,7 +200,7 @@
                         style="@style/DefaultContentButtonTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/button_label_binomial_calculate"
+                        android:text="@string/button_label_generic_calculate"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/variances_radio_group" />
@@ -244,7 +244,7 @@
                         style="@style/DefaultTextViewTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Result"
+                        android:text="@string/text_title_generic_result_output"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -254,7 +254,6 @@
                         style="@style/DefaultTextViewContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="example"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/output_label_text_view" />
@@ -265,7 +264,7 @@
                         android:id="@+id/copy_answer_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text = "@string/button_label_binomial_copy_answer"
+                        android:text = "@string/button_label_copy_answer"
                         android:layout_marginTop="35dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -277,7 +276,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="@string/button_label_binomial_copy_all_output"
+                        android:text="@string/button_label_copy_all_output"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/copy_answer_button"/>
@@ -318,7 +317,7 @@
                         style="@style/DefaultTextViewTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Error"
+                        android:text="@string/text_title_generic_error_output"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
