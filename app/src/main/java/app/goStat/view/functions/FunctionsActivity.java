@@ -1,5 +1,6 @@
 package app.goStat.view.functions;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import app.goStat.view.functions.functionFragments.BinomialFragment;
 import app.goStat.view.functions.functionFragments.InstructionsFragment;
 import app.goStat.view.functions.functionFragments.TTestData;
 import app.goStat.view.functions.functionFragments.TTestStats;
+import app.goStat.view.functions.functionFragments.ZTestStats;
 
 public class FunctionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -74,6 +76,10 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
                         .replace(R.id.function_content_fragment, TTestData.newInstance())
                         .commitNow();
                 break;
+            case 4:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.function_content_fragment,  ZTestStats.newInstance())
+                        .commitNow();
         }
     }
 

@@ -35,7 +35,7 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/hypothesized_value_text_view"
                         style="@style/DefaultTextViewLabel"
@@ -83,26 +83,26 @@
                         android:importantForAutofill="no" />
 
                     <TextView
-                        android:id="@+id/sample_standard_deviation_text_view"
+                        android:id="@+id/standard_deviation_text_view"
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_label_for_ttest_stats_sample_standard_deviation"
+                        android:text="@string/text_label_for_ztest_standard_deviation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/mean_of_sample_edit_text" />
 
                     <EditText
-                        android:id="@+id/sample_standard_deviation_edit_text"
+                        android:id="@+id/standard_deviation_edit_text"
                         style="@style/DefaultEditTextTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_ttest_standard_deviation"
+                        android:hint="@string/hint_ztest_standard_deviation"
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/sample_standard_deviation_text_view"
+                        app:layout_constraintTop_toBottomOf="@id/standard_deviation_text_view"
                         android:importantForAutofill="no" />
 
                     <TextView
@@ -113,7 +113,7 @@
                         android:text="@string/text_label_for_generic_sample_size_n"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/sample_standard_deviation_edit_text" />
+                        app:layout_constraintTop_toBottomOf="@id/standard_deviation_edit_text" />
 
                     <EditText
                         android:id="@+id/sample_size_edit_text_view"

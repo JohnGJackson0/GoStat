@@ -126,21 +126,21 @@
                             style="@style/DefaultRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/text_ttest_data_variance_equality" />
+                            android:text="@string/text_generic_variance_equality" />
 
                         <RadioButton
                             android:id="@+id/variances_less_than_radio_button"
                             style="@style/DefaultRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/text_ttest_data_variance_less_than" />
+                            android:text="@string/text_generic_variance_less_than" />
 
                         <RadioButton
                             android:id="@+id/variances_more_than_radio_button"
                             style="@style/DefaultRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/text_ttest_data_variance_variance_more_than" />
+                            android:text="@string/text_generic_variance_variance_more_than" />
                     </RadioGroup>
 
                     <Button

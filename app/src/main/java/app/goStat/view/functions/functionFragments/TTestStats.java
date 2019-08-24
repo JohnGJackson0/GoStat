@@ -2,6 +2,7 @@ package app.goStat.view.functions.functionFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +20,18 @@ import app.goStat.util.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 import app.goStat.util.android.TextValidator;
 
-public class TTestStats extends Fragment {
+public class TTestStats extends StatisticsTestFragments {
 
     private View mRootView;
     private EditText mHypothesisValue;
     private EditText mSampleMean;
     private EditText mSampleStandardDeviation;
     private EditText mSampleSize;
-    private Button mCalculate;
     private TextView mOutputView;
-    private Variance mCurrentVariance;
     private EditText mAlphaOptionalEditText;
 
     private String mAnswer;
     private String mOutput;
-
-    private RadioGroup mVariances;
 
     private enum Variance {
         EQUALITY,
@@ -61,48 +58,16 @@ public class TTestStats extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mRootView = inflater.inflate(R.layout.fragment_t_test_stats, container, false);
+        mRootView = inflateFragment(R.layout.fragment_t_test_stats,inflater,container);
 
         mHypothesisValue = mRootView.findViewById(R.id.hypothesized_value_edit_text);
         mSampleMean = mRootView.findViewById(R.id.mean_of_sample_edit_text);
         mSampleStandardDeviation = mRootView.findViewById(R.id.sample_standard_deviation_edit_text);
         mSampleSize = mRootView.findViewById(R.id.sample_size_edit_text_view);
-        mCalculate = mRootView.findViewById(R.id.calculate_t_test_stats_button);
         mOutputView = mRootView.findViewById(R.id.output_text_view);
-        mCurrentVariance = Variance.EQUALITY;
         mAlphaOptionalEditText = mRootView.findViewById(R.id.alpha_edit_text);
 
         validateNMoreThan1();
-
-        mVariances = mRootView.findViewById(R.id.variances_radio_group);
-        mVariances.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
-                switch(checkedID) {
-                    case R.id.variances_equality_radio_button:
-                        onEqualityTestClicked();
-                        break;
-                    case R.id.variances_less_than_radio_button:
-                        onLessThanTestClicked();
-                        break;
-                    case R.id.variances_more_than_radio_button:
-                        onMoreThanTestClicked();
-                        break;
-                }
-            }
-        });
-
-        mCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isValid()) {
-                    calculate();
-                } else {
-                    displayError();
-                }
-            }
-        });
-
 
         Button copyAnswer =  mRootView.findViewById(R.id.copy_answer_button);
 
@@ -121,31 +86,20 @@ public class TTestStats extends Fragment {
                 copyAllTextToClipboard();
             }
         });
-
-        mAlphaOptionalEditText.addTextChangedListener(new TextValidator(mAlphaOptionalEditText) {
-            @Override
-            public void validate(TextView textView, String text) {
-                BigDecimal actualProbability;
-                if (!".".equals(mAlphaOptionalEditText.getText().toString())
-                        && !"".equals(mAlphaOptionalEditText.getText().toString())) {
-                    try {
-                        actualProbability = new BigDecimal(mAlphaOptionalEditText.getText().toString());
-
-                        if (actualProbability.compareTo(BigDecimal.ONE) > 0) {
-                            mAlphaOptionalEditText.setError(getString(R.string.directions_error_on_edit_text_prob_over_100_percent));
-                        }
-                    } catch (Exception e){
-                        mAlphaOptionalEditText.setError(getString(R.string.directions_error_on_edit_text_decimal_format));
-                    }
-                }
-            }
-        });
-
-
-
-
-
         return mRootView;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mRootView.findViewById(R.id.calculate_button).findViewById(R.id.calculate_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onCalculatedClicked();
+                    }
+                });
     }
 
 
@@ -179,91 +133,21 @@ public class TTestStats extends Fragment {
         });
     }
 
-    private boolean isValid() {
-        return !isAnInputEmpty() && !doesEditTextContainError();
-    }
-
-    private void displayResult(){
-        LinearLayout errorContainer = mRootView.findViewById(R.id.error_container_for_padding);
-        errorContainer.setVisibility(View.GONE);
-
-        LinearLayout output= mRootView.findViewById(R.id.output_container_for_padding);
-        output.setVisibility(View.VISIBLE);
-        scrollToBottom();
-    }
-
-    private void displayError() {
-        LinearLayout errorContainer = mRootView.findViewById(R.id.error_container_for_padding);
-        errorContainer.setVisibility(View.VISIBLE);
-
-        LinearLayout output= mRootView.findViewById(R.id.output_container_for_padding);
-        output.setVisibility(View.GONE);
-        TextView errorTextView = mRootView.findViewById(R.id.error_text_view);
-        errorTextView.setText(getErrorMessage());
-        scrollToBottom();
-    }
-
-    private String getErrorMessage() {
-        String result;
-
-        if(isAnInputEmpty() && doesEditTextContainError()) {
-            result = getString(R.string.directions_error_generic_input_empty_and_errors);
-        } else if (isAnInputEmpty()) {
-            result = getString(R.string.directions_error_generic_empty);
-        } else {
-            result = getString(R.string.directions_error_generic_input);
-        }
-        return result;
-
-    }
-
-    private boolean doesEditTextContainError() {
+    protected boolean doesEditTextContainError() {
         return (mHypothesisValue.getError() != null ||
                 mSampleMean.getError() != null ||
                 mSampleStandardDeviation.getError() != null) ||
                 mSampleSize.getError() != null;
     }
 
-    private void scrollToBottom(){
-        ScrollView scrollView = mRootView.findViewById(R.id.content_scroll_view);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        });
-    }
-
-    private boolean isAnInputEmpty() {
+    protected boolean isAnInputEmpty() {
         return ("".equals(mHypothesisValue.getText().toString()) ||
                 "".equals(mSampleMean.getText().toString()) ||
                 "".equals(mSampleStandardDeviation.getText().toString()) ||
-                "".equals(mSampleSize.getText().toString()) ||
-                mVariances.getCheckedRadioButtonId() == -1);
+                "".equals(mSampleSize.getText().toString()));
     }
 
-    private void calculate() {
-        displayResult();
-        if (mCurrentVariance == mCurrentVariance.EQUALITY) {
-            calculateEqualityVariance();
-        } else if (mCurrentVariance == mCurrentVariance.MORETHAN) {
-            calculateMoreThanVariance();
-        } else if (mCurrentVariance == mCurrentVariance.LESSTHAN) {
-            calculateLessThanVariance();
-        }
-    }
-
-
-    private double getAlpha() {
-        try {
-            return Double.parseDouble(mAlphaOptionalEditText.getText().toString());
-        } catch (Exception e) {
-            return 0;
-        }
-
-    }
-
-    private void calculateEqualityVariance() {
+    protected void calculateEqualityVariance() {
         //calculate equality test
         double hypothesisValue = Double.parseDouble(mHypothesisValue.getText().toString());
         double sampleMean = Double.parseDouble(mSampleMean.getText().toString());
@@ -289,7 +173,7 @@ public class TTestStats extends Fragment {
 
         mOutputView.setText(mOutput);
     }
-    private void calculateMoreThanVariance() {
+    protected void calculateMoreThanVariance() {
         double hypothesisValue = Double.parseDouble(mHypothesisValue.getText().toString());
         double sampleMean = Double.parseDouble(mSampleMean.getText().toString());
         double sampleStandardDeviation = Double.parseDouble(mSampleStandardDeviation.getText().toString());
@@ -314,7 +198,7 @@ public class TTestStats extends Fragment {
         mOutputView.setText(mOutput);
     }
 
-    private void calculateLessThanVariance() {
+    protected void calculateLessThanVariance() {
         double hypothesisValue = Double.parseDouble(mHypothesisValue.getText().toString());
         double sampleMean = Double.parseDouble(mSampleMean.getText().toString());
         double sampleStandardDeviation = Double.parseDouble(mSampleStandardDeviation.getText().toString());
@@ -339,39 +223,9 @@ public class TTestStats extends Fragment {
         mOutputView.setText(mOutput);
     }
 
-    private String alphaAndPValueAnalysis(double alpha, double pValue) {
-        if ("".equals(mAlphaOptionalEditText.getText().toString())) {
-            return getString(R.string.directions_alpha_text_box_for_more_analysis);
-        } else {
-            if (mAlphaOptionalEditText.getError() != null){
-                return getString(R.string.directions_generic_fix_alpha_text_box_for_more_analysis);
-            }
-        }
-        String warning = "";
-        if (alpha > .1) {
-            warning = getString(R.string.directions_warning_high_alpha);
-        }
-
-        if (pValue <= alpha) {
-            return getString(R.string.text_reject_null_analysis) + warning;
-        } else {
-            return getString(R.string.text_fail_to_reject_null_analysis) + warning;
-        }
+    @Override
+    protected EditText getAlphaEditText() {
+        return mAlphaOptionalEditText;
     }
-
-    private void onEqualityTestClicked() {
-        mCurrentVariance = Variance.EQUALITY;
-    }
-
-    private void onLessThanTestClicked() {
-        mCurrentVariance = Variance.LESSTHAN;
-    }
-
-    private void onMoreThanTestClicked() {
-        mCurrentVariance = Variance.MORETHAN;
-    }
-
-
-
 
 }
