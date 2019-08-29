@@ -6,17 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import app.goStat.R;
-import app.goStat.util.TTestUtil;
 import app.goStat.util.ZTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 
 
-public class ZTestStats extends StatisticsTestFragments {
+public class ZTestStatisticsStats extends TestStatisticsFragments {
 
     private View mRootView;
     private EditText mHypothesisValue;
@@ -28,7 +26,7 @@ public class ZTestStats extends StatisticsTestFragments {
     private String mAnswer;
     private String mOutput;
 
-    public ZTestStats() {
+    public ZTestStatisticsStats() {
         // Required empty public constructor
     }
 
@@ -187,8 +185,8 @@ public class ZTestStats extends StatisticsTestFragments {
                 mSampleSize.getError() != null;
     }
 
-    public static ZTestStats newInstance() {
-        ZTestStats fragment = new ZTestStats();
+    public static ZTestStatisticsStats newInstance() {
+        ZTestStatisticsStats fragment = new ZTestStatisticsStats();
         return  fragment;
     }
 

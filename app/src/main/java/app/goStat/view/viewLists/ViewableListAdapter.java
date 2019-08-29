@@ -49,7 +49,7 @@ public class ViewableListAdapter extends PagedListAdapter<DataPoint, ViewableLis
 
         void bindTo(int listIndex, DataPoint dataPoint) {
             viewableDataPoint.setText(dataPoint.getValue().toString());
-            positionDataPoint.setText(Integer.toString(listIndex + 1)); //statistical lists start at 1 instead of 0
+            positionDataPoint.setText(Integer.toString(listIndex + 1)); //statistical ListsLoader start at 1 instead of 0
 
             if (!dataPoint.isEnabled()) {
                 itemView.setBackgroundColor(itemView.getContext().getColor(R.color.highlight));

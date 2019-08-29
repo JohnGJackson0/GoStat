@@ -22,7 +22,7 @@ public class AppRepository {
 
     /*
      *
-     * The following methods are created for Lists
+     * The following methods are created for ListsLoader
      * from StatisticalListDao
      *
      */

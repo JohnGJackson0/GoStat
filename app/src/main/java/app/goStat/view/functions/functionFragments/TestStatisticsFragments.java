@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import app.goStat.R;
 import app.goStat.util.android.TextValidator;
 
-public abstract class StatisticsTestFragments extends Fragment {
+public abstract class TestStatisticsFragments extends Fragment {
     ScrollView mLayout;
     Variance mCurrentVariance;
 
@@ -148,6 +148,17 @@ public abstract class StatisticsTestFragments extends Fragment {
         scrollToBottom();
     }
 
+    private void customError(String error) {
+        View errorContainer = mLayout.findViewById(R.id.generic_error_layout);
+        errorContainer.setVisibility(View.VISIBLE);
+
+        View output= mLayout.findViewById(R.id.generic_output_layout);
+        output.setVisibility(View.GONE);
+        TextView errorTextView = mLayout.findViewById(R.id.error_text_view);
+        errorTextView.setText(error);
+        scrollToBottom();
+    }
+
     private String getErrorMessage() {
         String result;
 
@@ -157,6 +168,10 @@ public abstract class StatisticsTestFragments extends Fragment {
             result = getString(R.string.directions_error_generic_input);
         }
         return result;
+    }
+
+    protected void setError(String error){
+        customError(error);
     }
 
     protected void calculate() {

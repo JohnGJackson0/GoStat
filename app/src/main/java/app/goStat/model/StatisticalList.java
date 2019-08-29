@@ -49,7 +49,7 @@ public class StatisticalList {
         this.name = name;
     }
 
-    //Some lists would be associated with another list of the same class
+    //Some ListsLoader would be associated with another list of the same class
     //  such as a frequency table
     public void setAssociatedList(int id) {
         associatedList = id;

@@ -66,7 +66,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
         }
 
         void bindTo (DataPoint dataPoint, int position) {
-            mIndexOfEditableRow.setText(Integer.toString(position + 1));//statistical lists start at 1
+            mIndexOfEditableRow.setText(Integer.toString(position + 1));//statistical ListsLoader start at 1
             Log.v("NumberViewHolder", "bindTo: binding at position: " + Integer.toString(position));
 
             if (dataPoint.isEnabled()) {

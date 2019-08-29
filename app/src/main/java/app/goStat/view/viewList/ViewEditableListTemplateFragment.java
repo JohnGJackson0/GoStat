@@ -233,7 +233,7 @@ public class ViewEditableListTemplateFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 int jumpToAmount = Integer.parseInt(input.getText().toString());
-                jumpTo(jumpToAmount-1); //Statistical Lists start at 1
+                jumpTo(jumpToAmount-1); //Statistical ListsLoader start at 1
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

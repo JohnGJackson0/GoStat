@@ -1,6 +1,5 @@
 package app.goStat.view.functions;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +13,9 @@ import android.widget.TextView;
 import app.goStat.R;
 import app.goStat.view.functions.functionFragments.BinomialFragment;
 import app.goStat.view.functions.functionFragments.InstructionsFragment;
-import app.goStat.view.functions.functionFragments.TTestData;
-import app.goStat.view.functions.functionFragments.TTestStats;
-import app.goStat.view.functions.functionFragments.ZTestStats;
+import app.goStat.view.functions.functionFragments.TTestStatisticsData;
+import app.goStat.view.functions.functionFragments.TTestStatisticsStats;
+import app.goStat.view.functions.functionFragments.ZTestStatisticsStats;
 
 public class FunctionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -68,17 +67,17 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment, TTestStats.newInstance())
+                        .replace(R.id.function_content_fragment, TTestStatisticsStats.newInstance())
                         .commitNow();
                 break;
             case 3:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment, TTestData.newInstance())
+                        .replace(R.id.function_content_fragment, TTestStatisticsData.newInstance())
                         .commitNow();
                 break;
             case 4:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment,  ZTestStats.newInstance())
+                        .replace(R.id.function_content_fragment,  ZTestStatisticsStats.newInstance())
                         .commitNow();
         }
     }

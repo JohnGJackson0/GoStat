@@ -57,7 +57,7 @@
     <string name="text_the_postfix_label_for_list_tags">}</string>
 
     <!--
-        Reserved for Functions (stat functions without lists of data)
+        Reserved for Functions (stat functions without ListsLoader of data)
     -->
 
     <string name="text_label_for_user_input_for_calculations">Input</string>
@@ -65,7 +65,7 @@
 
 
     <!--
-        Tag messages are descriptive characteristics for lists. Located when you see all lists when
+        Tag messages are descriptive characteristics for ListsLoader. Located when you see all ListsLoader when
         opening the app on 3/16/2019
     -->
 

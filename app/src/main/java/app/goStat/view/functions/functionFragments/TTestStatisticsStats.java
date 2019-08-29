@@ -1,26 +1,19 @@
 package app.goStat.view.functions.functionFragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
-import java.math.BigDecimal;
 
 import app.goStat.R;
 import app.goStat.util.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 import app.goStat.util.android.TextValidator;
 
-public class TTestStats extends StatisticsTestFragments {
+public class TTestStatisticsStats extends TestStatisticsFragments {
 
     private View mRootView;
     private EditText mHypothesisValue;
@@ -40,12 +33,12 @@ public class TTestStats extends StatisticsTestFragments {
         ;
     }
 
-    public TTestStats() {
+    public TTestStatisticsStats() {
         // Required empty public constructor
     }
 
-    public static TTestStats newInstance() {
-        TTestStats fragment = new TTestStats();
+    public static TTestStatisticsStats newInstance() {
+        TTestStatisticsStats fragment = new TTestStatisticsStats();
         return fragment;
     }
 
