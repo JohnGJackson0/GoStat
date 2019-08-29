@@ -10,16 +10,16 @@ import app.goStat.model.AppRepository;
 import app.goStat.model.DataPoint;
 import app.goStat.model.StatisticalList;
 
-public class ListsViewModel extends AndroidViewModel {
+public class ZTestDataViewModel extends AndroidViewModel {
 
     private AppRepository mRepository;
 
-    public ListsViewModel (Application application) {
+    public ZTestDataViewModel(Application application) {
         super(application);
         mRepository = new AppRepository(application);
     }
 
-    public LiveData<List<StatisticalList>> getAllEditableLists() {
+    LiveData<List<StatisticalList>> getAllEditableLists() {
         return mRepository.getAllStatisticalLists();
     }
 

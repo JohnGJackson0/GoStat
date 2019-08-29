@@ -58,6 +58,31 @@
                         app:layout_constraintTop_toBottomOf="@id/hypothesized_value_text_view"
                         android:importantForAutofill="no" />
 
+
+                    <TextView
+                        android:id="@+id/standard_deviation_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/test_label_for_z_test_standard_deviation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hypothesized_value_edit_text" />
+
+                    <EditText
+                        android:id="@+id/standard_deviation_edit_text"
+                        style="@style/DefaultEditTextTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_generic_data_population_mean"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:imeOptions="actionNext"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/standard_deviation_text_view"
+                        android:importantForAutofill="no" />
+
+
                     <TextView
                         android:id="@+id/select_list_text_view"
                         style="@style/DefaultTextViewLabel"
@@ -66,7 +91,7 @@
                         android:text="@string/label_for_generic_data_list_selection"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/hypothesized_value_edit_text" />
+                        app:layout_constraintTop_toBottomOf="@id/standard_deviation_edit_text" />
 
                     <Spinner
                         android:id="@+id/select_list_spinner"

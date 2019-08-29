@@ -1,10 +1,8 @@
 package app.goStat.view.functions.functionFragments.TestsData;
 
 import android.app.Activity;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -13,11 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.goStat.R;
-import app.goStat.model.StatisticalList;
 
 public class ListsLoader {
     Activity mActivity;
@@ -27,7 +23,7 @@ public class ListsLoader {
     public ListsLoader(Activity activity, Spinner spinner) {
         mActivity = activity;
         mSpinner = spinner;
-        mViewModel = ViewModelProviders.of((FragmentActivity) activity).get(ListsViewModel.class);
+        mViewModel = ViewModelProviders.of((FragmentActivity) activity).get(TTestDataViewModel.class);
     }
 
 

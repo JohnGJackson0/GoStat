@@ -169,6 +169,7 @@
         <item>T-Test Stats</item>
         <item>T-Test Data</item>
         <item>Z-Test Stats</item>
+        <item>Z-Test Data</item>
     </string-array>
 
     <!-- The labels for the spinners -->
@@ -302,10 +303,10 @@
 
     <!-- ttest stats/data -->
 
-    <string name="test_label_for_ttest_data_population_mean">Hypothesized Population Mean of Test (µ0)</string>
-    <string name="label_for_ttest_data_list_selection">Select a list</string>
-    <string name="label_for_ttest_data_alpha">Alpha (α) (optional)</string>
-    <string name="label_for_ttest_data_variance_type">Variance Type to Test (µ)</string>
+    <string name="test_label_generic_data_population_mean">Hypothesized Population Mean of Test (µ0)</string>
+    <string name="label_for_generic_data_list_selection">Select a list</string>
+    <string name="label_for_generic_data_alpha">Alpha (α) (optional)</string>
+    <string name="label_for_generic_data_variance_type">Variance Type to Test (µ)</string>
     <string name="text_label_for_generic_hypothesized_mean">Hypothesized Population Mean of Test (µ0)</string>
     <string name="hint_generic_hypothesized_mean">Enter the hypothesized population mean of test</string>
     <string name="text_label_for_generic_mean_of_sample">Mean of Sample (x̅)</string>
@@ -313,8 +314,8 @@
     <string name="text_label_for_generic_sample_size_n">Sample Size (n)</string>
     <string name="text_label_for_generic_alpha">Alpha (α) (optional)</string>
     <string name="text_label_for_generic_variance_type">Variance Type to Test (µ)</string>
-    <string name="hint_ttest_data_population_mean">Enter the population mean</string>
-    <string name="hint_ttest_data_alpha">Enter alpha ex .05</string>
+    <string name="hint_generic_data_population_mean">Enter the population mean</string>
+    <string name="hint_generic_data_alpha">Enter alpha ex .05</string>
     <string name="text_generic_variance_equality">≠µ0 (has or does not have test)</string>
     <string name="text_generic_variance_less_than"><![CDATA[<µ0 (hypothesis is less than test)]]></string>
     <string name="text_generic_variance_variance_more_than"><![CDATA[>µ0 (hypothesis is more than test)]]></string>
@@ -326,5 +327,6 @@
     <string name="directions_sample_size_format_error">Must be a whole number above 1</string>
     <string name="text_label_for_ztest_standard_deviation">Standard Deviation (σ)</string>
     <string name="hint_ztest_standard_deviation">Enter the standard deviation</string>
+    <string name="test_label_for_z_test_standard_deviation">Standard Deviation (σ)</string>
 
 </resources>
