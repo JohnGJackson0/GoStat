@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import app.goStat.R;
 import app.goStat.util.android.TextValidator;
 
-public abstract class TestStatisticsFragments extends Fragment {
+public abstract class TestStatisticsFragment extends Fragment {
     ScrollView mLayout;
     Variance mCurrentVariance;
 

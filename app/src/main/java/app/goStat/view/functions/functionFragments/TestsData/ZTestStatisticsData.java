@@ -5,10 +5,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,11 +19,11 @@ import java.util.List;
 import app.goStat.R;
 import app.goStat.model.DataPoint;
 import app.goStat.model.StatisticalList;
-import app.goStat.util.TTestUtil;
-import app.goStat.util.ZTestUtil;
-import app.goStat.view.functions.functionFragments.TestStatisticsFragments;
+import app.goStat.util.StatisticsTests.ZTestUtil;
+import app.goStat.util.android.ClipboardUtil;
+import app.goStat.view.functions.functionFragments.TestStatisticsFragment;
 
-public class ZTestStatisticsData extends TestStatisticsFragments {
+public class ZTestStatisticsData extends TestStatisticsFragment {
     private ZTestDataViewModel mViewModel;
     private View mRootView;
     private Spinner mSelectListSpinner;
@@ -50,6 +50,23 @@ public class ZTestStatisticsData extends TestStatisticsFragments {
         mOutputView = mRootView.findViewById(R.id.output_text_view);
         mStandardDeviation = mRootView.findViewById(R.id.standard_deviation_edit_text);
         setSpinner();
+        Button copyAnswer =  mRootView.findViewById(R.id.copy_answer_button);
+
+        copyAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyAnswerToClipboard();
+            }
+        });
+
+        Button copyAllText =  mRootView.findViewById(R.id.copy_all_text_button);
+
+        copyAllText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyAllTextToClipboard();
+            }
+        });
         return mRootView;
     }
 
@@ -89,6 +106,19 @@ public class ZTestStatisticsData extends TestStatisticsFragments {
         }
         return 0;
     }
+
+    private void copyAnswerToClipboard(){
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mAnswer, getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
+    }
+
+    private void copyAllTextToClipboard(){
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mOutput,getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
+    }
+
 
 
     @Override

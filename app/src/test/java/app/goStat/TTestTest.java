@@ -2,7 +2,7 @@ package app.goStat;
 
 import org.junit.Test;
 
-import app.goStat.util.TTestUtil;
+import app.goStat.util.StatisticsTests.TTestUtil;
 
 import static org.junit.Assert.assertEquals;
 

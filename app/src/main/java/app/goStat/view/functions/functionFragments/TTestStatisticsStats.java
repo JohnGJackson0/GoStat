@@ -9,11 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import app.goStat.R;
-import app.goStat.util.TTestUtil;
+import app.goStat.util.StatisticsTests.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 import app.goStat.util.android.TextValidator;
 
-public class TTestStatisticsStats extends TestStatisticsFragments {
+public class TTestStatisticsStats extends TestStatisticsFragment {
 
     private View mRootView;
     private EditText mHypothesisValue;

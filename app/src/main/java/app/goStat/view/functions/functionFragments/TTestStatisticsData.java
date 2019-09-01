@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,10 +20,11 @@ import java.util.List;
 import app.goStat.R;
 import app.goStat.model.DataPoint;
 import app.goStat.model.StatisticalList;
-import app.goStat.util.TTestUtil;
+import app.goStat.util.StatisticsTests.TTestUtil;
+import app.goStat.util.android.ClipboardUtil;
 import app.goStat.view.functions.functionFragments.TestsData.ListsLoader;
 
-public class TTestStatisticsData extends TestStatisticsFragments {
+public class TTestStatisticsData extends TestStatisticsFragment {
 
     private TTestDataViewModel mViewModel;
     private View mRootView;
@@ -56,6 +55,24 @@ public class TTestStatisticsData extends TestStatisticsFragments {
         mOutputView = mRootView.findViewById(R.id.output_text_view);
 
         setSpinner();
+
+        Button copyAnswer =  mRootView.findViewById(R.id.copy_answer_button);
+
+        copyAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyAnswerToClipboard();
+            }
+        });
+
+        Button copyAllText =  mRootView.findViewById(R.id.copy_all_text_button);
+
+        copyAllText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyAllTextToClipboard();
+            }
+        });
         //observeList();
         return mRootView;
     }
@@ -92,8 +109,21 @@ public class TTestStatisticsData extends TestStatisticsFragments {
                 });
     }
 
+    private void copyAnswerToClipboard(){
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mAnswer, getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
+    }
 
-     protected boolean isAnInputEmpty() {
+    private void copyAllTextToClipboard(){
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mOutput,getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
+    }
+
+
+
+    protected boolean isAnInputEmpty() {
         return ("".equals(mHypothesisMean.getText().toString()));
     }
 

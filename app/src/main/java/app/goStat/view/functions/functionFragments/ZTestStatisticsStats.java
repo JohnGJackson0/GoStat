@@ -10,11 +10,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import app.goStat.R;
-import app.goStat.util.ZTestUtil;
+import app.goStat.util.StatisticsTests.ZTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 
 
-public class ZTestStatisticsStats extends TestStatisticsFragments {
+public class ZTestStatisticsStats extends TestStatisticsFragment {
 
     private View mRootView;
     private EditText mHypothesisValue;
