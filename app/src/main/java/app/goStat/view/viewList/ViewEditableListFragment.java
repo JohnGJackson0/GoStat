@@ -26,7 +26,7 @@ public class ViewEditableListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.view_editable_list_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_view_editable_list, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         startRecyclerView(rootView);
 

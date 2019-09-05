@@ -59,7 +59,7 @@ public class GraphHistogramFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // due to lifecycle getActivity() or getContext() will return null before this is called.
-        View rootView = inflater.inflate(R.layout.histogram_graph_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_graph_histogram, container, false);
         getActivity().setTitle(getResources().getString(R.string.fragment_label_graph_histogram));
         mParentActivity = getActivity();
         mListID = getArguments().getInt(EXTRA_LIST_ID);

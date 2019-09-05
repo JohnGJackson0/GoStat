@@ -18,7 +18,7 @@ public class ActiveListSelectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView mListDetailsRecyclerView;
-        rootView = inflater.inflate(R.layout.fragment_clickable_lists_details_rv_container, container, false);
+        rootView = inflater.inflate(R.layout.list_clickable_lists_details_rv_container, container, false);
         mListDetailsRecyclerView = rootView.findViewById(R.id.rv_list_details);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mListDetailsRecyclerView.setLayoutManager(linearLayoutManager);

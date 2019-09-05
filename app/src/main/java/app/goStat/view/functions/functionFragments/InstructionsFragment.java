@@ -30,7 +30,7 @@ public class InstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mRootView = inflater.inflate(R.layout.instructions_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_test_instructions, container, false);
 
         return mRootView;
     }

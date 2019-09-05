@@ -8,7 +8,7 @@
     android:descendantFocusability="afterDescendants"
     tools:context=".view.viewList.EditableListActivity">
 
-    <include layout ="@layout/editing_list_instructions"
+    <include layout ="@layout/content_editing_list_instructions"
         android:id="@+id/instructions"
         android:visibility="gone"/>
 

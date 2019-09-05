@@ -43,7 +43,7 @@ public class ShowSummaryStatisticsFragment extends Fragment implements View.OnCl
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mListID = getArguments().getInt(EXTRA_LIST_ID);
-        mRootView = inflater.inflate(R.layout.show_summary_statstics_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_show_summary_statistics, container, false);
         mCopyToClipboard = mRootView.findViewById(R.id.copy_to_clipboard_button);
         mCopyToClipboard.setOnClickListener(this);
         fillOneVariableStatistics(mRootView);

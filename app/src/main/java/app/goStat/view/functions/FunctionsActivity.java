@@ -24,7 +24,7 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.functions_activity);
+        setContentView(R.layout.activitiy_test_functions);
         Spinner spinner = findViewById(R.id.functions_selection_spinner);
         colorSpinner(spinner);
         spinner.setOnItemSelectedListener(this);

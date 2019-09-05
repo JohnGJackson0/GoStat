@@ -41,7 +41,7 @@ public class CreateFrequencyTableFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.create_frequency_table_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_create_frequency_table, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         initializeLayoutComponents(rootView);
         getViewModel().getNumberOfDataPointsInList(mListID).observe(this, new Observer<Long>() {

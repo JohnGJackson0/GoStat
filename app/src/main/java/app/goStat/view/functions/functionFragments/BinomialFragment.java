@@ -72,7 +72,7 @@ public class BinomialFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mRootView =  inflater.inflate(R.layout.binomial_fragment, container, false);
+        mRootView =  inflater.inflate(R.layout.fragment_binomial_test, container, false);
 
         mTrialsEditText = mRootView.findViewById(R.id.number_of_trials_edit_text);
         mProbabilityOfSuccessEditText = mRootView.findViewById(R.id.probability_of_success_edit_text);

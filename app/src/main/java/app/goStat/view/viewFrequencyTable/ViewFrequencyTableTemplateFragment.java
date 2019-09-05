@@ -29,7 +29,7 @@ public class ViewFrequencyTableTemplateFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.view_frequency_table_template_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_view_frequency_table_template, container, false);
         mListID = getArguments().getInt(EXTRA_LIST_ID);
         setMetaDetails();
         startViewFragment();

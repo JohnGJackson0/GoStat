@@ -16,7 +16,7 @@ public class ViewFrequencyTableActivity extends AppCompatActivity {
         setListID();
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.view_frequency_table_activity);
+        setContentView(R.layout.activity_view_frequency_table);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, ViewFrequencyTableTemplateFragment.newInstance(mListId))

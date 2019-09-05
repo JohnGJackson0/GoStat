@@ -20,7 +20,7 @@
             <include
                 android:id="@+id/include_instructions"
                 android:visibility="gone"
-                layout="@layout/viewing_list_instructions" />
+                layout="@layout/content_view_list_instructions" />
         </LinearLayout>
 
         <TextView
