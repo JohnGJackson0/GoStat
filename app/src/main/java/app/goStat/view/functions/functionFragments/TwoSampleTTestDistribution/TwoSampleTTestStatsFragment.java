@@ -14,7 +14,7 @@ import app.goStat.R;
 import app.goStat.util.StatisticsTests.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 
-public class TwoSampleTTestStats extends TestStatisticsFragment {
+public class TwoSampleTTestStatsFragment extends TestStatisticsFragment {
     View mRootView;
 
     EditText mAlphaOptionalEditText;
@@ -114,8 +114,8 @@ public class TwoSampleTTestStats extends TestStatisticsFragment {
         clip.showCopyToClipboardMessage(getActivity());
     }
 
-    public static TwoSampleTTestStats newInstance() {
-        return new TwoSampleTTestStats();
+    public static TwoSampleTTestStatsFragment newInstance() {
+        return new TwoSampleTTestStatsFragment();
     }
 
     @Override
@@ -194,112 +194,6 @@ public class TwoSampleTTestStats extends TestStatisticsFragment {
                 Double.parseDouble(mListTwoSampleSize.getText().toString()),
                 Double.parseDouble(mListTwoSampleMean.getText().toString()),
                 Double.parseDouble(mListTwoStandardDeviation.getText().toString()));
-    }
-
-    private class TTestData {
-        protected double n1;
-        protected double xBar1;
-        protected double sX1;
-        protected double n2;
-        protected double xBar2;
-        protected double sX2;
-
-        TTestData(double n1,double xBar1, double sX1, double n2, double xBar2,double sX2){
-            this.n1 = n1;
-            this.sX1 =sX1;
-            this.xBar1=xBar1;
-            this.n2 = n2;
-            this.sX2 = sX2;
-            this.xBar2 = xBar2;
-        }
-
-        @Override
-        public String toString() {
-            return "n1: " + n1 + "\n"
-                    + "sX1: " + sX1 + "\n"
-                    + "x̄1: " + xBar1 + "\n"
-                    + "n2: " + n2 + "\n"
-                    + "sX2: " + sX2 + "\n"
-                    + "x̄2: " + xBar2 + "\n";
-        }
-    }
-
-    private interface TDistributionTest{
-        double getT();
-        double getP();
-    }
-
-    private abstract class PooledVarianceDistributionTest implements TDistributionTest{
-        TTestData data;
-
-        PooledVarianceDistributionTest(TTestData data) {
-            this.data = data;
-        }
-
-        public double getT() {
-            return new TTestUtil().getTOfPooledTwoSampleTTest(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-
-        @Override
-        public String toString() {
-            return "Output: \n\n" +
-                    "t = " + getT() + "\n" +
-                    "p = " + getP() + "\n\n" +
-                    "Input: \n" +
-                    data.toString() + "\n" +
-                    "pooled = yes";
-        }
-
-        public abstract double getP();
-    }
-
-    private class PooledMoreThanDistributionTest extends PooledVarianceDistributionTest {
-        PooledMoreThanDistributionTest(TTestData data){
-            super(data);
-        }
-
-        @Override
-        public double getP() {
-            return new TTestUtil().getPOfPooledTwoSampleTTestMoreThan(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-        @Override
-        public String toString() {
-            return super.toString() +
-                    "variance type: more than";
-        }
-    }
-
-    private class PooledLessThanDistributionTest extends PooledVarianceDistributionTest {
-        PooledLessThanDistributionTest(TTestData data){
-            super(data);
-        }
-
-        @Override
-        public double getP() {
-            return new TTestUtil().getPOfPooledTwoSampleTTestLessThan(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-        @Override
-        public String toString() {
-            return super.toString() +
-                    "variance type: less than";
-        }
-    }
-
-    private class PooledTwoTailedDistributionTest extends PooledVarianceDistributionTest {
-        PooledTwoTailedDistributionTest(TTestData data){
-            super(data);
-        }
-
-        @Override
-        public double getP() {
-            return new TTestUtil().getPOfPooledTwoSampleTTestTwoTailed(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() +
-                    "variance type: two tailed";
-        }
     }
 
     private abstract class NotPooledVarianceDistributionTest implements TDistributionTest{
