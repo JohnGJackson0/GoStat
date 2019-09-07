@@ -1,4 +1,4 @@
-package app.goStat.view.functions.functionFragments;
+package app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

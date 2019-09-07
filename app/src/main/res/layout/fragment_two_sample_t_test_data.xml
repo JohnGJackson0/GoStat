@@ -1,6 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    android:id="@+id/content_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/input_container_for_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/input_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:contentPadding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/select_list_one_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select List One"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"  />
+
+                    <Spinner
+                        android:id="@+id/list_one_spinner"
+                        style="@style/DefaultSpinnerThemeWithMargin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/select_list_one_text_view" />
+
+                    <TextView
+                        android:id="@+id/select_list_two_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select List Two"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_one_spinner" />
+
+                    <Spinner
+                        android:id="@+id/list_two_spinner"
+                        style="@style/DefaultSpinnerThemeWithMargin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/select_list_two_text_view" />
+
+                    <TextView
+                        android:id="@+id/alpha_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_label_for_generic_alpha"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_two_spinner" />
+
+                    <EditText
+                        android:id="@+id/alpha_edit_text"
+                        style="@style/DefaultEditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_generic_alpha"
+                        android:inputType="numberDecimal"
+                        android:imeOptions="actionNext"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/alpha_text_view"
+                        android:importantForAutofill="no" />
+
+
+                    <TextView
+                        android:id="@+id/variances_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_label_for_generic_variance_type"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/alpha_edit_text" />
+
+                    <RadioGroup
+                        android:id="@+id/variances_radio_group"
+                        style="@style/DefaultRadioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/variances_text_view"
+                        android:checkedButton="@id/variances_equality_radio_button">
+
+                        <RadioButton
+                            android:id="@+id/variances_equality_radio_button"
+                            style="@style/DefaultRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_generic_variance_equality" />
+
+                        <RadioButton
+                            android:id="@+id/variances_less_than_radio_button"
+                            style="@style/DefaultRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_generic_variance_less_than" />
+
+                        <RadioButton
+                            android:id="@+id/variances_more_than_radio_button"
+                            style="@style/DefaultRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_generic_variance_variance_more_than" />
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:id="@+id/pooled_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pooled Test"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/variances_radio_group" />
+
+                    <RadioGroup
+                        android:id="@+id/pooled_radio_group"
+                        style="@style/DefaultRadioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/pooled_text_view"
+                        android:checkedButton="@id/no_pooled_radio_button">
+
+                        <RadioButton
+                            android:id="@+id/no_pooled_radio_button"
+                            style="@style/DefaultRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No (equal sub-population variance not assumed)" />
+
+                        <RadioButton
+                            android:id="@+id/yes_pooled_radio_button"
+                            style="@style/DefaultRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yes (equal sub-population variance assumed)" />
+                    </RadioGroup>
+
+
+
+                    <!-- END variances check boxes -->
+                    <Button
+                        android:id="@+id/calculate_button"
+                        style="@style/DefaultContentButtonTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_label_generic_calculate"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pooled_radio_group" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    <include layout="@layout/content_generic_output_tests"
+        android:id="@+id/generic_output_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_container_for_padding"/>
+
+    <include layout="@layout/content_generic_error_tests"
+        android:id="@+id/generic_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_container_for_padding"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

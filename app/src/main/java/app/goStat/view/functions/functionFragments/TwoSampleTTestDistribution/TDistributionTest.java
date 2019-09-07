@@ -1,4 +1,6 @@
 package app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution;
 
-public interface TDistrubutionTest {
+public interface TDistributionTest {
+    double getT();
+    double getP();
 }

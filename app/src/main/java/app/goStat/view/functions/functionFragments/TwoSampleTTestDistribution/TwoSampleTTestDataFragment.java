@@ -1,7 +1,6 @@
-package app.goStat.view.functions.functionFragments;
+package app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,8 +8,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,32 +21,61 @@ import java.util.List;
 import app.goStat.R;
 import app.goStat.model.DataPoint;
 import app.goStat.model.StatisticalList;
+import app.goStat.util.android.ClipboardUtil;
+import app.goStat.view.functions.functionFragments.TestStatisticsFragment;
 import app.goStat.view.functions.functionFragments.TestsData.ListsLoader;
 
 public class TwoSampleTTestDataFragment extends TestStatisticsFragment {
     private View mRootView;
 
-    private EditText mListOnePopulationStandardDeviation;
-    private EditText mListTwoPopulationStandardDeviation;
     private Spinner mListOneSpinner;
     private Spinner mListTwoSpinner;
     private TwoSampleTTestDataViewModel mViewModel;
-    private List<Integer> mCurrentStatIdInOrder;
+    private List<Integer> mCurrentStatIdInOrder = new ArrayList<>();
     private List<DataPoint> mListOne;
     private List<DataPoint> mListTwo;
+    private boolean isPooled = false;
+    private TextView mOutputView;
+
+    private Observer mListOneObserver;
+    private Observer mListTwoObserver;
+
+    private String mAnswer = "";
+    private String mOutput = "";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mViewModel = ViewModelProviders.of(this).get(TwoSampleTTestDataViewModel.class);
         mRootView = inflateFragment(R.layout.fragment_two_sample_t_test_data, inflater, container);
-
-        mListOnePopulationStandardDeviation = mRootView.findViewById(R.id.list_one_population_standard_deviation_edit_text);
-        mListTwoPopulationStandardDeviation = mRootView.findViewById(R.id.list_two_population_standard_deviation_edit_text);
+        mOutputView = mRootView.findViewById(R.id.output_text_view);
         mListOneSpinner = mRootView.findViewById(R.id.list_one_spinner);
         mListTwoSpinner = mRootView.findViewById(R.id.list_two_spinner);
+        setListOneSpinnerListener();
+        setListTwoSpinnerListener();
         setSpinners();
-        observeLists();
+        createPooledRadioGroupListener();
+
+        mListOneObserver = (Observer<List<DataPoint>>) dataPoints -> mListOne = dataPoints;
+        mListTwoObserver = (Observer<List<DataPoint>>) dataPoints -> mListTwo = dataPoints;
+
+        Button copyAnswer =  mRootView.findViewById(R.id.copy_answer_button);
+
+        copyAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyAnswerToClipboard();
+            }
+        });
+
+        Button copyAllText =  mRootView.findViewById(R.id.copy_all_text_button);
+
+        copyAllText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyAllTextToClipboard();
+            }
+        });
         return mRootView;
     }
 
@@ -54,8 +86,7 @@ public class TwoSampleTTestDataFragment extends TestStatisticsFragment {
 
     @Override
     protected boolean isAnInputEmpty() {
-        return "".equals(mListOnePopulationStandardDeviation.getText().toString()) ||
-                "".equals(mListTwoPopulationStandardDeviation.getText().toString());
+        return false;
     }
 
     private void setSpinners() {
@@ -79,35 +110,73 @@ public class TwoSampleTTestDataFragment extends TestStatisticsFragment {
         });
     }
 
-    private void observeLists() {
-        mViewModel.getDataPoints(getListOneID()).observe(this, new Observer<List<DataPoint>>() {
-            @Override
-            public void onChanged(@Nullable List<DataPoint> dataPoints) {
-                mListOne = dataPoints;
-            }
-        });
+    private void copyAnswerToClipboard(){
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mAnswer, getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
+    }
 
-        mViewModel.getDataPoints(getListTwoID()).observe(this, new Observer<List<DataPoint>>() {
-            @Override
-            public void onChanged(@Nullable List<DataPoint> dataPoints) {
-                mListTwo = dataPoints;
+    private void copyAllTextToClipboard(){
+        ClipboardUtil clip = new ClipboardUtil();
+        clip.copyToClipboard(mOutput,getActivity());
+        clip.showCopyToClipboardMessage(getActivity());
+    }
+
+    private void setListOneSpinnerListener() {
+
+        mListOneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                    //position starts at 0
+            {
+                setListOne(mCurrentStatIdInOrder.get(position));
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
             }
         });
 
     }
 
-    private int getListOneID() {
-        if(mCurrentStatIdInOrder.size() >= mListOneSpinner.getSelectedItemPosition()) {
-            return mCurrentStatIdInOrder.get(mListOneSpinner.getSelectedItemPosition());
-        }
-        return 0;
+    private void setListTwoSpinnerListener() {
+        mListTwoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            //position starts at 0
+            {
+                setListTwo(mCurrentStatIdInOrder.get(position));
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
     }
 
-    private int getListTwoID() {
-        if(mCurrentStatIdInOrder.size() >= mListTwoSpinner.getSelectedItemPosition()) {
-            return mCurrentStatIdInOrder.get(mListTwoSpinner.getSelectedItemPosition());
-        }
-        return 0;
+    protected void createPooledRadioGroupListener () {
+        RadioGroup variances = mRootView.findViewById(R.id.pooled_radio_group);
+        variances.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
+                switch(checkedID) {
+                    case R.id.no_pooled_radio_button:
+                        isPooled = false;
+                        break;
+                    case R.id.yes_pooled_radio_button:
+                        isPooled = true;
+                        break;
+                }
+            }
+        });
+    }
+    private void setListOne(int id) {
+        mViewModel.getDataPoints(id).observe(this, mListOneObserver);
+    }
+
+    private void setListTwo(int id) {
+        mViewModel.getDataPoints(id).observe(this, mListTwoObserver);
     }
 
     @Override
@@ -117,31 +186,58 @@ public class TwoSampleTTestDataFragment extends TestStatisticsFragment {
 
     @Override
     protected void calculateEqualityVariance() {
+        TDistributionTest distributionTest;
+
+        if (isPooled) {
+            distributionTest = new PooledTwoTailedDistributionTest(mListOne,mListTwo);
+        } else{
+            distributionTest = new NotPooledTwoTailedDistributionTest(mListOne,mListTwo);
+        }
+
+        mOutputView.setText(distributionTest.toString());
+        mOutput = distributionTest.toString();
+        mAnswer = "t = " + distributionTest.getT() + " \n"
+                + "p = " + distributionTest.getP();
 
     }
 
     @Override
     protected void calculateMoreThanVariance() {
+        TDistributionTest distributionTest;
 
+        if (isPooled) {
+            distributionTest = new PooledMoreThanDistributionTest(mListOne,mListTwo);
+        } else{
+            distributionTest = new NotPooledMoreThanDistributionTest(mListOne,mListTwo);
+        }
+
+        mOutputView.setText(distributionTest.toString());
+        mOutput = distributionTest.toString();
+        mAnswer = "t = " + distributionTest.getT() + " \n"
+                + "p = " + distributionTest.getP();
     }
 
     @Override
     protected void calculateLessThanVariance() {
+        TDistributionTest distributionTest;
+        if (isPooled) {
+            distributionTest = new PooledLessThanDistributionTest(mListOne,mListTwo);
+        } else{
+            distributionTest = new NotPooledLessThanDistributionTest(mListOne,mListTwo);
+        }
 
+        mOutputView.setText(distributionTest.toString());
+        mOutput = distributionTest.toString();
+        mAnswer = "t = " + distributionTest.getT() + " \n"
+                + "p = " + distributionTest.getP();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         mRootView.findViewById(R.id.calculate_button).findViewById(R.id.calculate_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onCalculatedClicked();
-                    }
-                });
+                .setOnClickListener(view -> onCalculatedClicked());
     }
-
 
     @Override
     protected EditText getAlphaEditText() {

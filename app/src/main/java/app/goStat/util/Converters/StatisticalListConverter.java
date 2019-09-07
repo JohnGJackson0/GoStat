@@ -4,7 +4,7 @@ import java.util.List;
 
 import app.goStat.model.DataPoint;
 
-public class StatsticalListConverter {
+public class StatisticalListConverter {
 
     public double[] toDoubleArray(List<DataPoint> list) {
         double[] sample = new double[list.size()];

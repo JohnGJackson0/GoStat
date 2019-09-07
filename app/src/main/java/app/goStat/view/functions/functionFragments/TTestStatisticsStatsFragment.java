@@ -13,7 +13,7 @@ import app.goStat.util.StatisticsTests.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 import app.goStat.util.android.TextValidator;
 
-public class TTestStatisticsStats extends TestStatisticsFragment {
+public class TTestStatisticsStatsFragment extends TestStatisticsFragment {
 
     private View mRootView;
     private EditText mHypothesisValue;
@@ -33,12 +33,12 @@ public class TTestStatisticsStats extends TestStatisticsFragment {
         ;
     }
 
-    public TTestStatisticsStats() {
+    public TTestStatisticsStatsFragment() {
         // Required empty public constructor
     }
 
-    public static TTestStatisticsStats newInstance() {
-        TTestStatisticsStats fragment = new TTestStatisticsStats();
+    public static TTestStatisticsStatsFragment newInstance() {
+        TTestStatisticsStatsFragment fragment = new TTestStatisticsStatsFragment();
         return fragment;
     }
 

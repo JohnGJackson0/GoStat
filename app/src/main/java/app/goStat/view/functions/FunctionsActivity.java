@@ -13,11 +13,12 @@ import android.widget.TextView;
 import app.goStat.R;
 import app.goStat.view.functions.functionFragments.BinomialFragment;
 import app.goStat.view.functions.functionFragments.InstructionsFragment;
-import app.goStat.view.functions.functionFragments.TTestStatisticsData;
-import app.goStat.view.functions.functionFragments.TTestStatisticsStats;
+import app.goStat.view.functions.functionFragments.TTestStatisticsDataFragment;
+import app.goStat.view.functions.functionFragments.TTestStatisticsStatsFragment;
 import app.goStat.view.functions.functionFragments.TestsData.ZTestStatisticsData;
-import app.goStat.view.functions.functionFragments.TwoSampleTTestStats;
-import app.goStat.view.functions.functionFragments.ZTestStatisticsStats;
+import app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution.TwoSampleTTestDataFragment;
+import app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution.TwoSampleTTestStatsFragment;
+import app.goStat.view.functions.functionFragments.ZTestStatisticsStatsFragment;
 
 public class FunctionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -69,17 +70,17 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment, TTestStatisticsStats.newInstance())
+                        .replace(R.id.function_content_fragment, TTestStatisticsStatsFragment.newInstance())
                         .commitNow();
                 break;
             case 3:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment, TTestStatisticsData.newInstance())
+                        .replace(R.id.function_content_fragment, TTestStatisticsDataFragment.newInstance())
                         .commitNow();
                 break;
             case 4:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment,  ZTestStatisticsStats.newInstance())
+                        .replace(R.id.function_content_fragment,  ZTestStatisticsStatsFragment.newInstance())
                         .commitNow();
                 break;
             case 5:
@@ -89,7 +90,12 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
                 break;
             case 6:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.function_content_fragment, TwoSampleTTestStats.newInstance())
+                        .replace(R.id.function_content_fragment, TwoSampleTTestStatsFragment.newInstance())
+                        .commitNow();
+                break;
+            case 7:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.function_content_fragment, TwoSampleTTestDataFragment.newInstance())
                         .commitNow();
         }
     }

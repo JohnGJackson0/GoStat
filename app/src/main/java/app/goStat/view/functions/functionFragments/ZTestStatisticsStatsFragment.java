@@ -14,7 +14,7 @@ import app.goStat.util.StatisticsTests.ZTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 
 
-public class ZTestStatisticsStats extends TestStatisticsFragment {
+public class ZTestStatisticsStatsFragment extends TestStatisticsFragment {
 
     private View mRootView;
     private EditText mHypothesisValue;
@@ -26,7 +26,7 @@ public class ZTestStatisticsStats extends TestStatisticsFragment {
     private String mAnswer;
     private String mOutput;
 
-    public ZTestStatisticsStats() {
+    public ZTestStatisticsStatsFragment() {
         // Required empty public constructor
     }
 
@@ -185,8 +185,8 @@ public class ZTestStatisticsStats extends TestStatisticsFragment {
                 mSampleSize.getError() != null;
     }
 
-    public static ZTestStatisticsStats newInstance() {
-        ZTestStatisticsStats fragment = new ZTestStatisticsStats();
+    public static ZTestStatisticsStatsFragment newInstance() {
+        ZTestStatisticsStatsFragment fragment = new ZTestStatisticsStatsFragment();
         return  fragment;
     }
 

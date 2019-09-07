@@ -32,21 +32,23 @@ public final class TTestUtil extends TTest{
     }
 
     public double getT(List<DataPoint> sampleData, double hypothesisPopulationMean) {
-        return new org.apache.commons.math3.stat.inference.TTest().t(hypothesisPopulationMean,toDoubleArray(sampleData));
+        return new TTest().t(hypothesisPopulationMean,toDoubleArray(sampleData));
+    }
+
+    //The one-tail P value is half the two-tail P value
+    public double getPLessThan(List<DataPoint> sampleData, double hypothesisPopulationMean) {
+        return getPTwoTailed(sampleData,hypothesisPopulationMean)/2;
     }
 
     public double getPTwoTailed(List<DataPoint> sampleData, double hypothesisPopulationMean) {
         return new TTest().tTest(hypothesisPopulationMean, toDoubleArray(sampleData));
     }
 
-    //The one-tail P value is half the two-tail P value
-    public double getPLessThan(List<DataPoint> sampleData, double hypothesisPopulationMean) {
-        return 1-getPTwoTailed(sampleData,hypothesisPopulationMean);
+    public double getPMoreThan(List<DataPoint> sampleData, double hypothesisPopulationMean) {
+        return 1-getPTwoTailed(sampleData, hypothesisPopulationMean)/2;
     }
 
-    public double getPMoreThan(List<DataPoint> sampleData, double hypothesisPopulationMean) {
-        return getPTwoTailed(sampleData, hypothesisPopulationMean)/2;
-    }
+    //TWO SAMPLE T TESTS ARE POOLED OR NOT POOLED
 
     //in apache for pooled test use methods starting with homoscedasticT
     //and for not pooled tests methods start with t

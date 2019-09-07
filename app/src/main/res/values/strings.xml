@@ -171,6 +171,7 @@
         <item>Z-Test Stats</item>
         <item>Z-Test Data</item>
         <item>Two Sample T-Test Stats</item>
+        <item>Two Sample T-Test Data</item>
     </string-array>
 
     <!-- The labels for the spinners -->
@@ -211,7 +212,7 @@
     <string name="text_the_label_for_representing_summation_of_x_squared">Σx²:</string>
     <string name="text_the_label_for_representing_sample_standard_deviation_of_x">Sx:</string>
     <string name="text_the_label_for_representing_standard_deviation_of_x">σx:</string>
-    <string name="text_the_label_for_representing_the_number_of_items_of_x">x:</string>
+    <string name="text_the_label_for_representing_the_number_of_items_of_x">n:</string>
     <string name="text_the_label_for_representing_the_minimum_of_x">Min X:</string>
     <string name="text_the_label_for_representing_the_quartile_one_of_the_data">Q1:</string>
     <string name="text_the_label_for_representing_the_median_of_the_data">Med X:</string>

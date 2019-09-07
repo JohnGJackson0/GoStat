@@ -1,4 +1,4 @@
-package app.goStat.view.functions.functionFragments;
+package app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import app.goStat.R;
-import app.goStat.util.StatisticsTests.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
+import app.goStat.view.functions.functionFragments.TestStatisticsFragment;
 
 public class TwoSampleTTestStatsFragment extends TestStatisticsFragment {
     View mRootView;
@@ -74,7 +74,7 @@ public class TwoSampleTTestStatsFragment extends TestStatisticsFragment {
     }
 
     protected void createPooledRadioGroupListener () {
-        RadioGroup variances = mLayout.findViewById(R.id.pooled_radio_group);
+        RadioGroup variances = mRootView.findViewById(R.id.pooled_radio_group);
         variances.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
@@ -194,75 +194,5 @@ public class TwoSampleTTestStatsFragment extends TestStatisticsFragment {
                 Double.parseDouble(mListTwoSampleSize.getText().toString()),
                 Double.parseDouble(mListTwoSampleMean.getText().toString()),
                 Double.parseDouble(mListTwoStandardDeviation.getText().toString()));
-    }
-
-    private abstract class NotPooledVarianceDistributionTest implements TDistributionTest{
-        TTestData data;
-
-        NotPooledVarianceDistributionTest(TTestData data) {
-            this.data = data;
-        }
-        public double getT() {
-            return new TTestUtil().getTOfNotPooledTwoSampleTTest(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-        public abstract double getP();
-        @Override
-        public String toString() {
-            return "Output: \n\n" +
-                    "t = " + getT() + "\n" +
-                    "p = " + getP() + "\n\n" +
-                    "Input: \n\n" +
-                    data.toString() + "\n" +
-                    "pooled = no";
-        }
-    }
-
-
-    private class NotPooledMoreThanDistributionTest extends NotPooledVarianceDistributionTest {
-        NotPooledMoreThanDistributionTest(TTestData data){
-            super(data);
-        }
-
-        @Override
-        public double getP() {
-            return new TTestUtil().getPOfNotPooledTwoSampleTTestMoreThan(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-        @Override
-        public String toString() {
-            return super.toString() +
-                    "variance type: more than";
-        }
-    }
-
-    private class NotPooledLessThanDistributionTest extends NotPooledVarianceDistributionTest {
-        NotPooledLessThanDistributionTest(TTestData data){
-            super(data);
-        }
-
-        @Override
-        public double getP() {
-            return new TTestUtil().getPOfNotPooledTwoSampleTTestLessThan(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-        @Override
-        public String toString() {
-            return super.toString() +
-                    "variance type: less than";
-        }
-    }
-
-    private class NotPooledTwoTailedDistributionTest extends NotPooledVarianceDistributionTest {
-        NotPooledTwoTailedDistributionTest(TTestData data){
-            super(data);
-        }
-
-        @Override
-        public double getP() {
-            return new TTestUtil().getPOfNotPooledTwoSampleTTestTwoTailed(data.xBar1,data.xBar2,data.sX1,data.sX2,data.n1,data.n2);
-        }
-        @Override
-        public String toString() {
-            return super.toString() +
-                    "variance type: two tailed";
-        }
     }
 }

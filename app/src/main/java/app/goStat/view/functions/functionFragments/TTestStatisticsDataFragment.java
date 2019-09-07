@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,7 +25,7 @@ import app.goStat.util.StatisticsTests.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 import app.goStat.view.functions.functionFragments.TestsData.ListsLoader;
 
-public class TTestStatisticsData extends TestStatisticsFragment {
+public class TTestStatisticsDataFragment extends TestStatisticsFragment {
 
     private TTestDataViewModel mViewModel;
     private View mRootView;
@@ -33,6 +34,7 @@ public class TTestStatisticsData extends TestStatisticsFragment {
     private Spinner mSelectListSpinner;
     private List<DataPoint> mList;
     private TextView mOutputView;
+    private Observer mListObserver;
 
     private String mAnswer;
     private String mOutput;
@@ -40,8 +42,8 @@ public class TTestStatisticsData extends TestStatisticsFragment {
     private List<Integer> mCurrentStatIdInOrder;
 
 
-    public static TTestStatisticsData newInstance() {
-        return new TTestStatisticsData();
+    public static TTestStatisticsDataFragment newInstance() {
+        return new TTestStatisticsDataFragment();
     }
 
     @Override
@@ -54,7 +56,10 @@ public class TTestStatisticsData extends TestStatisticsFragment {
         mHypothesisMean = mRootView.findViewById(R.id.hypothesized_value_edit_text);
         mOutputView = mRootView.findViewById(R.id.output_text_view);
 
+        mListObserver = (Observer<List<DataPoint>>) dataPoints -> mList = dataPoints;
+
         setSpinner();
+        setListSpinnerListener();
 
         Button copyAnswer =  mRootView.findViewById(R.id.copy_answer_button);
 
@@ -92,10 +97,29 @@ public class TTestStatisticsData extends TestStatisticsFragment {
                 }
                 ListsLoader listsLoader = new ListsLoader(getActivity(),mSelectListSpinner);
                 listsLoader.loadListsIntoSpinner(statNames);
-                observeList();
             }
         });
     }
+
+    private void setListSpinnerListener() {
+        mSelectListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                setListOne(mCurrentStatIdInOrder.get(position));
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+    }
+
+    private void setListOne(int id) {
+        mViewModel.getDataPoints(id).observe(this, mListObserver);
+    }
+
 
     @Override
     public void onStart() {
@@ -178,7 +202,6 @@ public class TTestStatisticsData extends TestStatisticsFragment {
     }
 
     private void displayAnswer(double tValue, double pValue, String varianceType){
-        Log.d("asjkdhaskjhdjksad","asdhajksd");
         mAnswer = "t = " + tValue + "\np = " + pValue;
         mOutput = mAnswer + "\n\n"+
                 "Input:" + "\n" +
