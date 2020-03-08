@@ -37,6 +37,30 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/list_one_population_standard_deviation_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="List One Population Standard Deviation (σ1)"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/list_one_population_standard_deviation_edit_text"
+                        style="@style/DefaultEditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter σ1"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:imeOptions="actionNext"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_one_population_standard_deviation_text_view"
+                        android:importantForAutofill="no" />
+
+
+                    <TextView
                         android:id="@+id/list_one_sample_mean_text_view"
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
@@ -44,14 +68,14 @@
                         android:text="List One Sample Mean (x̄1)"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@id/list_one_population_standard_deviation_edit_text"/>
 
                     <EditText
                         android:id="@+id/list_one_sample_mean_edit_text"
                         style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter list one sample mean"
+                        android:hint="Enter x̄1"
                         android:inputType="numberDecimal|numberSigned"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -59,45 +83,24 @@
                         app:layout_constraintTop_toBottomOf="@id/list_one_sample_mean_text_view"
                         android:importantForAutofill="no" />
 
-                    <TextView
-                        android:id="@+id/list_one_standard_deviation_text_view"
-                        style="@style/DefaultTextViewLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="List One Standard Deviation (Sx1)"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_one_sample_mean_edit_text"/>
-
-                    <EditText
-                        android:id="@+id/list_one_standard_deviation_edit_text"
-                        style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter list one standard deviation"
-                        android:inputType="numberDecimal|numberSigned"
-                        android:imeOptions="actionNext"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_one_standard_deviation_text_view"
-                        android:importantForAutofill="no" />
 
                     <TextView
                         android:id="@+id/list_one_sample_size_text_view"
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="List One Sample Size (n1)"
+                        android:text="List One Sample size (n1)"
+                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_one_standard_deviation_edit_text" />
+                        app:layout_constraintTop_toBottomOf="@id/list_one_sample_mean_edit_text"/>
 
                     <EditText
                         android:id="@+id/list_one_sample_size_edit_text"
                         style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter list one sample size"
+                        android:hint="Enter n1"
                         android:inputType="numberDecimal|numberSigned"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -105,25 +108,48 @@
                         app:layout_constraintTop_toBottomOf="@id/list_one_sample_size_text_view"
                         android:importantForAutofill="no" />
 
-
                     <!-- END LIST ONE -->
+
+                    <TextView
+                        android:id="@+id/list_two_population_standard_deviation_text_view"
+                        style="@style/DefaultTextViewLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="List two Population Standard Deviation (σ2)"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_one_sample_size_edit_text"/>
+
+                    <EditText
+                        android:id="@+id/list_two_population_standard_deviation_edit_text"
+                        style="@style/DefaultEditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter σ2"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:imeOptions="actionNext"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_two_population_standard_deviation_text_view"
+                        android:importantForAutofill="no" />
+
 
                     <TextView
                         android:id="@+id/list_two_sample_mean_text_view"
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="List Two Sample Mean (x̄2)"
+                        android:text="List One Sample Mean (x̄2)"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_one_sample_size_edit_text" />
+                        app:layout_constraintTop_toBottomOf="@id/list_two_population_standard_deviation_edit_text"/>
 
                     <EditText
                         android:id="@+id/list_two_sample_mean_edit_text"
                         style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter list two sample mean"
+                        android:hint="Enter x̄2"
                         android:inputType="numberDecimal|numberSigned"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -131,45 +157,24 @@
                         app:layout_constraintTop_toBottomOf="@id/list_two_sample_mean_text_view"
                         android:importantForAutofill="no" />
 
-                    <TextView
-                        android:id="@+id/list_two_standard_deviation_text_view"
-                        style="@style/DefaultTextViewLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="List two Standard Deviation (Sx2)"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_two_sample_mean_edit_text"/>
-
-                    <EditText
-                        android:id="@+id/list_two_standard_deviation_edit_text"
-                        style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter list two standard deviation"
-                        android:inputType="numberDecimal|numberSigned"
-                        android:imeOptions="actionNext"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_two_standard_deviation_text_view"
-                        android:importantForAutofill="no" />
 
                     <TextView
                         android:id="@+id/list_two_sample_size_text_view"
                         style="@style/DefaultTextViewLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="List Two Sample Size (n2)"
+                        android:text="List One Sample size (n2)"
+                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/list_two_standard_deviation_edit_text" />
+                        app:layout_constraintTop_toBottomOf="@id/list_two_sample_mean_edit_text"/>
 
                     <EditText
                         android:id="@+id/list_two_sample_size_edit_text"
                         style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter list two sample size"
+                        android:hint="Enter n2"
                         android:inputType="numberDecimal|numberSigned"
                         android:imeOptions="actionNext"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +197,7 @@
                     <EditText
                         android:id="@+id/alpha_edit_text"
                         style="@style/DefaultEditTextTheme"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_generic_alpha"
                         android:inputType="numberDecimal"
@@ -248,41 +253,6 @@
 
                     <!-- END variances check boxes -->
 
-                    <TextView
-                        android:id="@+id/pooled_text_view"
-                        style="@style/DefaultTextViewLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pooled Test"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/variances_radio_group" />
-
-                    <RadioGroup
-                        android:id="@+id/pooled_radio_group"
-                        style="@style/DefaultRadioGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/pooled_text_view"
-                        android:checkedButton="@id/no_pooled_radio_button">
-
-                        <RadioButton
-                            android:id="@+id/no_pooled_radio_button"
-                            style="@style/DefaultRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="No (equal sub-population variance not assumed)" />
-
-                        <RadioButton
-                            android:id="@+id/yes_pooled_radio_button"
-                            style="@style/DefaultRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes (equal sub-population variance assumed)" />
-                    </RadioGroup>
-
                     <Button
                         android:id="@+id/calculate_button"
                         style="@style/DefaultContentButtonTheme"
@@ -291,7 +261,7 @@
                         android:text="@string/button_label_generic_calculate"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/pooled_radio_group" />
+                        app:layout_constraintTop_toBottomOf="@id/variances_radio_group" />
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>

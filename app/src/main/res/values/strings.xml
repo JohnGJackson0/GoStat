@@ -172,6 +172,7 @@
         <item>Z-Test Data</item>
         <item>Two Sample T-Test Stats</item>
         <item>Two Sample T-Test Data</item>
+        <item>Two Sample Z-Test Stats</item>
     </string-array>
 
     <!-- The labels for the spinners -->
