@@ -8,19 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.goStat.model.DataPoint;
-import app.goStat.util.StatisticsTests.TTestUtil;
+import app.goStat.util.StatisticsTests.ZTestUtil;
 
 import static org.junit.Assert.assertEquals;
 
-//Does one general type test for every method in the TTestUtil class
-
-public class TTestUtilGeneralCaseTest {
+public class ZTestUtilGeneralCaseTest {
     List<DataPoint> generalDataSet1;
     List<DataPoint> generalDataSet2;
     double hypothesizedMeanGeneral;
     double hypothesizedMeanGeneral2;
     private static final double DELTA_OF_STANDARD_ALLOWABLE_ERROR = 1e-5;
-    TTestUtil tTest = new TTestUtil();
+    ZTestUtil zTest = new ZTestUtil();
 
     @Before
     public void setup() {
@@ -80,98 +78,54 @@ public class TTestUtilGeneralCaseTest {
     xbar1= 2.442
     sX1= 1.850918975
     n1= 20
+    pop stnd 1.80409189
     xbar2= 2.760695
     sX2= 1.426443
     n2= 23
     */
 
-    private double getGeneralCaseTValue() {
-        return tTest.getT(generalDataSet1,hypothesizedMeanGeneral);
-    }
-
-    /* ONE SAMPLE */
-
     @Test
-    public void getTStats_TTestUtil_negPoint260946() {
-        assertEquals(tTest.getT(2.442,2.55,20,1.850918975),-.260946,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getZStats_ZTestUtil_negativePoint2677195579(){
+        assertEquals(zTest.getZ(2.442,2.55,1.80409189,20), -.2677195579,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPGreaterThanDF_TTestUtil_point6015293772(){
-        assertEquals(tTest.getPMoreThan(generalDataSet1.size()-1,getGeneralCaseTValue()),.601529,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPLessThan_zTestUtil_negativePoint3142660731(){
+        assertEquals(zTest.getPLessThan(-.4837939042),.3142660731, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPLessThanDF_TTestUtil_point3984706() {
-        assertEquals(tTest.getPLessThan(generalDataSet1.size()-1,getGeneralCaseTValue()),.398470,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPMoreThan_zTestUtil_point3583602348(){
+        assertEquals(zTest.getPMoreThan(.3628454282),.3583602348, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPTwoTailedDF_TTestUtil_point796941(){
-        assertEquals(tTest.getPTwoTailed(generalDataSet1.size()-1,getGeneralCaseTValue()),.796941,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPMoreThan_zTestUtil_1(){
+        assertEquals(zTest.getPMoreThan(-150.9436981),1, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getTData_TTestUtil_negPoint2609464215(){
-        assertEquals(getGeneralCaseTValue(),-.260946,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPTwoTailed_zTestUtil_point383474244(){
+        assertEquals(zTest.getPTwoTailed(.8708290276),.3838474244, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPLessThenData_TTestUtil_point3984706(){
-        assertEquals(tTest.getPLessThan(generalDataSet1,2.55),.3984706228, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getZ_zTestUtil_15point51366284(){
+        assertEquals(zTest.getZ(generalDataSet1, .54656,.5464), 15.51366284,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPMoreThanData_TTestUtil_point6015293772(){
-        assertEquals(tTest.getPMoreThan(generalDataSet1,2.55),.6015293772, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPTwoTailed_zTestUtil_point9258432954(){
+        assertEquals(zTest.getPTwoTailed(generalDataSet1,.5897,89),.9258432954,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPTwoTailedData_TTestUtil_point7969412456(){
-        assertEquals(tTest.getPTwoTailed(generalDataSet1, 2.55),.7969412456, DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    /* TWO SAMPLE */
-
-    //not pooled variations:
-    @Test
-    public void getTOfNotPooledTwoSampleTTestStats_TTestUtil_negPoint625298585(){
-        assertEquals(tTest.getTOfNotPooledTwoSampleTTest(2.442,2.760695,1.850918975,1.426443,20,23),-.625298585,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPMoreThan_zTestUtil_point0242416514(){
+        assertEquals(zTest.getPTwoTailed(generalDataSet1,.236,5),.0242416514,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 
     @Test
-    public void getPOfNotPooledTwoSampleTTestTwoTailedTestStats_TTestUtil_point5357729152() {
-        assertEquals(tTest.getPOfNotPooledTwoSampleTTestTwoTailed(2.442,2.760695,1.850918975,1.426443,20,23),.53577929152,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    @Test
-    public void getPOfNotPooledTwoSampleTTestLessThanStats_TTestUtil_point2678864576(){
-        assertEquals(tTest.getPOfNotPooledTwoSampleTTestLessThan(2.442,2.760695,1.850918975,1.426443,20,23),.2678864576,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    @Test
-    public void getPOfNotPooledTwoSampleTTestMoreThanStats_TTestUtil_point7321135424(){
-        assertEquals(tTest.getPOfNotPooledTwoSampleTTestMoreThan(2.442,2.760695,1.850918975,1.426443,20,23),.7321135424,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    //pooled variations:
-    @Test
-    public void getTOfPooledTwoSampleTTestStats_TTestUtil_negPoint636794349(){
-        assertEquals(tTest.getTOfPooledTwoSampleTTest(2.442,2.760695,1.850918975,1.426443,20,23),-.636794349,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    @Test
-    public void getPOfPooledTwoSampleTTestTwoTailedStats_TTestUtil_point5277984902(){
-        assertEquals(tTest.getPOfPooledTwoSampleTTestTwoTailed(2.442,2.760695,1.850918975,1.426443,20,23),.5277984902,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    @Test
-    public void getPOfPooledTwoSampleTTestLessThanStats_TTestUtil_point2638992451() {
-        assertEquals(tTest.getPOfPooledTwoSampleTTestLessThan(2.442,2.760695,1.850918975,1.426443,20,23),.2638992451,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
-    }
-
-    @Test
-    public void getPOfPooledTwoSampleTTestMoreThanStats_TTestUtil_point7361007549(){
-        assertEquals(tTest.getPOfPooledTwoSampleTTestMoreThan(2.442,2.760695,1.850918975,1.426443,20,23),.7361007549,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
+    public void getPLessThan_zTestUtil_l1And2416854And5464(){
+        assertEquals(zTest.getPLessThan(generalDataSet1,.549,9),.8265551409,DELTA_OF_STANDARD_ALLOWABLE_ERROR);
     }
 }

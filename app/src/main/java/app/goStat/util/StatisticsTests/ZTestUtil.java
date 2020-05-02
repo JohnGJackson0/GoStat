@@ -36,7 +36,6 @@ public final class ZTestUtil {
         return getZ(ds.getMean(),hypothesizedMean,populationStandardDeviation,ds.getN());
     }
 
-
     public double getPTwoTailed(List<DataPoint> sampleData, double hypothesizedMean, double populationStandardDeviation) {
         return getPTwoTailed(getZ(sampleData,hypothesizedMean,populationStandardDeviation));
     }
