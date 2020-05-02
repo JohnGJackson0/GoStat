@@ -1,16 +1,9 @@
 package app.goStat.util.StatisticsTests;
 
-
-import android.provider.ContactsContract;
-import android.util.Log;
-
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.inference.TTest;
-
 import java.util.List;
-
 import app.goStat.model.DataPoint;
-
 import static java.lang.StrictMath.abs;
 
 public final class TTestUtil extends TTest{

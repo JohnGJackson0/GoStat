@@ -1,9 +1,7 @@
 package app.goStat.view.functions.functionFragments.TwoSampleTTestDistribution;
 
 import org.apache.commons.math.stat.descriptive.SummaryStatistics;
-
 import java.util.List;
-
 import app.goStat.model.DataPoint;
 import app.goStat.util.Converters.StatisticalListConverter;
 import app.goStat.util.StatisticsTests.TTestUtil;

@@ -1,17 +1,11 @@
 package app.goStat.view.functions.functionFragments;
 
-import android.support.v4.app.Fragment;
 import android.widget.EditText;
 
 public class TwoSampleZTestStatsFragment extends TestStatisticsFragment {
-
-
-
-
     public static TwoSampleZTestStatsFragment newInstance() {
         return new TwoSampleZTestStatsFragment();
     }
-
 
     @Override
     protected boolean isAnInputEmpty() {

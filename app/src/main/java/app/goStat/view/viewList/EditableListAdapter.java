@@ -21,6 +21,7 @@ import java.util.Set;
 
 import app.goStat.model.DataPoint;
 import app.goStat.R;
+import app.goStat.util.debug.MyDebug;
 
 public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableListAdapter.NumberViewHolder>   {
     private Set<DataPoint> mUpdatedNonAppendingDataPoints = new HashSet<>();
@@ -67,6 +68,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
 
         void bindTo (DataPoint dataPoint, int position) {
             mIndexOfEditableRow.setText(Integer.toString(position + 1));//statistical ListsLoader start at 1
+            if (MyDebug.LOG)
             Log.v("NumberViewHolder", "bindTo: binding at position: " + Integer.toString(position));
 
             if (dataPoint.isEnabled()) {
@@ -89,6 +91,7 @@ public class EditableListAdapter extends PagedListAdapter<DataPoint, EditableLis
                             (keyCode == KeyEvent.KEYCODE_ENTER)) {
                         //add callback to update room
                         mOnLastEnterCallBack.createDataElement();
+                        if (MyDebug.LOG)
                         Log.d("NumberViewHolder", "onKey: Key Event of enter on last EditText, creating data point");
                         removeOnKeyListener(mEditableDataPoint);
                     }

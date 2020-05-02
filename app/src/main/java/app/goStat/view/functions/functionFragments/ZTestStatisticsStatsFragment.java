@@ -8,14 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import app.goStat.R;
 import app.goStat.util.StatisticsTests.ZTestUtil;
 import app.goStat.util.android.ClipboardUtil;
 
 
 public class ZTestStatisticsStatsFragment extends TestStatisticsFragment {
-
     private View mRootView;
     private EditText mHypothesisValue;
     private EditText mSampleMean;

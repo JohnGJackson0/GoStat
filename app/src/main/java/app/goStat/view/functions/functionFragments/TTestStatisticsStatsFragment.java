@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import app.goStat.R;
 import app.goStat.util.StatisticsTests.TTestUtil;
 import app.goStat.util.android.ClipboardUtil;
@@ -22,7 +21,6 @@ public class TTestStatisticsStatsFragment extends TestStatisticsFragment {
     private EditText mSampleSize;
     private TextView mOutputView;
     private EditText mAlphaOptionalEditText;
-
     private String mAnswer;
     private String mOutput;
 

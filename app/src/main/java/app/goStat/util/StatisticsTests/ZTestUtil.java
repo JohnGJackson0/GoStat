@@ -1,15 +1,9 @@
 package app.goStat.util.StatisticsTests;
 
-import android.util.Log;
-
 import org.apache.commons.math3.distribution.NormalDistribution;
-import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-
 import java.util.List;
-
 import app.goStat.model.DataPoint;
-
 import static java.lang.StrictMath.abs;
 import static java.lang.StrictMath.sqrt;
 

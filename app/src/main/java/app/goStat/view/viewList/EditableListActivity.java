@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 import app.goStat.model.DataPoint;
 import app.goStat.R;
+import app.goStat.util.debug.MyDebug;
 
 public class EditableListActivity extends AppCompatActivity implements EditableListAdapter.OnLastEditTextOnEnterCallBack, EditableListAdapter.NewViewHolderReceiverCallBack {
     private EditableListAdapter mEditableDataRowListRecyclerViewAdapter;
@@ -40,6 +41,7 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
             @Override
             public void onChanged(@Nullable Long numberOfItems) {
                 if(initialDataPointAlreadyInserted == false && numberOfItems == 0) {
+                    if (MyDebug.LOG)
                     Log.d("EditableListActivity", "onChanged: inserting the first point");
                     createDataElement();
                 }
@@ -107,14 +109,17 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
 
     @Override
     public void createDataElement() {
+        if (MyDebug.LOG)
         Log.d("EditableListActivity", "createDataElement: creating new point");
         mPrefetchIndexOfNewlyInsertedItem = mEditableDataRowListRecyclerViewAdapter.getItemCount();
         hasNewPointRequestedFocus = false;
         initialDataPointAlreadyInserted = true;
+        if (MyDebug.LOG)
         Log.d("EditableListActivity", "createDataElement: updating non-appending points");
         updateRoom();
         DataPoint newDataPoint = new DataPoint(mListId, false, new BigDecimal("0.0"));
         getViewModel().insertDataPoint(newDataPoint);
+        if (MyDebug.LOG)
         Log.d("EditableListActivity", "createDataElement: calling the ViewModel to insert new point");
     }
 
@@ -141,9 +146,8 @@ public class EditableListActivity extends AppCompatActivity implements EditableL
                     //Log.d("EditableListAdapter", "onBindViewHolder: Showing Keyboard for new point insertion");
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-
-
                     hasNewPointRequestedFocus = true;
+                    if (MyDebug.LOG)
                     Log.d("EditableListActivity", "run:  requesting focus from index " + Integer.toString(mPrefetchIndexOfNewlyInsertedItem));
                     mActiveViewHolder.mEditableDataPoint.requestFocus();
                     mLinearLayoutManager.scrollToPosition(mPrefetchIndexOfNewlyInsertedItem);

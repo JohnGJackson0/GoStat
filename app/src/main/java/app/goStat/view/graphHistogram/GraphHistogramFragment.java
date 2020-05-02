@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import app.goStat.model.FrequencyInterval;
 import app.goStat.R;
+import app.goStat.util.debug.MyDebug;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -125,6 +126,7 @@ public class GraphHistogramFragment extends Fragment {
                 stream.close();
                 uri = FileProvider.getUriForFile(contextWeakReference.get(), "app.goStat.fileprovider", file);
             } catch (IOException e) {
+                if (MyDebug.LOG)
                 Log.d(TAG, "IOException while trying to write file for sharing: " + e.getMessage());
             }
             return uri;

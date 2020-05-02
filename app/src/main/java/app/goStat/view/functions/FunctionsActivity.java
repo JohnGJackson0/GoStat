@@ -30,7 +30,6 @@ public class FunctionsActivity extends AppCompatActivity implements AdapterView.
         Spinner spinner = findViewById(R.id.functions_selection_spinner);
         colorSpinner(spinner);
         spinner.setOnItemSelectedListener(this);
-
     }
 
     private void colorSpinner(Spinner spinner) {

@@ -3,10 +3,7 @@ package app.goStat.view.functions.functionFragments;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
-
 import java.util.List;
-
 import app.goStat.model.AppRepository;
 import app.goStat.model.DataPoint;
 import app.goStat.model.StatisticalList;
