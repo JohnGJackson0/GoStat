@@ -141,77 +141,47 @@
         single list or view frequency table activities as of the date 3/16/2019
     -->
 
-    <string-array name="spinner_items_frequency_table_functions">
-        <item>Graph</item>
-        <item>Delete</item>
-    </string-array>
+    <string name="spinner_label_for_frequency_tables">Select Function</string>
 
-    <string-array name="spinner_items_editable_list_functions">
-        <item>Edit List</item>
-        <item>View List</item>
-        <item>Change List Name</item>
-        <item>View 1-var Stats</item>
-        <item>Create Frequency Table /Histogram</item>
-        <item>Jump To</item>
-    </string-array>
+    <string name="spinner_label_for_editable_lists">Select Function</string>
 
-    <string-array name="spinner_items_editable_list_functions_without_a_jump_to_function">
-        <item>Edit List</item>
-        <item>View List</item>
-        <item>Change List Name</item>
-        <item>View 1-var Stats</item>
-        <item>Create Frequency Table /Histogram</item>
-    </string-array>
+    <string name="spinner_label_for_function_selection">Select Function</string>
 
-    <string-array name="spinner_items_static_functions_selection">
-        <item>Instructions</item>
-        <item>Binomial CDF/PDF</item>
-        <item>T-Test Stats</item>
-        <item>T-Test Data</item>
-        <item>Z-Test Stats</item>
-        <item>Z-Test Data</item>
-        <item>Two Sample T-Test Stats</item>
-        <item>Two Sample T-Test Data</item>
-        <item>Two Sample Z-Test Stats</item>
-    </string-array>
+    <string name="text_data_point_disabled">Disabled DataPoint</string>
 
     <!-- The labels for the spinners -->
 
-    <string name="spinner_label_for_frequency_tables">Select Function</string>
-    <string name="spinner_label_for_editable_lists">Select Function</string>
-    <string name="spinner_label_for_function_selection">Select Function</string>
+    <string name="text_label_the_column_represents_the_interval">Interval</string>
+    <string name="text_label_the_column_represents_the_frequency_of_an_interval">Frequency</string>
+    <string name="menu_label_upgrade">Upgrade Now</string>
 
     <!--
         It overrides the data on the data point when viewing before the point is deleted by the
         system because the program has flagged it as invalid to the data.
     -->
 
-    <string name="text_data_point_disabled">Disabled DataPoint</string>
+    <string name="menu_label_functions">Functions</string>
 
     <!--
         Specific to ViewFrequencyTableActivity
     -->
-    <string name="text_label_the_column_represents_the_interval">Interval</string>
-    <string name="text_label_the_column_represents_the_frequency_of_an_interval">Frequency</string>
+    <string name="menu_view_list">View List</string>
+    <string name="menu_delete_list">Delete List</string>
 
     <!--
         Menu labels found on action bars
     -->
-    <string name="menu_label_upgrade">Upgrade Now</string>
-    <string name="menu_label_functions">Functions</string>
-    <string name="menu_view_list">View List</string>
-    <string name="menu_delete_list">Delete List</string>
+    <string name="text_the_title_label_for_one_var_stats">1-variable stats</string>
+    <string name="text_the_label_for_representing_x_bar">x̅:</string>
+    <string name="text_the_label_for_representing_summation_of_x">Σx:</string>
+    <string name="text_the_label_for_representing_summation_of_x_squared">Σx²:</string>
 
     <!--
         Specific to View one var stats fragment
     -->
 
-    <string name="text_the_title_label_for_one_var_stats">1-variable stats</string>
-
-    <string name="text_the_label_for_representing_x_bar">x̅:</string>
-    <string name="text_the_label_for_representing_summation_of_x">Σx:</string>
-    <string name="text_the_label_for_representing_summation_of_x_squared">Σx²:</string>
     <string name="text_the_label_for_representing_sample_standard_deviation_of_x">Sx:</string>
+
     <string name="text_the_label_for_representing_standard_deviation_of_x">σx:</string>
     <string name="text_the_label_for_representing_the_number_of_items_of_x">n:</string>
     <string name="text_the_label_for_representing_the_minimum_of_x">Min X:</string>
@@ -219,6 +189,10 @@
     <string name="text_the_label_for_representing_the_median_of_the_data">Med X:</string>
     <string name="text_the_label_for_representing_the_quartile_three_of_the_data">Q3:</string>
     <string name="text_the_label_for_representing_the_maximum_of_x">Max X:</string>
+    <string name="design_sample_point_index_when_editing_list">1</string>
+    <string name="design_sample_interval_detail">(3,524] , (542, 653]</string>
+    <string name="design_sample_of_frequency_detail_for_an_interval">15</string>
+    <string name="design_sample_for_list_names">This is my List Name</string>
 
 
     <!--
@@ -226,19 +200,19 @@
         to view in the XML layouts
     -->
 
-    <string name="design_sample_point_index_when_editing_list">1</string>
-
-    <string name="design_sample_interval_detail">(3,524] , (542, 653]</string>
-    <string name="design_sample_of_frequency_detail_for_an_interval">15</string>
-
-    <string name="design_sample_for_list_names">This is my List Name</string>
     <string name="design_sample_for_preview_of_a_list">1, 2, 5, 9, .35, 1</string>
-    <string name="design_sample_for_list_id_tag">List ID 4</string>
 
+    <string name="design_sample_for_list_id_tag">List ID 4</string>
     <string name="design_sample_for_list_id_when_selected">id 15</string>
 
     <string name="design_sample_for_editing_list_index_for_point">1</string>
     <string name="design_sample_for_editing_list_data_for_point">15.0357</string>
+    <string name="meta_label_copy_to_clipboard_one_var_stats">1-var-stats GoStat</string>
+
+    <string name="meta_label_copy_to_clipboard_frequency_table">Frequency Table</string>
+
+    <string name="meta_label_data_points_fragment">Editable List</string>
+    <string name="meta_label_frequency_table_fragment">Frequency Table</string>
 
 
     <!--
@@ -246,17 +220,17 @@
         todo add more in future
     -->
 
-    <string name="meta_label_copy_to_clipboard_one_var_stats">1-var-stats GoStat</string>
-    <string name="meta_label_copy_to_clipboard_frequency_table">Frequency Table</string>
-
-    <string name="meta_label_data_points_fragment">Editable List</string>
-    <string name="meta_label_frequency_table_fragment">Frequency Table</string>
     <string name="meta_label_for_histogram_fragment">Histogram Graph</string>
     <string name="meta_label_for_frequency_table_fragment">Frequency Table</string>
+
     <string name="meta_label_copy_to_clipboard_result">GoStat Result</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_label_generic_calculate">Calculate</string>
+    <string name="button_label_copy_answer">Copy Answer</string>
+    <string name="button_label_copy_all_output">Copy All Text</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="directions_error_on_edit_text_prob_over_100_percent">Input must be no greater than 1 with 1 being 100% and .35 being 35% ect.</string>
 
     <!--
      Below are for activities related to functions
@@ -265,10 +239,6 @@
 
     <!-- generic -->
 
-    <string name="button_label_generic_calculate">Calculate</string>
-    <string name="button_label_copy_answer">Copy Answer</string>
-    <string name="button_label_copy_all_output">Copy All Text</string>
-    <string name="directions_error_on_edit_text_prob_over_100_percent">Input must be no greater than 1 with 1 being 100% and .35 being 35% ect.</string>
     <string name="directions_error_on_edit_text_decimal_format">invalid decimal format ex .1234</string>
     <string name="directions_error_generic_input_empty_and_errors">There are errors and blank input. All text boxes are required for calculation.
         For input errors you can get more information by clicking on the text box.</string>
@@ -282,34 +252,34 @@
     <string name="directions_generic_fix_alpha_text_box_for_more_analysis">Fix alpha text box for more analysis.</string>
     <string name="text_reject_null_analysis">Reject null hypothesis and result is statistically significant.</string>
     <string name="text_fail_to_reject_null_analysis">We Fail to reject the null hypothesis.</string>
-
-    <!-- functions -->
-
     <string name="directions_functions">Select the function above and press GO!</string>
     <string name="text_title_generic_error_output">Error</string>
     <string name="text_title_generic_result_output">Result</string>
+    <string name="text_label_for_binomial_number_of_trials">Number of Trials (n)</string>
+
+    <!-- functions -->
+
+    <string name="text_label_for_binomial_prob_success_one_trial">Probability of Success for One Trial (p)</string>
+    <string name="text_label_for_binomial_number_of_successes">Number of Successes from Trials (x)</string>
+    <string name="text_label_for_binomial_range_of_probability">Define the Range of Probability</string>
 
     <!-- binomial -->
 
 
-    <string name="text_label_for_binomial_number_of_trials">Number of Trials (n)</string>
-    <string name="text_label_for_binomial_prob_success_one_trial">Probability of Success for One Trial (p)</string>
-    <string name="text_label_for_binomial_number_of_successes">Number of Successes from Trials (x)</string>
-    <string name="text_label_for_binomial_range_of_probability">Define the Range of Probability</string>
     <string name="hint_binomial_number_of_trials">Enter the number of trials</string>
     <string name="hint_binomial_probability_of_success">Enter the probability of success</string>
     <string name="hint_binomial_number_of_successes">Enter the number of successes</string>
     <string name="radio_button_label_binomial_exact">Exact / PDF</string>
     <string name="radio_button_label_binomial_max">Max / CDF</string>
     <string name="directions_error_on_edit_text_binomial_successes_less_than_trials">Number of successes from trials must be less than the number of trials</string>
-
-
-    <!-- ttest stats/data -->
-
     <string name="test_label_generic_data_population_mean">Hypothesized Population Mean of Test (µ0)</string>
     <string name="label_for_generic_data_list_selection">Select a list</string>
     <string name="label_for_generic_data_alpha">Alpha (α) (optional)</string>
     <string name="label_for_generic_data_variance_type">Variance Type to Test (µ)</string>
+
+
+    <!-- ttest stats/data -->
+
     <string name="text_label_for_generic_hypothesized_mean">Hypothesized Population Mean of Test (µ0)</string>
     <string name="hint_generic_hypothesized_mean">Enter the hypothesized population mean of test</string>
     <string name="text_label_for_generic_mean_of_sample">Mean of Sample (x̅)</string>
@@ -331,5 +301,43 @@
     <string name="text_label_for_ztest_standard_deviation">Standard Deviation (σ)</string>
     <string name="hint_ztest_standard_deviation">Enter the standard deviation</string>
     <string name="test_label_for_z_test_standard_deviation">Standard Deviation (σ)</string>
+    <string name="text_label_about">About</string>
+    <string-array name="spinner_items_frequency_table_functions">
+        <item>Graph</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="spinner_items_editable_list_functions">
+        <item>Edit List</item>
+        <item>View List</item>
+        <item>Change List Name</item>
+        <item>View 1-var Stats</item>
+        <item>Create Frequency Table /Histogram</item>
+        <item>Jump To</item>
+    </string-array>
+    <string-array name="spinner_items_editable_list_functions_without_a_jump_to_function">
+        <item>Edit List</item>
+        <item>View List</item>
+        <item>Change List Name</item>
+        <item>View 1-var Stats</item>
+        <item>Create Frequency Table /Histogram</item>
+    </string-array>
+    <string-array name="spinner_items_static_functions_selection">
+        <item>Instructions</item>
+        <item>Binomial CDF/PDF</item>
+        <item>T-Test Stats</item>
+        <item>T-Test Data</item>
+        <item>Z-Test Stats</item>
+        <item>Z-Test Data</item>
+        <item>Two Sample T-Test Stats</item>
+        <item>Two Sample T-Test Data</item>
+        <item>Two Sample Z-Test Stats</item>
+    </string-array>
+
+    <string name="text_about">GoStat is aiming to be the easiest Elementary Statistical tool for students.
+        We provide contextual analysis of data and their equations to help with understanding and learning. </string>
+    <string name="text_attribution">This code uses the following libraries: \n\nMP Android Chart\nLicense: Apache 2.0\nMore Info: https://github.com/PhilJay/MPAndroidChart\n\nApache Commons Library\nLicense: Apache 2.0\nMore Info: https://commons.apache.org/</string>
+    <string name="text_apache_license">Copyright 2019-2020 John Jackson\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n</string>
+    <string name="menu_label_about">About</string>
+    <string name="activity_label_about">About</string>
 
 </resources>

@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.goStat">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,19 +9,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="app.goStat.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-        <!--
-        The launcher name comes from the first activity,
-        we will set the real label in the activity using setTitle()
-        -->
         <activity
             android:name=".view.viewLists.ViewableListsActivity"
             android:label="@string/app_name"
@@ -34,11 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
+        The launcher name comes from the first activity,
+        we will set the real label in the activity using setTitle()
+        -->
         <activity
             android:name=".view.viewList.EditableListActivity"
             android:hardwareAccelerated="false"
             android:label="@string/activity_label_edit_list"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.about.AboutActivity"
+            android:label="@string/activity_label_about" />
         <activity
             android:name=".view.viewList.ViewSingleEditableListActivity"
             android:label="@string/activity_label_view_list" />
@@ -48,6 +40,17 @@
         <activity
             android:name=".view.functions.FunctionsActivity"
             android:label="@string/activity_label_functions" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="app.goStat.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
