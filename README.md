@@ -20,6 +20,12 @@ There is many issues with the project that need resolving before it is a proper 
   * Provide more consitent app design and implement coding conventions
   * Other relevant things related to Clean Architecture 
 
+### Attributions
+
+Apache Commons Math 3.6.1
+MP Android Chart 3.1
+
+
 ## Gallery 
 
 ![101485286_549910172358250_2890299468495859914_n](https://user-images.githubusercontent.com/23160192/83945714-a28bc700-a7da-11ea-85e2-149063327931.png)
